@@ -20,6 +20,6 @@ public class User {
                 ", surname='" + surname + '\'' +
                 ", dni='" + dni + '\'' +
                 ", dateInscription='" + dateInscription + '\'' +
-                '}';
+            '}';
     }
 }

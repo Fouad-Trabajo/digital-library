@@ -16,4 +16,9 @@ public class UserDataRepository implements UserRepository {
     public void createUser(User user) {
         userFileLocalDataSource.save(user);
     }
+
+    @Override
+    public void deleteUser(String id) {
+        userFileLocalDataSource.delete(id);
+    }
 }

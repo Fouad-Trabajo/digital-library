@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class DigitalBookPresentation {
     static Scanner input = new Scanner(System.in);
+
     public static void menuDigitalBook() {
 
 
@@ -57,16 +58,16 @@ public class DigitalBookPresentation {
         String editorial = input.next();
         System.out.print("Descripción del libro: ");
         String description = input.next();
-        DigitalBook digitalBook = new DigitalBook(id,author, numberPages, genre,
+        DigitalBook digitalBook = new DigitalBook(id, author, numberPages, genre,
                 editorial, description);
         CreateDigitalBookUseCase createDigitalBookUseCase = new CreateDigitalBookUseCase(
                 new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
         createDigitalBookUseCase.execute(digitalBook);
     }
 
-    public static void deleteDigitalBook(){
-        System.out.println("Introduce el id del libro que quieres dar de baja: ");
-        String id= input.next();
+    public static void deleteDigitalBook() {
+        System.out.print("Introduce el id del libro que quieres dar de baja: ");
+        String id = input.next();
         DeleteDigitalBookUseCase deleteDigitalBookUseCase = new DeleteDigitalBookUseCase(
                 new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
         deleteDigitalBookUseCase.execute(id);

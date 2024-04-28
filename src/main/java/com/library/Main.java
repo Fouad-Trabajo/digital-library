@@ -10,6 +10,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int opcion;
 
+        System.out.println("Bienvenid@ a nuestra biblioteca digital");
+        System.out.println("¿Qué desea hacer?");
         do {
             System.out.println("********** MENÚ **********");
             System.out.println("0. Salir");

@@ -1,5 +1,6 @@
 package com.library;
 
+import com.library.feature.user.domain.User;
 import com.library.feature.user.presentation.UserPresentation;
 
 import java.util.Scanner;
@@ -13,7 +14,7 @@ public class Main {
             System.out.println("********** MENÚ **********");
             System.out.println("0. Salir");
             System.out.println("1. Crear usuario");
-            //System.out.println("2. Borrar usuario");
+            System.out.println("2. Borrar usuario");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -28,7 +29,8 @@ public class Main {
                     UserPresentation.createUser();
                     break;
                 case 2:
-                    //System.out.println("Has seleccionado....");
+                    System.out.println("Has seleccionado dar de baja a un usuario");
+                    UserPresentation.deleteUser();
                     break;
                 case 3:
 

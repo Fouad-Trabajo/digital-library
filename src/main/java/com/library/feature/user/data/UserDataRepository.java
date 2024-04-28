@@ -4,6 +4,9 @@ import com.library.feature.user.data.local.UserFileLocalDataSource;
 import com.library.feature.user.domain.User;
 import com.library.feature.user.domain.UserRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDataRepository implements UserRepository {
 
     private UserFileLocalDataSource userFileLocalDataSource;
@@ -26,4 +29,11 @@ public class UserDataRepository implements UserRepository {
     public void updateUser(User user) {
         userFileLocalDataSource.updateUser(user);
     }
+
+    @Override
+    public List<User> getUsers() {
+        return userFileLocalDataSource.findAll();
+    }
+
+
 }

@@ -11,7 +11,7 @@ public class GetUsersUseCase {
         this.userRepository = userRepository;
     }
 
-    public List<User> execute(){
+    public List<User> execute() {
         return userRepository.getUsers();
     }
 }

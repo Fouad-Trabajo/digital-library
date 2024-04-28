@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class UserPresentation {
     static Scanner input = new Scanner(System.in);
+
     public static void menuUser() {
 
         Scanner scanner = new Scanner(System.in);
@@ -73,18 +74,18 @@ public class UserPresentation {
         createUserUseCase.execute(user);
     }
 
-    public static void deleteUser(){
+    public static void deleteUser() {
         System.out.print("Introduce el id del usuario que quieres eliminar: ");
-        String id=input.nextLine();
-        DeleteUserUseCase deleteUserUseCase=new DeleteUserUseCase(new UserDataRepository(
+        String id = input.nextLine();
+        DeleteUserUseCase deleteUserUseCase = new DeleteUserUseCase(new UserDataRepository(
                 new UserFileLocalDataSource()));
         deleteUserUseCase.execute(id);
         System.out.println("El usuario con id " + id + " se ha dado de baja con éxito");
     }
 
-    public static void updateUser(){
+    public static void updateUser() {
         System.out.print("Introduce el id del usuario que quieres modificar: ");
-        String id=input.nextLine();
+        String id = input.nextLine();
         UpdateUserUseCase updateUserUseCase = new UpdateUserUseCase(new UserDataRepository(
                 new UserFileLocalDataSource()));
         System.out.println("Modifica los datos que quieras");
@@ -100,7 +101,7 @@ public class UserPresentation {
         updateUserUseCase.execute(user);
     }
 
-    public static void getUsers(){
+    public static void getUsers() {
         GetUsersUseCase getUsersUseCase = new GetUsersUseCase(new UserDataRepository(
                 new UserFileLocalDataSource()));
         List<User> users = getUsersUseCase.execute();

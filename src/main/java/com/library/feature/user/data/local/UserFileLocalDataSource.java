@@ -34,6 +34,7 @@ public class UserFileLocalDataSource {
         models.add(model);
         saveToFile(models);
     }
+
     public void saveList(List<User> models) {
         saveToFile(models);
     }

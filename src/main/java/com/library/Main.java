@@ -1,5 +1,6 @@
 package com.library;
 
+
 import com.library.feature.user.domain.User;
 import com.library.feature.user.presentation.UserPresentation;
 
@@ -9,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int opcion;
+
 
         System.out.println("Bienvenid@ a nuestra biblioteca digital");
         System.out.println("¿Qué desea hacer?");

@@ -25,6 +25,12 @@ public class UserFileLocalDataSource {
 
     public void save(User model) {
         List<User> models = findAll();
+        for (User existingUser : models) {
+            if (existingUser.id.equals(model.id)) {
+                System.err.println("Error, ya existe un usuario con el ID " + model.id);
+                return;
+            }
+        }
         models.add(model);
         saveToFile(models);
     }
@@ -38,7 +44,7 @@ public class UserFileLocalDataSource {
             FileWriter myWriter = new FileWriter(nameFile);
             myWriter.write(gson.toJson(models));
             myWriter.close();
-            System.out.println("Datos guardados correctamente");
+            System.out.println("Datos actualizados correctamente");
         } catch (IOException e) {
             System.out.println("Ha ocurrido un error al guardar la información.");
             e.printStackTrace();
@@ -88,4 +94,22 @@ public class UserFileLocalDataSource {
         }
         saveList(newList);
     }
+
+
+    public void updateUser(User updatedUser) {
+        // Obtén todos los usuarios
+        List<User> users = findAll();
+
+        // Busca el usuario que deseas actualizar y reemplázalo
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).id.equals(updatedUser.id)) {
+                users.set(i, updatedUser);
+                break;
+            }
+        }
+
+        // Guarda la lista actualizada de usuarios en el fichero
+        saveList(users);
+    }
+
 }

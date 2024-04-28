@@ -13,8 +13,7 @@ public class Main {
         do {
             System.out.println("********** MENÚ **********");
             System.out.println("0. Salir");
-            System.out.println("1. Crear usuario");
-            System.out.println("2. Borrar usuario");
+            System.out.println("1. Menú usuario");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -25,12 +24,11 @@ public class Main {
                     System.out.println("Has seleccionado salir. ¡Hasta luego!");
                     break;
                 case 1:
-                    System.out.println("Has seleccionado crear un usuario.");
-                    UserPresentation.createUser();
+                    System.out.println("Has seleccionado el menú del usuario.");
+                    UserPresentation.menuUser();
                     break;
                 case 2:
-                    System.out.println("Has seleccionado dar de baja a un usuario");
-                    UserPresentation.deleteUser();
+                    System.out.println("Has seleccionado el menú de...");
                     break;
                 case 3:
 

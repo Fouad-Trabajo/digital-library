@@ -8,7 +8,7 @@ public class DeleteDigitalBookUseCase {
         this.digitalBookRepository = digitalBookRepository;
     }
 
-    public void execute(String id){
+    public void execute(String id) {
         digitalBookRepository.deleteDigitalBook(id);
     }
 }

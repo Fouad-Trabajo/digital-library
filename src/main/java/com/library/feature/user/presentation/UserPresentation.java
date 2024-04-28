@@ -105,6 +105,6 @@ public class UserPresentation {
         GetUsersUseCase getUsersUseCase = new GetUsersUseCase(new UserDataRepository(
                 new UserFileLocalDataSource()));
         List<User> users = getUsersUseCase.execute();
-        System.out.println(users.toString() + "\n");
+        System.out.println(users.toString());
     }
 }

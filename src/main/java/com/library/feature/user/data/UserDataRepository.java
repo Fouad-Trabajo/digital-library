@@ -34,6 +34,4 @@ public class UserDataRepository implements UserRepository {
     public List<User> getUsers() {
         return userFileLocalDataSource.findAll();
     }
-
-
 }

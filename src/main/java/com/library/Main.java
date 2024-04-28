@@ -27,7 +27,7 @@ public class Main {
 
             switch (opcion) {
                 case 0:
-                    System.out.println("Has seleccionado salir. ¡Hasta luego!");
+                    System.out.println("Saliendo hasta luego. ¡Hasta luego!");
                     break;
                 case 1:
                     System.out.println("Has seleccionado el menú del usuario.");

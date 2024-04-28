@@ -11,7 +11,7 @@ public class DigitalResourcesPresentation {
         int opcion;
         do {
             System.out.println("********** MENÚ RECURSOS DIGITALES **********");
-            System.out.println("0. Salir");
+            System.out.println("0. Volver atrás");
             System.out.println("1. Libros digitales");
             System.out.println("2. Próximos recursos...");
             System.out.println("**************************");
@@ -21,7 +21,7 @@ public class DigitalResourcesPresentation {
 
             switch (opcion) {
                 case 0:
-                    System.out.println("Has seleccionado salir. ¡Hasta luego!");
+                    System.out.println("Volviendo atras...");
                     break;
                 case 1:
                     System.out.println("Has seleccionado el menú del usuario.");

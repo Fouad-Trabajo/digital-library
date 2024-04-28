@@ -2,15 +2,15 @@ package com.library.feature.user.presentation;
 
 import com.library.feature.user.data.UserDataRepository;
 import com.library.feature.user.data.local.UserFileLocalDataSource;
-import com.library.feature.user.domain.CreateUserUseCase;
-import com.library.feature.user.domain.DeleteUserUseCase;
-import com.library.feature.user.domain.UpdateUserUseCase;
-import com.library.feature.user.domain.User;
+import com.library.feature.user.domain.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserPresentation {
     static Scanner input = new Scanner(System.in);
+
     public static void menuUser() {
 
         Scanner scanner = new Scanner(System.in);
@@ -22,6 +22,7 @@ public class UserPresentation {
             System.out.println("1. Crear usuario");
             System.out.println("2. Borrar usuario");
             System.out.println("3. Actualizar usuario");
+            System.out.println("4. Obtener listado de usuarios");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -41,8 +42,11 @@ public class UserPresentation {
                     break;
                 case 3:
                     System.out.println("Has seleccionado modificar datos de un usuario");
-                    User user = new User("10","Roberto","Gil","1206516L","23-09-2019");
                     updateUser();
+                    break;
+                case 4:
+                    System.out.println("Has seleccionado obtener un listado de usuarios");
+                    getUsers();
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
@@ -70,18 +74,18 @@ public class UserPresentation {
         createUserUseCase.execute(user);
     }
 
-    public static void deleteUser(){
+    public static void deleteUser() {
         System.out.print("Introduce el id del usuario que quieres eliminar: ");
-        String id=input.nextLine();
-        DeleteUserUseCase deleteUserUseCase=new DeleteUserUseCase(new UserDataRepository(
+        String id = input.nextLine();
+        DeleteUserUseCase deleteUserUseCase = new DeleteUserUseCase(new UserDataRepository(
                 new UserFileLocalDataSource()));
         deleteUserUseCase.execute(id);
         System.out.println("El usuario con id " + id + " se ha dado de baja con éxito");
     }
 
-    public static void updateUser(){
+    public static void updateUser() {
         System.out.print("Introduce el id del usuario que quieres modificar: ");
-        String id=input.nextLine();
+        String id = input.nextLine();
         UpdateUserUseCase updateUserUseCase = new UpdateUserUseCase(new UserDataRepository(
                 new UserFileLocalDataSource()));
         System.out.println("Modifica los datos que quieras");
@@ -95,5 +99,12 @@ public class UserPresentation {
         String dateInscription = input.nextLine();
         User user = new User(id, name, surname, dni, dateInscription);
         updateUserUseCase.execute(user);
+    }
+
+    public static void getUsers() {
+        GetUsersUseCase getUsersUseCase = new GetUsersUseCase(new UserDataRepository(
+                new UserFileLocalDataSource()));
+        List<User> users = getUsersUseCase.execute();
+        System.out.println(users.toString());
     }
 }

@@ -1,25 +1,19 @@
-package com.library;
+package com.library.feature.digitalresources.presentation;
 
-
-import com.library.feature.digitalresources.presentation.DigitalResourcesPresentation;
-import com.library.feature.user.domain.User;
-import com.library.feature.user.presentation.UserPresentation;
 
 import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
+public class DigitalResourcesPresentation {
+    public static void menuDigitalResources() {
         Scanner scanner = new Scanner(System.in);
-        int opcion;
 
-
-        System.out.println("Bienvenid@ a nuestra biblioteca digital");
         System.out.println("¿Qué desea hacer?");
+        int opcion;
         do {
-            System.out.println("********** MENÚ PRINCIPAL**********");
+            System.out.println("********** MENÚ RECURSOS DIGITALES **********");
             System.out.println("0. Salir");
-            System.out.println("1. Menú usuario");
-            System.out.println("2. Menú recursos digitales");
+            System.out.println("1. Libros digitales");
+            System.out.println("2. Próximos recursos...");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -31,14 +25,8 @@ public class Main {
                     break;
                 case 1:
                     System.out.println("Has seleccionado el menú del usuario.");
-                    UserPresentation.menuUser();
+                    DigitalBookPresentation.menuDigitalBook();
                     break;
-                case 2:
-                    System.out.println("Has seleccionado el menú de los recursos digitales.");
-                    DigitalResourcesPresentation.menuDigitalResources();
-                    break;
-                case 3:
-
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
                     break;

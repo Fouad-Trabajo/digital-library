@@ -95,7 +95,7 @@ public class DigitalBookFileLocalDataSource {
         saveList(newList);
     }
 
-    public void updateUser(DigitalBook updateBook) {
+    public void updateDigitalBook(DigitalBook updateBook) {
         // Obtén todos los usuarios
         List<DigitalBook> books = findAll();
 

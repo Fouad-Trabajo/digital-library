@@ -21,4 +21,9 @@ public class DigitalBookDataRepository implements DigitalBookRepository {
     public void deleteDigitalBook(String id) {
         digitalBookFileLocalDataSource.delete(id);
     }
+
+    @Override
+    public void updateDigitalBook(DigitalBook digitalBook) {
+        digitalBookFileLocalDataSource.updateDigitalBook(digitalBook);
+    }
 }

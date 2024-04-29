@@ -5,6 +5,8 @@ import com.library.feature.digitalresources.data.local.DigitalBookFileLocalDataS
 import com.library.feature.digitalresources.domain.CreateDigitalBookUseCase;
 import com.library.feature.digitalresources.domain.DeleteDigitalBookUseCase;
 import com.library.feature.digitalresources.domain.DigitalBook;
+import com.library.feature.digitalresources.domain.UpdateDigitalBookUseCase;
+
 
 import java.util.Scanner;
 
@@ -21,6 +23,7 @@ public class DigitalBookPresentation {
             System.out.println("0. Volver atrás");
             System.out.println("1. Crear libro digital");
             System.out.println("2. Borrar libro digital");
+            System.out.println("3. Actualizar datos del libro");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -37,6 +40,10 @@ public class DigitalBookPresentation {
                 case 2:
                     System.out.println("Has seleccionado borrar un libro digital.");
                     deleteDigitalBook();
+                    break;
+                case 3:
+                    System.out.println("Has seleccionado actualizar los datos/atributos de un libro digital.");
+                    updateDigitalBook();
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
@@ -72,5 +79,28 @@ public class DigitalBookPresentation {
                 new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
         deleteDigitalBookUseCase.execute(id);
         System.out.println("El lbro con id " + id + " ha sido borrado exitosamente");
+    }
+
+    public static void updateDigitalBook(){
+        System.out.print("Introduce el id del libro que quieres actualizar: ");
+        String id = input.next();
+        UpdateDigitalBookUseCase updateDigitalBookUseCase = new UpdateDigitalBookUseCase(
+                new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
+        System.out.println("Cambia los datos que quieras");
+        System.out.print("Nombre del autor del libro: ");
+        String author = input.next();
+        System.out.print("Nº páginas del libro : ");
+        String numberPages = input.next();
+        System.out.print("Género del libro: ");
+        String genre = input.next();
+        System.out.print("Editorial del libro: ");
+        String editorial = input.next();
+        System.out.print("Descripción del libro: ");
+        String description = input.next();
+        DigitalBook digitalBook = new DigitalBook(id, author, numberPages, genre,
+                editorial, description);
+        updateDigitalBookUseCase.execute(digitalBook);
+
+
     }
 }

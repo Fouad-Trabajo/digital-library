@@ -81,7 +81,7 @@ public class DigitalBookPresentation {
         System.out.println("El lbro con id " + id + " ha sido borrado exitosamente");
     }
 
-    public static void updateDigitalBook(){
+    public static void updateDigitalBook() {
         System.out.print("Introduce el id del libro que quieres actualizar: ");
         String id = input.next();
         UpdateDigitalBookUseCase updateDigitalBookUseCase = new UpdateDigitalBookUseCase(

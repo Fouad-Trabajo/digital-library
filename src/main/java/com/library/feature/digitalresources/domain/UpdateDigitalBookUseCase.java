@@ -8,7 +8,7 @@ public class UpdateDigitalBookUseCase {
         this.digitalBookRepository = digitalBookRepository;
     }
 
-    public void execute (DigitalBook digitalBook){
+    public void execute(DigitalBook digitalBook) {
         digitalBookRepository.updateDigitalBook(digitalBook);
     }
 }

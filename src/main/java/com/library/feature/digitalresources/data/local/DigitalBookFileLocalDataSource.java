@@ -96,10 +96,10 @@ public class DigitalBookFileLocalDataSource {
     }
 
     public void updateDigitalBook(DigitalBook updateBook) {
-        // Obtén todos los usuarios
+        // Obtén todos los libros digitales
         List<DigitalBook> books = findAll();
 
-        // Busca el usuario que deseas actualizar y reemplázalo
+        // Busca el libro que deseas actualizar y reemplázalo
         for (int i = 0; i < books.size(); i++) {
             if (books.get(i).id.equals(updateBook.id)) {
                 books.set(i, updateBook);
@@ -107,7 +107,7 @@ public class DigitalBookFileLocalDataSource {
             }
         }
 
-        // Guarda la lista actualizada de usuarios en el fichero
+        // Guarda la lista actualizada de libros en el fichero
         saveList(books);
     }
 }

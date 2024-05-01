@@ -4,6 +4,8 @@ import com.library.feature.digitalresources.data.local.DigitalBookFileLocalDataS
 import com.library.feature.digitalresources.domain.DigitalBook;
 import com.library.feature.digitalresources.domain.DigitalBookRepository;
 
+import java.util.List;
+
 public class DigitalBookDataRepository implements DigitalBookRepository {
 
     private DigitalBookFileLocalDataSource digitalBookFileLocalDataSource;
@@ -25,5 +27,10 @@ public class DigitalBookDataRepository implements DigitalBookRepository {
     @Override
     public void updateDigitalBook(DigitalBook digitalBook) {
         digitalBookFileLocalDataSource.updateDigitalBook(digitalBook);
+    }
+
+    @Override
+    public List<DigitalBook> getDigitalBooks() {
+        return digitalBookFileLocalDataSource.findAll();
     }
 }

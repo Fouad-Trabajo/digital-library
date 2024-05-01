@@ -2,12 +2,10 @@ package com.library.feature.digitalresources.presentation;
 
 import com.library.feature.digitalresources.data.DigitalBookDataRepository;
 import com.library.feature.digitalresources.data.local.DigitalBookFileLocalDataSource;
-import com.library.feature.digitalresources.domain.CreateDigitalBookUseCase;
-import com.library.feature.digitalresources.domain.DeleteDigitalBookUseCase;
-import com.library.feature.digitalresources.domain.DigitalBook;
-import com.library.feature.digitalresources.domain.UpdateDigitalBookUseCase;
+import com.library.feature.digitalresources.domain.*;
 
 
+import java.util.List;
 import java.util.Scanner;
 
 public class DigitalBookPresentation {
@@ -19,11 +17,12 @@ public class DigitalBookPresentation {
         int opcion;
 
         do {
-            System.out.println("********** MENÚ **********");
+            System.out.println("********** MENÚ LIBROS DIGITALES **********");
             System.out.println("0. Volver atrás");
             System.out.println("1. Crear libro digital");
             System.out.println("2. Borrar libro digital");
             System.out.println("3. Actualizar datos del libro");
+            System.out.println("4. Obtener un listado de libros");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -44,6 +43,10 @@ public class DigitalBookPresentation {
                 case 3:
                     System.out.println("Has seleccionado actualizar los datos/atributos de un libro digital.");
                     updateDigitalBook();
+                    break;
+                case 4:
+                    System.out.println("Has seleccionado mostrar el listado de libros que hay en el sistema.");
+                    getDigitalBooks();
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
@@ -100,7 +103,12 @@ public class DigitalBookPresentation {
         DigitalBook digitalBook = new DigitalBook(id, author, numberPages, genre,
                 editorial, description);
         updateDigitalBookUseCase.execute(digitalBook);
+    }
 
-
+    public static void getDigitalBooks() {
+        GetDigitalBooksUseCase getDigitalBooksUseCase = new GetDigitalBooksUseCase(
+                new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
+        List<DigitalBook> listaLibros = getDigitalBooksUseCase.execute();
+        System.out.println(listaLibros.toString());
     }
 }

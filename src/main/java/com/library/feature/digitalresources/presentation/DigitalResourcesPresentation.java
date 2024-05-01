@@ -24,7 +24,7 @@ public class DigitalResourcesPresentation {
                     System.out.println("Volviendo atras...");
                     break;
                 case 1:
-                    System.out.println("Has seleccionado el menú del usuario.");
+                    System.out.println("Has seleccionado el menú de libros digitales.");
                     DigitalBookPresentation.menuDigitalBook();
                     break;
                 default:

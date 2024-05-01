@@ -1,6 +1,7 @@
 package com.library;
 
 
+import com.library.feature.digitalresources.presentation.DigitalResourcesPresentation;
 import com.library.feature.user.domain.User;
 import com.library.feature.user.presentation.UserPresentation;
 
@@ -18,6 +19,7 @@ public class Main {
             System.out.println("********** MENÚ PRINCIPAL**********");
             System.out.println("0. Salir");
             System.out.println("1. Menú usuario");
+            System.out.println("2. Menú recursos digitales");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -25,14 +27,15 @@ public class Main {
 
             switch (opcion) {
                 case 0:
-                    System.out.println("Has seleccionado salir. ¡Hasta luego!");
+                    System.out.println("Saliendo hasta luego. ¡Hasta luego!");
                     break;
                 case 1:
                     System.out.println("Has seleccionado el menú del usuario.");
                     UserPresentation.menuUser();
                     break;
                 case 2:
-                    System.out.println("Has seleccionado el menú de...");
+                    System.out.println("Has seleccionado el menú de los recursos digitales.");
+                    DigitalResourcesPresentation.menuDigitalResources();
                     break;
                 case 3:
 

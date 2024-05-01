@@ -21,13 +21,13 @@ public class Loan {
 
     @Override
     public String toString() {
-        return "Loan{" +
+        return "LOAN{" +
                 "id='" + id + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", laonStatus='" + laonStatus + '\'' +
-                ", user=" + user +
-                ", digitalBook=" + digitalBook +
+                ", USER=" + user +
+                ", DIGITALBOOK=" + digitalBook +
                 '}';
     }
 }

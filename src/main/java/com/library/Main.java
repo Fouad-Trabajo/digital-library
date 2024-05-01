@@ -2,6 +2,7 @@ package com.library;
 
 
 import com.library.feature.digitalresources.presentation.DigitalResourcesPresentation;
+import com.library.feature.loan.presentation.LoanPresentation;
 import com.library.feature.user.domain.User;
 import com.library.feature.user.presentation.UserPresentation;
 
@@ -20,6 +21,7 @@ public class Main {
             System.out.println("0. Salir");
             System.out.println("1. Menú usuario");
             System.out.println("2. Menú recursos digitales");
+            System.out.println("3. Menú préstamos");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -38,7 +40,8 @@ public class Main {
                     DigitalResourcesPresentation.menuDigitalResources();
                     break;
                 case 3:
-
+                    System.out.println("Has seleccionado el menú de préstamos");
+                    LoanPresentation.menuLoan();
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
                     break;

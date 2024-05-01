@@ -16,7 +16,7 @@ public class Main {
         System.out.println("Bienvenid@ a nuestra biblioteca digital");
         System.out.println("¿Qué desea hacer?");
         do {
-            System.out.println("********** MENÚ PRINCIPAL**********");
+            System.out.println("********** MENÚ PRINCIPAL **********");
             System.out.println("0. Salir");
             System.out.println("1. Menú usuario");
             System.out.println("2. Menú recursos digitales");

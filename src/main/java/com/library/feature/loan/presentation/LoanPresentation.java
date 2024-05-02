@@ -6,6 +6,7 @@ import com.library.feature.digitalresources.presentation.DigitalBookPresentation
 import com.library.feature.loan.data.LoanDataRepository;
 import com.library.feature.loan.data.local.LoanFileLocalDataSource;
 import com.library.feature.loan.domain.CreateLoanUseCase;
+import com.library.feature.loan.domain.DeleteLoanUseCase;
 import com.library.feature.loan.domain.Loan;
 import com.library.feature.user.data.local.UserFileLocalDataSource;
 import com.library.feature.user.domain.CreateUserUseCase;
@@ -23,8 +24,9 @@ public class LoanPresentation {
 
         do {
             System.out.println("********** MENÚ PRÉSTAMOS **********");
-            System.out.println("0. Salir");
+            System.out.println("0. Volver atrás");
             System.out.println("1. Crear préstamo");
+            System.out.println("2. Borrar préstamo");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -37,6 +39,10 @@ public class LoanPresentation {
                 case 1:
                     System.out.println("Has seleccionado crear un préstamo.");
                     createLoan();
+                    break;
+                case 2:
+                    System.out.println("Has seleccionado borrar un préstamo");
+                    deleteLoan();
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
@@ -81,11 +87,18 @@ public class LoanPresentation {
         } while (digitalBook == null);
 
         Loan loan = new Loan(id, startDate, endDate, loanStatus, user, digitalBook);
-        CreateLoanUseCase createLoanUseCase = new CreateLoanUseCase(new LoanDataRepository(
-                new LoanFileLocalDataSource()));
+        CreateLoanUseCase createLoanUseCase = new CreateLoanUseCase(
+                new LoanDataRepository(new LoanFileLocalDataSource()));
         createLoanUseCase.execute(loan);
+    }
 
-
+    public static void deleteLoan() {
+        System.out.print("Introduce el id del préstamo que desea eliminar: ");
+        String id = input.next();
+        DeleteLoanUseCase deleteLoanUseCase = new DeleteLoanUseCase(new LoanDataRepository(
+                new LoanFileLocalDataSource()));
+        deleteLoanUseCase.execute(id);
+        System.out.println("El préstamo con id " + id + " se ha borrado con éxito");
     }
 
 

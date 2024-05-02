@@ -87,8 +87,8 @@ public class LoanPresentation {
         } while (digitalBook == null);
 
         Loan loan = new Loan(id, startDate, endDate, loanStatus, user, digitalBook);
-        CreateLoanUseCase createLoanUseCase = new CreateLoanUseCase(new LoanDataRepository(
-                new LoanFileLocalDataSource()));
+        CreateLoanUseCase createLoanUseCase = new CreateLoanUseCase(
+                new LoanDataRepository(new LoanFileLocalDataSource()));
         createLoanUseCase.execute(loan);
     }
 

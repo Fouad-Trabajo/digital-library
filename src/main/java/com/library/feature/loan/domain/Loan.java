@@ -1,33 +1,34 @@
 package com.library.feature.loan.domain;
 
+import com.library.feature.digitalresources.domain.DigitalBook;
 import com.library.feature.digitalresources.domain.DigitalResources;
 import com.library.feature.user.domain.User;
 
 public class Loan {
 
-    public final String id, startDate, endDate, laonStatus;
+    public final String id, startDate, endDate, loanStatus;
     public User user;
-    public DigitalResources digitalBook;
+    public DigitalBook digitalBook;
 
-    public Loan(String id, String startDate, String endDate, String laonStatus, User user,
-                DigitalResources digitalBook) {
+    public Loan(String id, String startDate, String endDate, String loanStatus, User user,
+                DigitalBook digitalBook) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.laonStatus = laonStatus;
+        this.loanStatus = loanStatus;
         this.user = user;
         this.digitalBook = digitalBook;
     }
 
     @Override
     public String toString() {
-        return "LOAN{" +
+        return "Loan{" +
                 "id='" + id + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
-                ", laonStatus='" + laonStatus + '\'' +
-                ", USER=" + user +
-                ", DIGITALBOOK=" + digitalBook +
+                ", loanStatus='" + loanStatus + '\'' +
+                ", user=" + user +
+                ", digitalBook=" + digitalBook +
                 '}';
     }
 }

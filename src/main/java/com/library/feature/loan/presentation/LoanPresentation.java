@@ -7,12 +7,16 @@ import com.library.feature.loan.data.LoanDataRepository;
 import com.library.feature.loan.data.local.LoanFileLocalDataSource;
 import com.library.feature.loan.domain.CreateLoanUseCase;
 import com.library.feature.loan.domain.DeleteLoanUseCase;
+import com.library.feature.loan.domain.GetLoansUseCase;
 import com.library.feature.loan.domain.Loan;
 import com.library.feature.user.data.local.UserFileLocalDataSource;
 import com.library.feature.user.domain.CreateUserUseCase;
 import com.library.feature.user.domain.User;
 import com.library.feature.user.presentation.UserPresentation;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 public class LoanPresentation {
@@ -27,6 +31,7 @@ public class LoanPresentation {
             System.out.println("0. Volver atrás");
             System.out.println("1. Crear préstamo");
             System.out.println("2. Borrar préstamo");
+            System.out.println("3. Mostrar préstamos activos");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -43,6 +48,10 @@ public class LoanPresentation {
                 case 2:
                     System.out.println("Has seleccionado borrar un préstamo");
                     deleteLoan();
+                    break;
+                case 3:
+                    System.out.println("Has seleccionado mostrar los préstamos aún vigentes");
+                    getPrestamosActivos();
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
@@ -63,7 +72,7 @@ public class LoanPresentation {
         String startDate = input.next();
         System.out.print("Introduce la fecha de fin del préstamo: ");
         String endDate = input.next();
-        System.out.print("Introduce el estado del préstamo: (activo/cerrado): ");
+        System.out.print("Introduce el estado del préstamo: (activo/finalizado): ");
         String loanStatus = input.next();
         User user;
         do {
@@ -101,5 +110,15 @@ public class LoanPresentation {
         System.out.println("El préstamo con id " + id + " se ha borrado con éxito");
     }
 
+    public static void getPrestamosActivos() {
+        GetLoansUseCase getLoansUseCase = new GetLoansUseCase(
+                new LoanDataRepository(new LoanFileLocalDataSource()));
+        List<Loan> prestamos = getLoansUseCase.execute();
 
+        for (Loan prestamo : prestamos) {
+            if (prestamo.loanStatus.equals("activo")) {
+                System.out.println(prestamo);
+            }
+        }
+    }
 }

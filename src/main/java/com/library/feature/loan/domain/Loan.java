@@ -6,16 +6,16 @@ import com.library.feature.user.domain.User;
 
 public class Loan {
 
-    public final String id, startDate, endDate, laonStatus;
+    public final String id, startDate, endDate, loanStatus;
     public User user;
     public DigitalBook digitalBook;
 
-    public Loan(String id, String startDate, String endDate, String laonStatus, User user,
+    public Loan(String id, String startDate, String endDate, String loanStatus, User user,
                 DigitalBook digitalBook) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.laonStatus = laonStatus;
+        this.loanStatus = loanStatus;
         this.user = user;
         this.digitalBook = digitalBook;
     }
@@ -26,7 +26,7 @@ public class Loan {
                 "id='" + id + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
-                ", laonStatus='" + laonStatus + '\'' +
+                ", loanStatus='" + loanStatus + '\'' +
                 ", user=" + user +
                 ", digitalBook=" + digitalBook +
                 '}';

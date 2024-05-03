@@ -116,7 +116,7 @@ public class LoanPresentation {
         List<Loan> prestamos = getLoansUseCase.execute();
 
         for (Loan prestamo : prestamos) {
-            if (prestamo.laonStatus.equals("activo")) {
+            if (prestamo.loanStatus.equals("activo")) {
                 System.out.println(prestamo);
             }
         }

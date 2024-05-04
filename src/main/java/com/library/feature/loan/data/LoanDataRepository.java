@@ -1,6 +1,7 @@
 package com.library.feature.loan.data;
 
-import com.library.feature.loan.data.local.LoanFileLocalDataSource;
+
+import com.library.feature.loan.data.local.LoanLocalDataSource;
 import com.library.feature.loan.domain.Loan;
 import com.library.feature.loan.domain.LoanRepository;
 
@@ -8,29 +9,29 @@ import java.util.List;
 
 public class LoanDataRepository implements LoanRepository {
 
-    private LoanFileLocalDataSource loanFileLocalDataSource;
+    private LoanLocalDataSource loanLocalDataSource;
 
-    public LoanDataRepository(LoanFileLocalDataSource loanFileLocalDataSource) {
-        this.loanFileLocalDataSource = loanFileLocalDataSource;
+    public LoanDataRepository(LoanLocalDataSource loanFileLocalDataSource) {
+        this.loanLocalDataSource = loanFileLocalDataSource;
     }
 
     @Override
     public void createLoan(Loan loan) {
-        loanFileLocalDataSource.save(loan);
+        loanLocalDataSource.save(loan);
     }
 
     @Override
     public void deleteLoan(String id) {
-        loanFileLocalDataSource.delete(id);
+        loanLocalDataSource.delete(id);
     }
 
     @Override
     public List<Loan> getLoans() {
-        return loanFileLocalDataSource.findAll();
+        return loanLocalDataSource.findAll();
     }
 
     @Override
     public void updateLoan(Loan loan) {
-        loanFileLocalDataSource.update(loan);
+        loanLocalDataSource.updateLoan(loan);
     }
 }

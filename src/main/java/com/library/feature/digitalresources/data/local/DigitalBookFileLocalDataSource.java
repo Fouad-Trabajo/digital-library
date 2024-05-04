@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class DigitalBookFileLocalDataSource {
+public class DigitalBookFileLocalDataSource implements DigitalBookLocalDataSource{
     private String nameFile = "digitalBook.txt";
 
     private Gson gson = new Gson();
@@ -23,6 +23,7 @@ public class DigitalBookFileLocalDataSource {
     private final Type typeList = new TypeToken<ArrayList<DigitalBook>>() {
     }.getType();
 
+    @Override
     public void save(DigitalBook model) {
         List<DigitalBook> models = findAll();
         for (DigitalBook existingUser : models) {
@@ -35,6 +36,7 @@ public class DigitalBookFileLocalDataSource {
         saveToFile(models);
     }
 
+    @Override
     public void saveList(List<DigitalBook> models) {
         saveToFile(models);
     }
@@ -51,6 +53,7 @@ public class DigitalBookFileLocalDataSource {
         }
     }
 
+    @Override
     public DigitalBook findById(String id) {
         List<DigitalBook> models = findAll();
         for (DigitalBook model : models) {
@@ -61,6 +64,7 @@ public class DigitalBookFileLocalDataSource {
         return null;
     }
 
+    @Override
     public List<DigitalBook> findAll() {
         try {
             File myObj = new File(nameFile);
@@ -84,6 +88,7 @@ public class DigitalBookFileLocalDataSource {
         return new ArrayList<>();
     }
 
+    @Override
     public void delete(String modelId) {
         List<DigitalBook> newList = new ArrayList<>();
         List<DigitalBook> models = findAll();
@@ -95,6 +100,7 @@ public class DigitalBookFileLocalDataSource {
         saveList(newList);
     }
 
+    @Override
     public void updateDigitalBook(DigitalBook updateBook) {
         // Obtén todos los libros digitales
         List<DigitalBook> books = findAll();

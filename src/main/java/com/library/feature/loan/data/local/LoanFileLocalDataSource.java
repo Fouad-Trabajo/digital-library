@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class LoanFileLocalDataSource {
+public class LoanFileLocalDataSource implements LoanLocalDataSource {
     private String nameFile = "loan.txt";
 
     private Gson gson = new Gson();
@@ -23,6 +23,7 @@ public class LoanFileLocalDataSource {
     private final Type typeList = new TypeToken<ArrayList<Loan>>() {
     }.getType();
 
+    @Override
     public void save(Loan model) {
         List<Loan> models = findAll();
         for (Loan existingModel : models) {
@@ -35,6 +36,7 @@ public class LoanFileLocalDataSource {
         saveToFile(models);
     }
 
+    @Override
     public void saveList(List<Loan> models) {
         saveToFile(models);
     }
@@ -51,6 +53,7 @@ public class LoanFileLocalDataSource {
         }
     }
 
+    @Override
     public Loan findById(String id) {
         List<Loan> models = findAll();
         for (Loan model : models) {
@@ -61,6 +64,7 @@ public class LoanFileLocalDataSource {
         return null;
     }
 
+    @Override
     public List<Loan> findAll() {
         try {
             File myObj = new File(nameFile);
@@ -84,6 +88,7 @@ public class LoanFileLocalDataSource {
         return new ArrayList<>();
     }
 
+    @Override
     public void delete(String modelId) {
         List<Loan> newList = new ArrayList<>();
         List<Loan> models = findAll();
@@ -95,7 +100,8 @@ public class LoanFileLocalDataSource {
         saveList(newList);
     }
 
-    public void update(Loan updateModel) {
+    @Override
+    public void updateLoan(Loan updateModel) {
         // Obtén todos los modelos
         List<Loan> models = findAll();
 
@@ -111,6 +117,7 @@ public class LoanFileLocalDataSource {
         saveList(models);
     }
 
+    @Override
     public void update2(Loan updateModel) {
         delete(updateModel.id);
         save(updateModel);

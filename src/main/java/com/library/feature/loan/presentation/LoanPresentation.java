@@ -35,7 +35,7 @@ public class LoanPresentation {
 
             switch (opcion) {
                 case 0:
-                    System.out.println("Has seleccionado salir. ¡Hasta luego!");
+                    System.out.println("Volviendo atrás...");
                     break;
                 case 1:
                     System.out.println("Has seleccionado crear un préstamo.");

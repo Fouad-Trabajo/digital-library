@@ -2,20 +2,13 @@ package com.library.feature.loan.presentation;
 
 import com.library.feature.digitalresources.data.local.DigitalBookFileLocalDataSource;
 import com.library.feature.digitalresources.domain.DigitalBook;
-import com.library.feature.digitalresources.presentation.DigitalBookPresentation;
 import com.library.feature.loan.data.LoanDataRepository;
 import com.library.feature.loan.data.local.LoanFileLocalDataSource;
-import com.library.feature.loan.domain.CreateLoanUseCase;
-import com.library.feature.loan.domain.DeleteLoanUseCase;
-import com.library.feature.loan.domain.GetLoansUseCase;
-import com.library.feature.loan.domain.Loan;
+import com.library.feature.loan.domain.*;
 import com.library.feature.user.data.local.UserFileLocalDataSource;
-import com.library.feature.user.domain.CreateUserUseCase;
-import com.library.feature.user.domain.User;
-import com.library.feature.user.presentation.UserPresentation;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import com.library.feature.user.domain.User;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -34,6 +27,7 @@ public class LoanPresentation {
             System.out.println("3. Listado de préstamos");
             System.out.println("4. Mostrar préstamos activos");
             System.out.println("5. Mostrar préstamos finalizados");
+            System.out.println("6. Actualizar préstamo");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -63,6 +57,10 @@ public class LoanPresentation {
                     System.out.println("Has seleccionado mostrar los préstamos finalizados");
                     getPrestamosFinalizados();
                     break;
+                case 6:
+                    System.out.println("Has seleccionado actualizar un préstamo");
+                    updatePrestamo();
+                    break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
                     break;
@@ -71,10 +69,10 @@ public class LoanPresentation {
     }
 
 
-    public static void createLoan() {
-        UserFileLocalDataSource userFileLocalDataSource = new UserFileLocalDataSource();
-        DigitalBookFileLocalDataSource digitalBookFileLocalDataSource = new DigitalBookFileLocalDataSource();
+    static UserFileLocalDataSource userFileLocalDataSource = new UserFileLocalDataSource();
+    static DigitalBookFileLocalDataSource digitalBookFileLocalDataSource = new DigitalBookFileLocalDataSource();
 
+    public static void createLoan() {
         System.out.println("Introduce los datos del préstamo que quires dar de alta");
         System.out.print("Introduce el id: ");
         String id = input.next();
@@ -102,7 +100,6 @@ public class LoanPresentation {
             if (digitalBook == null) {
                 System.out.println("Libro no registrado en el sistema, introduce un id correcto");
             }
-
         } while (digitalBook == null);
 
         Loan loan = new Loan(id, startDate, endDate, loanStatus, user, digitalBook);
@@ -148,4 +145,41 @@ public class LoanPresentation {
             }
         }
     }
+
+    public static void updatePrestamo(){
+        System.out.print("Introduce el id del préstamo que quieres actualizar: ");
+        String id= input.next();
+        UpdateLoanUseCase updateLoanUseCase = new UpdateLoanUseCase(
+                new LoanDataRepository(new LoanFileLocalDataSource()));
+        System.out.println("Modifica los datos que quieras:");
+        System.out.print("Introduce la fecha de inicio del préstamo: ");
+        String startDate = input.next();
+        System.out.print("Introduce la fecha de fin del préstamo: ");
+        String endDate = input.next();
+        System.out.print("Introduce el estado del préstamo: (activo/finalizado): ");
+        String loanStatus = input.next();
+        User user;
+        do {
+            System.out.print("Introduce el id del usuario relacionado con el préstamo: ");
+            String idUser = input.next();
+            user = userFileLocalDataSource.findById(idUser);
+            if (user == null) {
+                System.out.println("Usuario no registrado en el sistema, introduce un id correcto");
+            }
+        } while (user == null);
+
+        DigitalBook digitalBook;
+        do {
+            System.out.print("Introduce el id del libro solicitado por el usuario: ");
+            String idDigitalBook = input.next();
+            digitalBook = digitalBookFileLocalDataSource.findById(idDigitalBook);
+            if (digitalBook == null) {
+                System.out.println("Libro no registrado en el sistema, introduce un id correcto");
+            }
+        } while (digitalBook == null);
+
+        Loan loan = new Loan(id,startDate,endDate, loanStatus, user, digitalBook);
+        updateLoanUseCase.execute(loan);
+    }
+
 }

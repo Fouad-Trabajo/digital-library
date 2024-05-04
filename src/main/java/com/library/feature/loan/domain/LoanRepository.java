@@ -8,4 +8,6 @@ public interface LoanRepository {
     void deleteLoan(String id);
 
     List<Loan> getLoans();
+
+    void updateLoan(Loan loan);
 }

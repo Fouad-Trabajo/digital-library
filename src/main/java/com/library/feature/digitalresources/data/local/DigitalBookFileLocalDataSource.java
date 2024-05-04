@@ -27,7 +27,7 @@ public class DigitalBookFileLocalDataSource {
         List<DigitalBook> models = findAll();
         for (DigitalBook existingUser : models) {
             if (existingUser.id.equals(model.id)) {
-                System.err.println("Error, ya existe un usuario con el ID " + model.id);
+                System.err.println("Error, ya existe un libro digital con el ID " + model.id);
                 return;
             }
         }

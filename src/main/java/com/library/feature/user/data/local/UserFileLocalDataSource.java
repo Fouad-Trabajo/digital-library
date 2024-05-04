@@ -2,7 +2,6 @@ package com.library.feature.user.data.local;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.library.feature.demo.domain.Demo;
 import com.library.feature.user.domain.User;
 
 import java.io.File;

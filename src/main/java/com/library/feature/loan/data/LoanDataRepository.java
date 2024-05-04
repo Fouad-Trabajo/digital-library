@@ -9,10 +9,10 @@ import java.util.List;
 
 public class LoanDataRepository implements LoanRepository {
 
-    private LoanLocalDataSource loanLocalDataSource;
+    private final LoanLocalDataSource loanLocalDataSource;
 
-    public LoanDataRepository(LoanLocalDataSource loanFileLocalDataSource) {
-        this.loanLocalDataSource = loanFileLocalDataSource;
+    public LoanDataRepository(LoanLocalDataSource loanLocalDataSource) {
+        this.loanLocalDataSource = loanLocalDataSource;
     }
 
     @Override

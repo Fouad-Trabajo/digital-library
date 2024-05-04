@@ -32,7 +32,5 @@ public class DigitalResourcesPresentation {
                     break;
             }
         } while (opcion != 0);
-
-        scanner.close();
     }
 }

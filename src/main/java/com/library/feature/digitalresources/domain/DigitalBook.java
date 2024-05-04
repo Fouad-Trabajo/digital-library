@@ -23,6 +23,6 @@ public class DigitalBook extends DigitalResources {
                 ", genre='" + genre + '\'' +
                 ", editorial='" + editorial + '\'' +
                 ", description='" + description + '\'' +
-                '}';
+                '}' + "'\n";
     }
 }

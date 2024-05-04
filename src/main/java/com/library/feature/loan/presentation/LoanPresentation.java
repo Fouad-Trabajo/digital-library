@@ -31,7 +31,9 @@ public class LoanPresentation {
             System.out.println("0. Volver atrás");
             System.out.println("1. Crear préstamo");
             System.out.println("2. Borrar préstamo");
-            System.out.println("3. Mostrar préstamos activos");
+            System.out.println("3. Listado de préstamos");
+            System.out.println("4. Mostrar préstamos activos");
+            System.out.println("5. Mostrar préstamos finalizados");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -50,8 +52,16 @@ public class LoanPresentation {
                     deleteLoan();
                     break;
                 case 3:
+                    System.out.println("Has seleccionado mostrar todos los préstamos del sistema");
+                    getPrestamos();
+                    break;
+                case 4:
                     System.out.println("Has seleccionado mostrar los préstamos aún vigentes");
                     getPrestamosActivos();
+                    break;
+                case 5:
+                    System.out.println("Has seleccionado mostrar los préstamos finalizados");
+                    getPrestamosFinalizados();
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
@@ -110,13 +120,30 @@ public class LoanPresentation {
         System.out.println("El préstamo con id " + id + " se ha borrado con éxito");
     }
 
+    public static void getPrestamos() {
+        GetLoansUseCase getLoansUseCase = new GetLoansUseCase(new LoanDataRepository(
+                new LoanFileLocalDataSource()));
+        List<Loan> prestamos = getLoansUseCase.execute();
+        System.out.println(prestamos);
+    }
+
     public static void getPrestamosActivos() {
         GetLoansUseCase getLoansUseCase = new GetLoansUseCase(
                 new LoanDataRepository(new LoanFileLocalDataSource()));
         List<Loan> prestamos = getLoansUseCase.execute();
-
         for (Loan prestamo : prestamos) {
             if (prestamo.loanStatus.equals("activo")) {
+                System.out.println(prestamo);
+            }
+        }
+    }
+
+    public static void getPrestamosFinalizados() {
+        GetLoansUseCase getLoansUseCase = new GetLoansUseCase(new LoanDataRepository(
+                new LoanFileLocalDataSource()));
+        List<Loan> prestamos = getLoansUseCase.execute();
+        for (Loan prestamo : prestamos) {
+            if (prestamo.loanStatus.equals("finalizado")) {
                 System.out.println(prestamo);
             }
         }

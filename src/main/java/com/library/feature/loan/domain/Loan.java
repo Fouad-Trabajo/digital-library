@@ -29,6 +29,6 @@ public class Loan {
                 ", loanStatus='" + loanStatus + '\'' +
                 ", user=" + user +
                 ", digitalBook=" + digitalBook +
-                '}';
+                '}' + "'\n";
     }
 }

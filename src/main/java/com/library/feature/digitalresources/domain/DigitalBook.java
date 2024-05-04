@@ -13,14 +13,16 @@ public class DigitalBook extends DigitalResources {
         this.description = description;
     }
 
+
     @Override
     public String toString() {
-        return "DigitalBooks{" +
+        return "DigitalBook{" +
                 "id='" + id + '\'' +
                 ", author='" + author + '\'' +
                 ", numberPages='" + numberPages + '\'' +
                 ", genre='" + genre + '\'' +
                 ", editorial='" + editorial + '\'' +
-                ",description='" + description + "} '\'";
+                ", description='" + description + '\'' +
+                '}' + "'\n";
     }
 }

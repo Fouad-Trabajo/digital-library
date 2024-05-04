@@ -1,8 +1,8 @@
-package com.library.feature.digitalresources.data.local;
+package com.library.feature.loan.data.local;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.library.feature.digitalresources.domain.DigitalBook;
+import com.library.feature.loan.domain.Loan;
 
 
 import java.io.File;
@@ -15,19 +15,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class DigitalBookFileLocalDataSource {
-    private String nameFile = "digitalBook.txt";
+public class LoanFileLocalDataSource {
+    private String nameFile = "loan.txt";
 
     private Gson gson = new Gson();
 
-    private final Type typeList = new TypeToken<ArrayList<DigitalBook>>() {
+    private final Type typeList = new TypeToken<ArrayList<Loan>>() {
     }.getType();
 
-    public void save(DigitalBook model) {
-        List<DigitalBook> models = findAll();
-        for (DigitalBook existingUser : models) {
-            if (existingUser.id.equals(model.id)) {
-                System.err.println("Error, ya existe un libro digital con el ID " + model.id);
+    public void save(Loan model) {
+        List<Loan> models = findAll();
+        for (Loan existingModel : models) {
+            if (existingModel.id.equals(model.id)) {
+                System.err.println("Error, ya existe un préstamo con el ID " + model.id);
                 return;
             }
         }
@@ -35,11 +35,11 @@ public class DigitalBookFileLocalDataSource {
         saveToFile(models);
     }
 
-    public void saveList(List<DigitalBook> models) {
+    public void saveList(List<Loan> models) {
         saveToFile(models);
     }
 
-    private void saveToFile(List<DigitalBook> models) {
+    private void saveToFile(List<Loan> models) {
         try {
             FileWriter myWriter = new FileWriter(nameFile);
             myWriter.write(gson.toJson(models));
@@ -51,9 +51,9 @@ public class DigitalBookFileLocalDataSource {
         }
     }
 
-    public DigitalBook findById(String id) {
-        List<DigitalBook> models = findAll();
-        for (DigitalBook model : models) {
+    public Loan findById(String id) {
+        List<Loan> models = findAll();
+        for (Loan model : models) {
             if (Objects.equals(model.id, id)) {
                 return model;
             }
@@ -61,7 +61,7 @@ public class DigitalBookFileLocalDataSource {
         return null;
     }
 
-    public List<DigitalBook> findAll() {
+    public List<Loan> findAll() {
         try {
             File myObj = new File(nameFile);
             if (!myObj.exists()) {
@@ -85,9 +85,9 @@ public class DigitalBookFileLocalDataSource {
     }
 
     public void delete(String modelId) {
-        List<DigitalBook> newList = new ArrayList<>();
-        List<DigitalBook> models = findAll();
-        for (DigitalBook model : models) {
+        List<Loan> newList = new ArrayList<>();
+        List<Loan> models = findAll();
+        for (Loan model : models) {
             if (!model.id.equals(modelId)) {
                 newList.add(model);
             }
@@ -95,19 +95,26 @@ public class DigitalBookFileLocalDataSource {
         saveList(newList);
     }
 
-    public void updateDigitalBook(DigitalBook updateBook) {
-        // Obtén todos los libros digitales
-        List<DigitalBook> books = findAll();
+    public void update(Loan updateModel) {
+        // Obtén todos los modelos
+        List<Loan> models = findAll();
 
-        // Busca el libro que deseas actualizar y reemplázalo
-        for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).id.equals(updateBook.id)) {
-                books.set(i, updateBook);
+        // Busca el modelo que deseas actualizar y reemplázalo
+        for (int i = 0; i < models.size(); i++) {
+            if (models.get(i).id.equals(updateModel.id)) {
+                models.set(i, updateModel);
                 break;
             }
         }
 
-        // Guarda la lista actualizada de libros en el fichero
-        saveList(books);
+        // Guarda la lista actualizada de modelos en el fichero
+        saveList(models);
     }
+
+    public void update2(Loan updateModel) {
+        delete(updateModel.id);
+        save(updateModel);
+    }
+    /** Este método no mantiene el orden de
+     * entrada de los objetos en el fichero */
 }

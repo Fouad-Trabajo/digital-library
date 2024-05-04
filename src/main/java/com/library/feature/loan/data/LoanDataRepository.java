@@ -31,6 +31,6 @@ public class LoanDataRepository implements LoanRepository {
 
     @Override
     public void updateLoan(Loan loan) {
-        loanFileLocalDataSource.update1(loan);
+        loanFileLocalDataSource.update(loan);
     }
 }

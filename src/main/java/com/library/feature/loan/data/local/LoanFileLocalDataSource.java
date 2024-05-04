@@ -95,7 +95,7 @@ public class LoanFileLocalDataSource {
         saveList(newList);
     }
 
-    public void update1(Loan updateModel) {
+    public void update(Loan updateModel) {
         // Obtén todos los modelos
         List<Loan> models = findAll();
 

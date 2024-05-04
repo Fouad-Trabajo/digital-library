@@ -25,9 +25,9 @@ public class LoanFileLocalDataSource {
 
     public void save(Loan model) {
         List<Loan> models = findAll();
-        for (Loan existingUser : models) {
-            if (existingUser.id.equals(model.id)) {
-                System.err.println("Error, ya existe un usuario con el ID " + model.id);
+        for (Loan existingModel : models) {
+            if (existingModel.id.equals(model.id)) {
+                System.err.println("Error, ya existe un préstamo con el ID " + model.id);
                 return;
             }
         }
@@ -95,7 +95,7 @@ public class LoanFileLocalDataSource {
         saveList(newList);
     }
 
-    public void update(Loan updateModel) {
+    public void update1(Loan updateModel) {
         // Obtén todos los modelos
         List<Loan> models = findAll();
 
@@ -110,4 +110,11 @@ public class LoanFileLocalDataSource {
         // Guarda la lista actualizada de modelos en el fichero
         saveList(models);
     }
+
+    public void update2(Loan updateModel) {
+        delete(updateModel.id);
+        save(updateModel);
+    }
+    /** Este método no mantiene el orden de
+     * entrada de los objetos en el fichero */
 }

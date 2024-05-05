@@ -30,7 +30,7 @@ public class DigitalBookPresentation {
 
             switch (opcion) {
                 case 0:
-                    System.out.println("Volviendo atras..");
+                    System.out.println("Volviendo atras...");
                     break;
                 case 1:
                     System.out.println("Has seleccionado crear un libro digital.");

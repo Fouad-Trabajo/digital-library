@@ -4,7 +4,7 @@ import com.library.feature.user.data.UserDataRepository;
 import com.library.feature.user.data.local.UserFileLocalDataSource;
 import com.library.feature.user.domain.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,8 +17,8 @@ public class UserPresentation {
         int opcion;
 
         do {
-            System.out.println("********** MENÚ **********");
-            System.out.println("0. Salir");
+            System.out.println("********** MENÚ USUARIO **********");
+            System.out.println("0. Volver atrás");
             System.out.println("1. Crear usuario");
             System.out.println("2. Borrar usuario");
             System.out.println("3. Actualizar usuario");
@@ -30,7 +30,7 @@ public class UserPresentation {
 
             switch (opcion) {
                 case 0:
-                    System.out.println("Has seleccionado salir. ¡Hasta luego!");
+                    System.out.println("Volviendo atrás...");
                     break;
                 case 1:
                     System.out.println("Has seleccionado crear un usuario.");

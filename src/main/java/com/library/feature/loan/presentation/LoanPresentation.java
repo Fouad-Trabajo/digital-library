@@ -6,7 +6,6 @@ import com.library.feature.loan.data.LoanDataRepository;
 import com.library.feature.loan.data.local.LoanFileLocalDataSource;
 import com.library.feature.loan.domain.*;
 import com.library.feature.user.data.local.UserFileLocalDataSource;
-
 import com.library.feature.user.domain.User;
 
 import java.util.List;
@@ -35,7 +34,7 @@ public class LoanPresentation {
 
             switch (opcion) {
                 case 0:
-                    System.out.println("Has seleccionado salir. ¡Hasta luego!");
+                    System.out.println("Volviendo atrás...");
                     break;
                 case 1:
                     System.out.println("Has seleccionado crear un préstamo.");

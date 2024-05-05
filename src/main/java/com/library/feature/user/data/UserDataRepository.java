@@ -1,39 +1,38 @@
 package com.library.feature.user.data;
 
-import com.library.feature.user.data.local.UserFileLocalDataSource;
+import com.library.feature.user.data.local.UserLocalDataSource;
 import com.library.feature.user.domain.User;
 import com.library.feature.user.domain.UserRepository;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserDataRepository implements UserRepository {
 
-    private UserFileLocalDataSource userFileLocalDataSource;
+    private final UserLocalDataSource userLocalDataSource;
 
-    public UserDataRepository(UserFileLocalDataSource userFileLocalDataSource) {
-        this.userFileLocalDataSource = userFileLocalDataSource;
+    public UserDataRepository(UserLocalDataSource userLocalDataSource) {
+        this.userLocalDataSource = userLocalDataSource;
     }
 
     @Override
     public void createUser(User user) {
-        userFileLocalDataSource.save(user);
+        userLocalDataSource.save(user);
     }
 
 
     @Override
     public void deleteUser(String id) {
-        userFileLocalDataSource.delete(id);
+        userLocalDataSource.delete(id);
     }
 
     @Override
     public void updateUser(User user) {
-        userFileLocalDataSource.updateUser(user);
+        userLocalDataSource.updateUser(user);
     }
 
     @Override
     public List<User> getUsers() {
-        return userFileLocalDataSource.findAll();
+        return userLocalDataSource.findAll();
     }
 }

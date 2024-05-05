@@ -2,7 +2,6 @@ package com.library.feature.user.data.local;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.library.feature.demo.domain.Demo;
 import com.library.feature.user.domain.User;
 
 import java.io.File;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class UserFileLocalDataSource {
+public class UserFileLocalDataSource implements UserLocalDataSource {
     private String nameFile = "user.txt";
 
     private Gson gson = new Gson();
@@ -23,6 +22,7 @@ public class UserFileLocalDataSource {
     private final Type typeList = new TypeToken<ArrayList<User>>() {
     }.getType();
 
+    @Override
     public void save(User model) {
         List<User> models = findAll();
         for (User existingUser : models) {
@@ -35,6 +35,7 @@ public class UserFileLocalDataSource {
         saveToFile(models);
     }
 
+    @Override
     public void saveList(List<User> models) {
         saveToFile(models);
     }
@@ -51,6 +52,7 @@ public class UserFileLocalDataSource {
         }
     }
 
+    @Override
     public User findById(String id) {
         List<User> models = findAll();
         for (User model : models) {
@@ -61,6 +63,7 @@ public class UserFileLocalDataSource {
         return null;
     }
 
+    @Override
     public List<User> findAll() {
         try {
             File myObj = new File(nameFile);
@@ -84,6 +87,7 @@ public class UserFileLocalDataSource {
         return new ArrayList<>();
     }
 
+    @Override
     public void delete(String modelId) {
         List<User> newList = new ArrayList<>();
         List<User> models = findAll();
@@ -95,7 +99,7 @@ public class UserFileLocalDataSource {
         saveList(newList);
     }
 
-
+    @Override
     public void updateUser(User updatedUser) {
         // Obtén todos los usuarios
         List<User> users = findAll();

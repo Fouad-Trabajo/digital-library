@@ -10,4 +10,6 @@ public interface LoanRepository {
     List<Loan> getLoans();
 
     void updateLoan(Loan loan);
+
+    Loan getLoan(String id);
 }

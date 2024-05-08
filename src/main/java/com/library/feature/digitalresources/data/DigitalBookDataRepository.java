@@ -1,8 +1,8 @@
 package com.library.feature.digitalresources.data;
 
 import com.library.feature.digitalresources.data.local.DigitalBookLocalDataSource;
-import com.library.feature.digitalresources.domain.DigitalBook;
-import com.library.feature.digitalresources.domain.DigitalBookRepository;
+import com.library.feature.digitalresources.domain.digitalbook.DigitalBook;
+import com.library.feature.digitalresources.domain.digitalbook.DigitalBookRepository;
 
 import java.util.List;
 

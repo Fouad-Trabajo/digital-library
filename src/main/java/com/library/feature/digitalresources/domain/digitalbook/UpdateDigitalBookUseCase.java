@@ -1,4 +1,7 @@
-package com.library.feature.digitalresources.domain;
+package com.library.feature.digitalresources.domain.digitalbook;
+
+import com.library.feature.digitalresources.domain.digitalbook.DigitalBook;
+import com.library.feature.digitalresources.domain.digitalbook.DigitalBookRepository;
 
 public class UpdateDigitalBookUseCase {
 

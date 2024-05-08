@@ -45,7 +45,7 @@ public class UserPresentation {
                     updateUser();
                     break;
                 case 4:
-                    System.out.println("Has seleccionado obtener un listado de usuarios");
+                    System.out.println("Has seleccionado obtener un listado de usuarios\n");
                     getUsers();
                     break;
                 default:
@@ -104,7 +104,9 @@ public class UserPresentation {
     public static void getUsers() {
         GetUsersUseCase getUsersUseCase = new GetUsersUseCase(new UserDataRepository(
                 new UserFileLocalDataSource()));
-        List<User> users = getUsersUseCase.execute();
-        System.out.println(users.toString());
+        List<User> usersList = getUsersUseCase.execute();
+        for(User user : usersList) {
+            System.out.println(user);
+        }
     }
 }

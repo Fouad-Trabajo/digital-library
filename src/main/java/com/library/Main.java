@@ -3,7 +3,6 @@ package com.library;
 
 import com.library.feature.digitalresources.presentation.DigitalResourcesPresentation;
 import com.library.feature.loan.presentation.LoanPresentation;
-import com.library.feature.user.domain.User;
 import com.library.feature.user.presentation.UserPresentation;
 
 import java.util.Scanner;
@@ -42,6 +41,7 @@ public class Main {
                 case 3:
                     System.out.println("Has seleccionado el menú de préstamos");
                     LoanPresentation.menuLoan();
+                    break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
                     break;

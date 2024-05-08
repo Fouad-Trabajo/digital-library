@@ -1,6 +1,8 @@
-package com.library.feature.digitalresources.domain;
+package com.library.feature.digitalresources.domain.digitalbook;
 
-import java.util.ArrayList;
+import com.library.feature.digitalresources.domain.digitalbook.DigitalBook;
+import com.library.feature.digitalresources.domain.digitalbook.DigitalBookRepository;
+
 import java.util.List;
 
 public class GetDigitalBooksUseCase {

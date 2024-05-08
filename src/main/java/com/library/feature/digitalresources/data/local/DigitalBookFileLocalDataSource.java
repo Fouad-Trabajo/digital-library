@@ -2,7 +2,7 @@ package com.library.feature.digitalresources.data.local;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.library.feature.digitalresources.domain.DigitalBook;
+import com.library.feature.digitalresources.domain.digitalbook.DigitalBook;
 
 
 import java.io.File;

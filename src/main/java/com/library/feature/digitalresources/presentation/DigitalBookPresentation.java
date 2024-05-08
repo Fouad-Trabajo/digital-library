@@ -2,7 +2,7 @@ package com.library.feature.digitalresources.presentation;
 
 import com.library.feature.digitalresources.data.DigitalBookDataRepository;
 import com.library.feature.digitalresources.data.local.DigitalBookFileLocalDataSource;
-import com.library.feature.digitalresources.domain.*;
+import com.library.feature.digitalresources.domain.digitalbook.*;
 
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class DigitalBookPresentation {
                     updateDigitalBook();
                     break;
                 case 4:
-                    System.out.println("Has seleccionado mostrar el listado de libros que hay en el sistema.");
+                    System.out.println("Has seleccionado mostrar el listado de libros que hay en el sistema.\n");
                     getDigitalBooks();
                     break;
                 default:
@@ -108,7 +108,8 @@ public class DigitalBookPresentation {
     public static void getDigitalBooks() {
         GetDigitalBooksUseCase getDigitalBooksUseCase = new GetDigitalBooksUseCase(
                 new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
-        List<DigitalBook> listaLibros = getDigitalBooksUseCase.execute();
-        System.out.println(listaLibros.toString());
+        List<DigitalBook> digitalBooksList = getDigitalBooksUseCase.execute();
+        for (DigitalBook digitalBook : digitalBooksList)
+            System.out.println(digitalBook);
     }
 }

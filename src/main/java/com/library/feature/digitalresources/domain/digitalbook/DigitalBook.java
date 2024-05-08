@@ -1,4 +1,6 @@
-package com.library.feature.digitalresources.domain;
+package com.library.feature.digitalresources.domain.digitalbook;
+
+import com.library.feature.digitalresources.domain.DigitalResources;
 
 public class DigitalBook extends DigitalResources {
 

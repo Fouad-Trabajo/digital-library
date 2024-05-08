@@ -1,4 +1,4 @@
-package com.library.feature.digitalresources.domain;
+package com.library.feature.digitalresources.domain.digitalbook;
 
 import java.util.List;
 

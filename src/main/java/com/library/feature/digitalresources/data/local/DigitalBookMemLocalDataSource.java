@@ -1,7 +1,7 @@
 package com.library.feature.digitalresources.data.local;
 
 
-import com.library.feature.digitalresources.domain.DigitalBook;
+import com.library.feature.digitalresources.domain.digitalbook.DigitalBook;
 
 import java.util.List;
 import java.util.Map;

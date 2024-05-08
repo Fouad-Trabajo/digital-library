@@ -27,6 +27,7 @@ public class LoanPresentation {
             System.out.println("4. Mostrar préstamos activos");
             System.out.println("5. Mostrar préstamos finalizados");
             System.out.println("6. Actualizar préstamo");
+            System.out.println("7. Mostrar 1 préstamo mediante id");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -60,6 +61,10 @@ public class LoanPresentation {
                     System.out.println("Has seleccionado actualizar un préstamo");
                     updatePrestamo();
                     break;
+                case 7:
+                    System.out.println("Has seleccionado mostrar 1 préstamo");
+                    getLoan();
+                    break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
                     break;
@@ -68,8 +73,8 @@ public class LoanPresentation {
     }
 
 
-    static UserFileLocalDataSource userFileLocalDataSource = new UserFileLocalDataSource();
-    static DigitalBookFileLocalDataSource digitalBookFileLocalDataSource = new DigitalBookFileLocalDataSource();
+    private static UserFileLocalDataSource userFileLocalDataSource = new UserFileLocalDataSource();
+    private static DigitalBookFileLocalDataSource digitalBookFileLocalDataSource = new DigitalBookFileLocalDataSource();
 
     public static void createLoan() {
         System.out.println("Introduce los datos del préstamo que quires dar de alta");
@@ -147,9 +152,9 @@ public class LoanPresentation {
         }
     }
 
-    public static void updatePrestamo(){
+    public static void updatePrestamo() {
         System.out.print("Introduce el id del préstamo que quieres actualizar: ");
-        String id= input.next();
+        String id = input.next();
         UpdateLoanUseCase updateLoanUseCase = new UpdateLoanUseCase(
                 new LoanDataRepository(new LoanFileLocalDataSource()));
         System.out.println("Modifica los datos que quieras:");
@@ -179,8 +184,17 @@ public class LoanPresentation {
             }
         } while (digitalBook == null);
 
-        Loan loan = new Loan(id,startDate,endDate, loanStatus, user, digitalBook);
+        Loan loan = new Loan(id, startDate, endDate, loanStatus, user, digitalBook);
         updateLoanUseCase.execute(loan);
+    }
+
+    public static void getLoan() {
+        System.out.print("Introduce el id del préstamo que quires mostrar: ");
+        String id = input.next();
+        GetLoanUseCase getLoanUseCase = new GetLoanUseCase(
+                new LoanDataRepository(new LoanFileLocalDataSource()));
+        Loan loan = getLoanUseCase.execute(id);
+        System.out.println("\n" + loan);
     }
 
 }

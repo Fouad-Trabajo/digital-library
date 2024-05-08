@@ -22,7 +22,8 @@ public class DigitalBookPresentation {
             System.out.println("1. Crear libro digital");
             System.out.println("2. Borrar libro digital");
             System.out.println("3. Actualizar datos del libro");
-            System.out.println("4. Obtener un listado de libros");
+            System.out.println("4. Obtener listado de libros");
+            System.out.println("5. Obtener 1 libro mediante id");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -47,6 +48,10 @@ public class DigitalBookPresentation {
                 case 4:
                     System.out.println("Has seleccionado mostrar el listado de libros que hay en el sistema.\n");
                     getDigitalBooks();
+                    break;
+                case 5:
+                    System.out.println("Has seleccionado mostrar 1 libro");
+                    getDigitalBook();
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
@@ -111,5 +116,14 @@ public class DigitalBookPresentation {
         List<DigitalBook> digitalBooksList = getDigitalBooksUseCase.execute();
         for (DigitalBook digitalBook : digitalBooksList)
             System.out.println(digitalBook);
+    }
+
+    public static void getDigitalBook() {
+        System.out.print("Introduce el id del libro que quieres ver: ");
+        String id = input.next();
+        GetDigitalBookUseCase getDigitalBookUseCase = new GetDigitalBookUseCase(
+                new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
+        DigitalBook digitalBook = getDigitalBookUseCase.execute(id);
+        System.out.println("\n" + digitalBook);
     }
 }

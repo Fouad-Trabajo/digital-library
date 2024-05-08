@@ -33,4 +33,9 @@ public class DigitalBookDataRepository implements DigitalBookRepository {
     public List<DigitalBook> getDigitalBooks() {
         return digitalBookLocalDataSource.findAll();
     }
+
+    @Override
+    public DigitalBook getDigitalBook(String id) {
+        return digitalBookLocalDataSource.findById(id);
+    }
 }

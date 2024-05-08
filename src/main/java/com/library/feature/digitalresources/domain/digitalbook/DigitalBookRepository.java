@@ -11,4 +11,6 @@ public interface DigitalBookRepository {
     void updateDigitalBook(DigitalBook digitalBook);
 
     List<DigitalBook> getDigitalBooks();
+
+    DigitalBook getDigitalBook(String id);
 }

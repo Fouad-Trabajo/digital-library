@@ -23,6 +23,7 @@ public class UserPresentation {
             System.out.println("2. Borrar usuario");
             System.out.println("3. Actualizar usuario");
             System.out.println("4. Obtener listado de usuarios");
+            System.out.println("5. Obtener 1 usuario mediante id");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
 
@@ -47,6 +48,10 @@ public class UserPresentation {
                 case 4:
                     System.out.println("Has seleccionado obtener un listado de usuarios\n");
                     getUsers();
+                    break;
+                case 5:
+                    System.out.println("Has seleccionado mostrar 1 usuario");
+                    getUser();
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
@@ -105,8 +110,17 @@ public class UserPresentation {
         GetUsersUseCase getUsersUseCase = new GetUsersUseCase(new UserDataRepository(
                 new UserFileLocalDataSource()));
         List<User> usersList = getUsersUseCase.execute();
-        for(User user : usersList) {
+        for (User user : usersList) {
             System.out.println(user);
         }
+    }
+
+    public static void getUser() {
+        System.out.print("Introduce el id del usuario que quieres mostrar: ");
+        String id = input.next();
+        GetUserUseCase getUserUseCase = new GetUserUseCase(
+                new UserDataRepository(new UserFileLocalDataSource()));
+        User user = getUserUseCase.execute(id);
+        System.out.println("\n" + user);
     }
 }

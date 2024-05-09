@@ -118,12 +118,20 @@ public class DigitalBookPresentation {
             System.out.println(digitalBook);
     }
 
-    public static void getDigitalBook() {
-        System.out.print("Introduce el id del libro que quieres ver: ");
-        String id = input.next();
-        GetDigitalBookUseCase getDigitalBookUseCase = new GetDigitalBookUseCase(
-                new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
-        DigitalBook digitalBook = getDigitalBookUseCase.execute(id);
-        System.out.println("\n" + digitalBook);
+    public static DigitalBook getDigitalBook() {
+        DigitalBook digitalBook;
+        do {
+            System.out.print("Introduce el id del libro que quieres ver: ");
+            String id = input.next();
+            GetDigitalBookUseCase getDigitalBookUseCase = new GetDigitalBookUseCase(
+                    new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
+            digitalBook = getDigitalBookUseCase.execute(id);
+            if (digitalBook == null) {
+                System.out.println("El id " + id + " que has introducido no corresponde a ningún libro");
+            } else {
+                System.out.println("\n" + digitalBook);
+            }
+        } while (digitalBook == null);
+        return digitalBook;
     }
 }

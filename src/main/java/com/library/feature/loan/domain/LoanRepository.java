@@ -12,4 +12,8 @@ public interface LoanRepository {
     void updateLoan(Loan loan);
 
     Loan getLoan(String id);
+
+    List<Loan> getLoansActive();
+
+    List<Loan> getLoansFinished();
 }

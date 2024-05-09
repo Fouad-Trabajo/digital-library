@@ -39,4 +39,14 @@ public class LoanDataRepository implements LoanRepository {
     public Loan getLoan(String id) {
         return loanLocalDataSource.findById(id);
     }
+
+    @Override
+    public List<Loan> getLoansActive() {
+        return loanLocalDataSource.getLoansActive();
+    }
+
+    @Override
+    public List<Loan> getLoansFinished() {
+        return loanLocalDataSource.getFinishedLoans();
+    }
 }

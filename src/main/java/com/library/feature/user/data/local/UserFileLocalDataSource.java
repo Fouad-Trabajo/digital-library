@@ -26,7 +26,7 @@ public class UserFileLocalDataSource implements UserLocalDataSource {
     public void save(User model) {
         List<User> models = findAll();
         for (User existingUser : models) {
-            if (existingUser.id.equals(model.id)) {
+            if (model.id.equals(existingUser.id)) {
                 System.err.println("Error, ya existe un usuario con el ID " + model.id);
                 return;
             }

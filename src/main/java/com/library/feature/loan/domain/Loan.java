@@ -5,29 +5,18 @@ import com.library.feature.user.domain.User;
 
 public class Loan {
 
-    public final String id, loanDate;
-    public String returnDate;
+    public final String id, loanDate, returnDate;
 
     public User user;
     public DigitalBook digitalBook;
 
-    public Loan(String id, String loanDate, String returnDate, User user,
+    public Loan(String id, String loanDate, User user,
                 DigitalBook digitalBook) {
         this.id = id;
         this.loanDate = loanDate;
-        this.returnDate = returnDate;
+        this.returnDate = null;
         this.user = user;
         this.digitalBook = digitalBook;
-    }
-
-
-    public boolean isActive() {
-        return returnDate == null;
-    }
-
-
-    public void setReturnDate(String returnDate) {
-        this.returnDate = returnDate;
     }
 
     @Override

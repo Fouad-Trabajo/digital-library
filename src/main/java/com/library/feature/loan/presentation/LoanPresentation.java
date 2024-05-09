@@ -83,15 +83,13 @@ public class LoanPresentation {
         String id = input.next();
         System.out.print("Introduce la fecha del préstamo (cuando se formalizó el prestamo): ");
         String loanDate = input.next();
-        System.out.print("Introduce la fecha de devolución (si aún no se ha devuleto dejarlo a nulo): ");
-        String returnDate = input.next();
 
         /** Introduce id del usuario */
         User user = UserPresentation.getUser();
         /** Introduce id del libro digital */
         DigitalBook digitalBook = DigitalBookPresentation.getDigitalBook();
 
-        Loan loan = new Loan(id, loanDate, returnDate, user, digitalBook);
+        Loan loan = new Loan(id, loanDate, user, digitalBook);
         CreateLoanUseCase createLoanUseCase = new CreateLoanUseCase(
                 new LoanDataRepository(new LoanFileLocalDataSource()));
         createLoanUseCase.execute(loan);
@@ -116,8 +114,8 @@ public class LoanPresentation {
     }
 
     public static void getLoansActive() {
-        GetLoansActiveUseCase getLoansActiveUseCase = new GetLoansActiveUseCase(
-                new LoanDataRepository(new LoanFileLocalDataSource()));
+        GetLoansActiveUseCase getLoansActiveUseCase = new GetLoansActiveUseCase();
+
         List<Loan> loansActive = getLoansActiveUseCase.execute();
         for (Loan loan : loansActive) {
             System.out.println("\n" + loan);
@@ -125,8 +123,8 @@ public class LoanPresentation {
     }
 
     public static void getFinishedLoans() {
-        GetFinishedLoansUseCase getFinishedLoansUseCase = new GetFinishedLoansUseCase(
-                new LoanDataRepository(new LoanFileLocalDataSource()));
+        GetFinishedLoansUseCase getFinishedLoansUseCase = new GetFinishedLoansUseCase();
+
         List<Loan> loansFinished = getFinishedLoansUseCase.execute();
         for (Loan loan : loansFinished) {
             System.out.println("\n" + loan);
@@ -136,13 +134,14 @@ public class LoanPresentation {
     public static void updatePrestamo() {
         Loan loan = getLoan();
 
+        Loan loanCopy = getLoan();
         System.out.print("Modifica la fecha de devolución: ");
         String returnDate = input.next();
-        loan.setReturnDate(returnDate);
+
 
         UpdateLoanUseCase updateLoanUseCase = new UpdateLoanUseCase(
                 new LoanDataRepository(new LoanFileLocalDataSource()));
-        updateLoanUseCase.execute(loan);
+        updateLoanUseCase.execute(loanCopy);
     }
 
     public static Loan getLoan() {
@@ -162,6 +161,10 @@ public class LoanPresentation {
             }
         } while (loan == null);
         return loan;
+    }
+
+    public static Loan getCopyLoan() {
+        return null;
     }
 
 }

@@ -67,34 +67,4 @@ public class LoanMemLocalDataSource implements LoanLocalDataSource {
         }
     }
 
-    @Override
-    public void update2(Loan updateModel) {
-
-    }
-
-    @Override
-    public List<Loan> getLoansActive() {
-        List<Loan> loans = findAll();
-        List<Loan> loansActive = new ArrayList<>();
-        for (Loan loan : loans) {
-            if (loan.isActive()) {
-                loansActive.add(loan);
-            }
-        }
-        return loansActive;
-    }
-
-    @Override
-    public List<Loan> getFinishedLoans() {
-        List<Loan> loans = findAll();
-        List<Loan> loanFinished = new ArrayList<>();
-        for (Loan loan : loans) {
-            if (!loan.isActive()) {
-                loanFinished.add(loan);
-            }
-        }
-        return loanFinished;
-    }
-
-
 }

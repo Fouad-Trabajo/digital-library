@@ -117,35 +117,4 @@ public class LoanFileLocalDataSource implements LoanLocalDataSource {
         saveList(models);
     }
 
-    @Override
-    public void update2(Loan updateModel) {
-        delete(updateModel.id);
-        save(updateModel);
-    }
-    /** Este método no mantiene el orden de
-     * entrada de los objetos en el fichero */
-
-    @Override
-    public List<Loan> getLoansActive() {
-        List<Loan> loans = findAll();
-        List<Loan> loansActive = new ArrayList<>();
-        for (Loan loan : loans) {
-            if (loan.isActive()) {
-                loansActive.add(loan);
-            }
-        }
-        return loansActive;
-    }
-
-    @Override
-    public List<Loan> getFinishedLoans() {
-        List<Loan> loans = findAll();
-        List<Loan> loanFinished = new ArrayList<>();
-        for (Loan loan : loans) {
-            if (!loan.isActive()) {
-                loanFinished.add(loan);
-            }
-        }
-        return loanFinished;
-    }
 }

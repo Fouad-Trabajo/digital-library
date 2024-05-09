@@ -18,9 +18,5 @@ public interface LoanLocalDataSource {
 
     void updateLoan(Loan updateModel);
 
-    void update2(Loan updateModel);
 
-    List<Loan> getLoansActive();
-
-    List<Loan> getFinishedLoans();
 }

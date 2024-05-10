@@ -89,8 +89,7 @@ public class UserPresentation {
     }
 
     public static void updateUser() {
-        System.out.print("Introduce el id del usuario que quieres modificar: ");
-        String id = input.nextLine();
+        User user = getUser();
         UpdateUserUseCase updateUserUseCase = new UpdateUserUseCase(new UserDataRepository(
                 new UserFileLocalDataSource()));
         System.out.println("Modifica los datos que quieras");
@@ -102,8 +101,9 @@ public class UserPresentation {
         String dni = input.nextLine();
         System.out.print("Introduce la fecha de inscripción del usuario: ");
         String dateInscription = input.nextLine();
-        User user = new User(id, name, surname, dni, dateInscription);
-        updateUserUseCase.execute(user);
+
+        User userUpdate = new User(user.id, name, surname, dni, dateInscription);
+        updateUserUseCase.execute(userUpdate);
     }
 
     public static void getUsers() {
@@ -118,7 +118,6 @@ public class UserPresentation {
     public static User getUser() {
         GetUserUseCase getUserUseCase = new GetUserUseCase(
                 new UserDataRepository(new UserFileLocalDataSource()));
-        User user = getUserUseCase.execute();
-        return user;
+        return getUserUseCase.execute(); // El método execute devuelve un User
     }
 }

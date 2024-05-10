@@ -145,22 +145,9 @@ public class LoanPresentation {
     }
 
     public static Loan getLoan() {
-        Loan loan;
-        do {
-            System.out.print("Introduce el id del préstamo: ");
-            String id = input.next();
-            GetLoanUseCase getLoanUseCase = new GetLoanUseCase(
-                    new LoanDataRepository(new LoanFileLocalDataSource()));
-            loan = getLoanUseCase.execute(id);
-
-            if (loan == null) {
-                System.out.println("El id " + id + " que estás buscando no corresponde" +
-                        "a ningún prestamo dado de alta en el sistema");
-            } else {
-                System.out.println("\n" + loan);
-            }
-        } while (loan == null);
-        return loan;
+        GetLoanUseCase getLoanUseCase = new GetLoanUseCase(
+                new LoanDataRepository(new LoanFileLocalDataSource()));
+        return getLoanUseCase.execute();
     }
 
     public static Loan getCopyLoan() {

@@ -116,20 +116,9 @@ public class UserPresentation {
     }
 
     public static User getUser() {
-        User user;
-        do {
-            System.out.print("Introduce el id del usuario: ");
-            String id = input.next();
-            GetUserUseCase getUserUseCase = new GetUserUseCase(
-                    new UserDataRepository(new UserFileLocalDataSource()));
-            user = getUserUseCase.execute(id);
-            if(user == null){
-                System.out.println("El id " + id + " del usuario no corresponde a ningún usuario");
-            }else{
-                System.out.println("\n" + user);
-            }
-
-        }while (user==null);
+        GetUserUseCase getUserUseCase = new GetUserUseCase(
+                new UserDataRepository(new UserFileLocalDataSource()));
+        User user = getUserUseCase.execute();
         return user;
     }
 }

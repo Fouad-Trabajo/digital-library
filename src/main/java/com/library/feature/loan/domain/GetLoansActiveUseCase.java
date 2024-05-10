@@ -7,6 +7,10 @@ public class GetLoansActiveUseCase {
 
     private LoanRepository loanRepository;
 
+    public GetLoansActiveUseCase(LoanRepository loanRepository) {
+        this.loanRepository = loanRepository;
+    }
+
     public List<Loan> execute() {
         List<Loan> loans = loanRepository.getLoans();
         List<Loan> loansActive = new ArrayList<>();

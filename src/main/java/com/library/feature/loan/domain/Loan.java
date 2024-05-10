@@ -10,11 +10,11 @@ public class Loan {
     public User user;
     public DigitalBook digitalBook;
 
-    public Loan(String id, String loanDate, User user,
+    public Loan(String id, String loanDate, String returnDate, User user,
                 DigitalBook digitalBook) {
         this.id = id;
         this.loanDate = loanDate;
-        this.returnDate = null;
+        this.returnDate = returnDate;
         this.user = user;
         this.digitalBook = digitalBook;
     }

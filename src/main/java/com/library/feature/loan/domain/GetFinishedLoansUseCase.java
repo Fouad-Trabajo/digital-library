@@ -7,6 +7,10 @@ public class GetFinishedLoansUseCase {
 
     private LoanRepository loanRepository;
 
+    public GetFinishedLoansUseCase(LoanRepository loanRepository) {
+        this.loanRepository = loanRepository;
+    }
+
     public List<Loan> execute() {
         List<Loan> loans = loanRepository.getLoans();
         List<Loan> loansFinished = new ArrayList<>();

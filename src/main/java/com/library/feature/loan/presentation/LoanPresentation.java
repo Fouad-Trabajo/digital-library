@@ -83,13 +83,12 @@ public class LoanPresentation {
         String id = input.next();
         System.out.print("Introduce la fecha del préstamo (cuando se formalizó el prestamo): ");
         String loanDate = input.next();
-
         /** Introduce id del usuario */
         User user = UserPresentation.getUser();
         /** Introduce id del libro digital */
         DigitalBook digitalBook = DigitalBookPresentation.getDigitalBook();
 
-        Loan loan = new Loan(id, loanDate, user, digitalBook);
+        Loan loan = new Loan(id, loanDate, null, user, digitalBook);
         CreateLoanUseCase createLoanUseCase = new CreateLoanUseCase(
                 new LoanDataRepository(new LoanFileLocalDataSource()));
         createLoanUseCase.execute(loan);
@@ -114,7 +113,8 @@ public class LoanPresentation {
     }
 
     public static void getLoansActive() {
-        GetLoansActiveUseCase getLoansActiveUseCase = new GetLoansActiveUseCase();
+        GetLoansActiveUseCase getLoansActiveUseCase = new GetLoansActiveUseCase(
+                new LoanDataRepository(new LoanFileLocalDataSource()));
 
         List<Loan> loansActive = getLoansActiveUseCase.execute();
         for (Loan loan : loansActive) {
@@ -123,7 +123,8 @@ public class LoanPresentation {
     }
 
     public static void getFinishedLoans() {
-        GetFinishedLoansUseCase getFinishedLoansUseCase = new GetFinishedLoansUseCase();
+        GetFinishedLoansUseCase getFinishedLoansUseCase = new GetFinishedLoansUseCase(
+                new LoanDataRepository(new LoanFileLocalDataSource()));
 
         List<Loan> loansFinished = getFinishedLoansUseCase.execute();
         for (Loan loan : loansFinished) {
@@ -134,14 +135,13 @@ public class LoanPresentation {
     public static void updatePrestamo() {
         Loan loan = getLoan();
 
-        Loan loanCopy = getLoan();
         System.out.print("Modifica la fecha de devolución: ");
         String returnDate = input.next();
-
+        Loan loanUpdate = new Loan(loan.id, loan.loanDate, returnDate, loan.user, loan.digitalBook);
 
         UpdateLoanUseCase updateLoanUseCase = new UpdateLoanUseCase(
                 new LoanDataRepository(new LoanFileLocalDataSource()));
-        updateLoanUseCase.execute(loanCopy);
+        updateLoanUseCase.execute(loanUpdate);
     }
 
     public static Loan getLoan() {

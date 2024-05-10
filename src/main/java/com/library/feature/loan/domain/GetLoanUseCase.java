@@ -18,7 +18,7 @@ public class GetLoanUseCase {
         Loan loan;
         do {
             System.out.print("Introduce el id del préstamo: ");
-            String id = input.next();
+            String id = input.nextLine();
             loan = loanRepository.getLoan(id);
             if (loan == null) {
                 System.out.println("El id " + id + " que estás buscando no corresponde" +

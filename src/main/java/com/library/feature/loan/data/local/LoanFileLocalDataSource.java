@@ -28,7 +28,7 @@ public class LoanFileLocalDataSource implements LoanLocalDataSource {
         List<Loan> models = findAll();
         for (Loan existingModel : models) {
             if (model.id.equals(existingModel.id)) {
-                System.err.println("Error, ya existe un préstamo con el ID " + model.id);
+                System.err.println("\nError, ya existe un préstamo con el ID " + model.id);
                 return;
             }
         }

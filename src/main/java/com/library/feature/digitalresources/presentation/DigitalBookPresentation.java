@@ -61,6 +61,7 @@ public class DigitalBookPresentation {
     }
 
     public static void createDigitalBook() {
+        input.nextLine(); //Consumir línea pendiente
         System.out.print("Introduce el id del libro: ");
         String id = input.nextLine();
         System.out.print("Nombre del autor del libro: ");
@@ -93,6 +94,7 @@ public class DigitalBookPresentation {
         DigitalBook digitalBook = getDigitalBook();
         UpdateDigitalBookUseCase updateDigitalBookUseCase = new UpdateDigitalBookUseCase(
                 new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
+        input.nextLine(); //Consumir línea pendiente
         System.out.println("Cambia los datos que quieras");
         System.out.print("Nombre del autor del libro: ");
         String author = input.nextLine();

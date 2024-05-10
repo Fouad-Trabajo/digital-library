@@ -78,7 +78,8 @@ public class LoanPresentation {
 
 
     public static void createLoan() {
-        System.out.println("Introduce los datos del préstamo que quires dar de alta");
+        input.nextLine(); //Consumir línea pendiente
+        System.out.println("Introduce los datos del préstamo que quieres dar de alta");
         System.out.print("Introduce el id: ");
         String id = input.nextLine();
         System.out.print("Introduce la fecha del préstamo (cuando se formalizó el prestamo): ");
@@ -134,7 +135,7 @@ public class LoanPresentation {
 
     public static void updatePrestamo() {
         Loan loan = getLoan();
-
+        input.nextLine(); //Consumir línea pendiente
         System.out.print("Modifica la fecha de devolución: ");
         String returnDate = input.nextLine();
         Loan loanUpdate = new Loan(loan.id, loan.loanDate, returnDate, loan.user, loan.digitalBook);
@@ -149,9 +150,4 @@ public class LoanPresentation {
                 new LoanDataRepository(new LoanFileLocalDataSource()));
         return getLoanUseCase.execute();
     }
-
-    public static Loan getCopyLoan() {
-        return null;
-    }
-
 }

@@ -17,7 +17,7 @@ public class GetDigitalBookUseCase {
         Scanner input = new Scanner(System.in);
         DigitalBook digitalBook;
         do {
-            System.out.print("Introduce el id del libro que quieres ver: ");
+            System.out.print("Introduce el id del libro digital: ");
             String id = input.nextLine();
             digitalBook = digitalBookRepository.getDigitalBook(id);
             if (digitalBook == null) {

@@ -61,18 +61,19 @@ public class DigitalBookPresentation {
     }
 
     public static void createDigitalBook() {
+        input.nextLine(); //Consumir línea pendiente
         System.out.print("Introduce el id del libro: ");
-        String id = input.next();
+        String id = input.nextLine();
         System.out.print("Nombre del autor del libro: ");
-        String author = input.next();
+        String author = input.nextLine();
         System.out.print("Nº páginas del libro : ");
-        String numberPages = input.next();
+        String numberPages = input.nextLine();
         System.out.print("Género del libro: ");
-        String genre = input.next();
+        String genre = input.nextLine();
         System.out.print("Editorial del libro: ");
-        String editorial = input.next();
+        String editorial = input.nextLine();
         System.out.print("Descripción del libro: ");
-        String description = input.next();
+        String description = input.nextLine();
         DigitalBook digitalBook = new DigitalBook(id, author, numberPages, genre,
                 editorial, description);
         CreateDigitalBookUseCase createDigitalBookUseCase = new CreateDigitalBookUseCase(
@@ -82,7 +83,7 @@ public class DigitalBookPresentation {
 
     public static void deleteDigitalBook() {
         System.out.print("Introduce el id del libro que quieres dar de baja: ");
-        String id = input.next();
+        String id = input.nextLine();
         DeleteDigitalBookUseCase deleteDigitalBookUseCase = new DeleteDigitalBookUseCase(
                 new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
         deleteDigitalBookUseCase.execute(id);
@@ -90,24 +91,24 @@ public class DigitalBookPresentation {
     }
 
     public static void updateDigitalBook() {
-        System.out.print("Introduce el id del libro que quieres actualizar: ");
-        String id = input.next();
+        DigitalBook digitalBook = getDigitalBook();
         UpdateDigitalBookUseCase updateDigitalBookUseCase = new UpdateDigitalBookUseCase(
                 new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
+        input.nextLine(); //Consumir línea pendiente
         System.out.println("Cambia los datos que quieras");
         System.out.print("Nombre del autor del libro: ");
-        String author = input.next();
+        String author = input.nextLine();
         System.out.print("Nº páginas del libro : ");
-        String numberPages = input.next();
+        String numberPages = input.nextLine();
         System.out.print("Género del libro: ");
-        String genre = input.next();
+        String genre = input.nextLine();
         System.out.print("Editorial del libro: ");
-        String editorial = input.next();
+        String editorial = input.nextLine();
         System.out.print("Descripción del libro: ");
-        String description = input.next();
-        DigitalBook digitalBook = new DigitalBook(id, author, numberPages, genre,
+        String description = input.nextLine();
+        DigitalBook digitalBookUpdate = new DigitalBook(digitalBook.id, author, numberPages, genre,
                 editorial, description);
-        updateDigitalBookUseCase.execute(digitalBook);
+        updateDigitalBookUseCase.execute(digitalBookUpdate);
     }
 
     public static void getDigitalBooks() {
@@ -118,12 +119,10 @@ public class DigitalBookPresentation {
             System.out.println(digitalBook);
     }
 
-    public static void getDigitalBook() {
-        System.out.print("Introduce el id del libro que quieres ver: ");
-        String id = input.next();
-        GetDigitalBookUseCase getDigitalBookUseCase = new GetDigitalBookUseCase(
-                new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
-        DigitalBook digitalBook = getDigitalBookUseCase.execute(id);
-        System.out.println("\n" + digitalBook);
+    public static DigitalBook getDigitalBook() {
+            GetDigitalBookUseCase getDigitalBookUseCase = new GetDigitalBookUseCase(
+                    new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
+            return  getDigitalBookUseCase.execute();
+
     }
 }

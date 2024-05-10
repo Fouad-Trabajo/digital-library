@@ -27,8 +27,8 @@ public class LoanFileLocalDataSource implements LoanLocalDataSource {
     public void save(Loan model) {
         List<Loan> models = findAll();
         for (Loan existingModel : models) {
-            if (existingModel.id.equals(model.id)) {
-                System.err.println("Error, ya existe un préstamo con el ID " + model.id);
+            if (model.id.equals(existingModel.id)) {
+                System.err.println("\nError, ya existe un préstamo con el ID " + model.id);
                 return;
             }
         }
@@ -117,11 +117,4 @@ public class LoanFileLocalDataSource implements LoanLocalDataSource {
         saveList(models);
     }
 
-    @Override
-    public void update2(Loan updateModel) {
-        delete(updateModel.id);
-        save(updateModel);
-    }
-    /** Este método no mantiene el orden de
-     * entrada de los objetos en el fichero */
 }

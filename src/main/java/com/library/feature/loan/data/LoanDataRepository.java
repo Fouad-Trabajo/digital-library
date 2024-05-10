@@ -39,4 +39,5 @@ public class LoanDataRepository implements LoanRepository {
     public Loan getLoan(String id) {
         return loanLocalDataSource.findById(id);
     }
+
 }

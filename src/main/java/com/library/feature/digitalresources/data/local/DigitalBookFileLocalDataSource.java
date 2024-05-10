@@ -26,8 +26,8 @@ public class DigitalBookFileLocalDataSource implements DigitalBookLocalDataSourc
     @Override
     public void save(DigitalBook model) {
         List<DigitalBook> models = findAll();
-        for (DigitalBook existingUser : models) {
-            if (existingUser.id.equals(model.id)) {
+        for (DigitalBook existingBook : models) {
+            if (model.id.equals(existingBook.id)) {
                 System.err.println("Error, ya existe un libro digital con el ID " + model.id);
                 return;
             }

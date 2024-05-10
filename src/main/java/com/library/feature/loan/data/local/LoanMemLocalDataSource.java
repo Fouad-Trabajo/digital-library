@@ -4,6 +4,7 @@ package com.library.feature.loan.data.local;
 import com.library.feature.loan.domain.Loan;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -65,11 +66,5 @@ public class LoanMemLocalDataSource implements LoanLocalDataSource {
             System.out.println("No se puede actualizar. El libro digital con el ID " + model.id + " no existe.");
         }
     }
-
-    @Override
-    public void update2(Loan updateModel) {
-
-    }
-
 
 }

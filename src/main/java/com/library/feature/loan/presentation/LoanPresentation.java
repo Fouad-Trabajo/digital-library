@@ -1,14 +1,10 @@
 package com.library.feature.loan.presentation;
 
-import com.library.feature.digitalresources.data.local.DigitalBookFileLocalDataSource;
-import com.library.feature.digitalresources.data.local.DigitalBookLocalDataSource;
 import com.library.feature.digitalresources.domain.digitalbook.DigitalBook;
 import com.library.feature.digitalresources.presentation.DigitalBookPresentation;
 import com.library.feature.loan.data.LoanDataRepository;
 import com.library.feature.loan.data.local.LoanFileLocalDataSource;
 import com.library.feature.loan.domain.*;
-import com.library.feature.user.data.local.UserFileLocalDataSource;
-import com.library.feature.user.data.local.UserLocalDataSource;
 import com.library.feature.user.domain.User;
 import com.library.feature.user.presentation.UserPresentation;
 
@@ -30,7 +26,7 @@ public class LoanPresentation {
             System.out.println("3. Listado de préstamos");
             System.out.println("4. Mostrar préstamos activos");
             System.out.println("5. Mostrar préstamos finalizados");
-            System.out.println("6. Actualizar préstamo");
+            System.out.println("6. Actualizar fecha devolución");
             System.out.println("7. Mostrar 1 préstamo mediante id");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
@@ -62,8 +58,8 @@ public class LoanPresentation {
                     getFinishedLoans();
                     break;
                 case 6:
-                    System.out.println("Has seleccionado actualizar un préstamo");
-                    updatePrestamo();
+                    System.out.println("Has seleccionado actualizar la fecha de devolución del préstamo");
+                    updateReturnDatePrestamo();
                     break;
                 case 7:
                     System.out.println("Has seleccionado mostrar 1 préstamo");
@@ -104,13 +100,14 @@ public class LoanPresentation {
         System.out.println("El préstamo con id " + id + " se ha borrado con éxito");
     }
 
-    public static void getLoans() {
+    public static List<Loan> getLoans() {
         GetLoansUseCase getLoansUseCase = new GetLoansUseCase(new LoanDataRepository(
                 new LoanFileLocalDataSource()));
         List<Loan> loanList = getLoansUseCase.execute();
         for (Loan loan : loanList) {
             System.out.println("\n" + loan);
         }
+        return loanList;
     }
 
     public static void getLoansActive() {
@@ -133,16 +130,17 @@ public class LoanPresentation {
         }
     }
 
-    public static void updatePrestamo() {
+    public static void updateReturnDatePrestamo() {
         Loan loan = getLoan();
         input.nextLine(); //Consumir línea pendiente
         System.out.print("Modifica la fecha de devolución: ");
         String returnDate = input.nextLine();
-        Loan loanUpdate = new Loan(loan.id, loan.loanDate, returnDate, loan.user, loan.digitalBook);
+        Loan loanUpdate = new Loan(loan.id, loan.loanDate, returnDate,
+                loan.user, loan.digitalBook);
 
-        UpdateLoanUseCase updateLoanUseCase = new UpdateLoanUseCase(
+        UpdateReturnDateLoanUseCase updateReturnDateLoanUseCase = new UpdateReturnDateLoanUseCase(
                 new LoanDataRepository(new LoanFileLocalDataSource()));
-        updateLoanUseCase.execute(loanUpdate);
+        updateReturnDateLoanUseCase.execute(loanUpdate);
     }
 
     public static Loan getLoan() {

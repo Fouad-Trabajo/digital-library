@@ -16,7 +16,5 @@ public interface LoanLocalDataSource {
 
     void delete(String modelId);
 
-    void updateLoan(Loan updateModel);
-
-
+    void updateReturnDateLoan(Loan updateModel);
 }

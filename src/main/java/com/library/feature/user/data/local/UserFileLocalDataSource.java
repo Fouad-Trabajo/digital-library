@@ -100,20 +100,19 @@ public class UserFileLocalDataSource implements UserLocalDataSource {
     }
 
     @Override
-    public void updateUser(User updatedUser) {
+    public void updateUser(User updatedModel) {
         // Obtén todos los usuarios
-        List<User> users = findAll();
+        List<User> models = findAll();
 
         // Busca el usuario que deseas actualizar y reemplázalo
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).id.equals(updatedUser.id)) {
-                users.set(i, updatedUser);
+        for (int i = 0; i < models.size(); i++) {
+            if (models.get(i).id.equals(updatedModel.id)) {
+                models.set(i, updatedModel);
                 break;
             }
         }
 
         // Guarda la lista actualizada de usuarios en el fichero
-        saveList(users);
+        saveList(models);
     }
-
 }

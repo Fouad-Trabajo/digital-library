@@ -102,8 +102,8 @@ public class UserPresentation {
         System.out.print("Introduce la fecha de inscripción del usuario: ");
         String dateInscription = input.nextLine();
 
-        User userUpdate = new User(user.id, name, surname, dni, dateInscription);
-        updateUserUseCase.execute(userUpdate);
+        User updateUser = new User(user.id, name, surname, dni, dateInscription);
+        updateUserUseCase.execute(updateUser);
     }
 
     public static void getUsers() {

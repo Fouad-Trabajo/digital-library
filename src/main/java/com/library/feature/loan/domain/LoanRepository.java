@@ -9,8 +9,7 @@ public interface LoanRepository {
 
     List<Loan> getLoans();
 
-    void updateLoan(Loan loan);
+    void updateReturnDateLoan(Loan loan);
 
     Loan getLoan(String id);
-    
 }

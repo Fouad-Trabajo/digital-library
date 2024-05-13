@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.library.feature.loan.domain.Loan;
 
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+
+
 
 public class LoanFileLocalDataSource implements LoanLocalDataSource {
     private String nameFile = "loan.txt";
@@ -101,11 +104,11 @@ public class LoanFileLocalDataSource implements LoanLocalDataSource {
     }
 
     @Override
-    public void updateLoan(Loan updateModel) {
-        // Obtén todos los modelos
+    public void updateReturnDateLoan(Loan updateModel) {
+        // Obtén todos los usuarios
         List<Loan> models = findAll();
 
-        // Busca el modelo que deseas actualizar y reemplázalo
+        // Busca el usuario que deseas actualizar y reemplázalo
         for (int i = 0; i < models.size(); i++) {
             if (models.get(i).id.equals(updateModel.id)) {
                 models.set(i, updateModel);
@@ -113,8 +116,7 @@ public class LoanFileLocalDataSource implements LoanLocalDataSource {
             }
         }
 
-        // Guarda la lista actualizada de modelos en el fichero
+        // Guarda la lista actualizada de usuarios en el fichero
         saveList(models);
     }
-
 }

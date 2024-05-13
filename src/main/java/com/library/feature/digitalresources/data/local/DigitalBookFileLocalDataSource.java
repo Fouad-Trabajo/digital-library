@@ -101,19 +101,19 @@ public class DigitalBookFileLocalDataSource implements DigitalBookLocalDataSourc
     }
 
     @Override
-    public void updateDigitalBook(DigitalBook updateBook) {
+    public void updateDigitalBook(DigitalBook updateModel) {
         // Obtén todos los libros digitales
-        List<DigitalBook> books = findAll();
+        List<DigitalBook> models = findAll();
 
         // Busca el libro que deseas actualizar y reemplázalo
-        for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).id.equals(updateBook.id)) {
-                books.set(i, updateBook);
+        for (int i = 0; i < models.size(); i++) {
+            if (models.get(i).id.equals(updateModel.id)) {
+                models.set(i, updateModel);
                 break;
             }
         }
 
         // Guarda la lista actualizada de libros en el fichero
-        saveList(books);
+        saveList(models);
     }
 }

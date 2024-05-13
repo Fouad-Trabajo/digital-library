@@ -1,14 +1,14 @@
 package com.library.feature.loan.domain;
 
-public class UpdateLoanUseCase {
+public class UpdateReturnDateLoanUseCase {
 
     private LoanRepository loanRepository;
 
-    public UpdateLoanUseCase(LoanRepository loanRepository) {
+    public UpdateReturnDateLoanUseCase(LoanRepository loanRepository) {
         this.loanRepository = loanRepository;
     }
 
     public void execute(Loan loan) {
-        loanRepository.updateLoan(loan);
+        loanRepository.updateReturnDateLoan(loan);
     }
 }

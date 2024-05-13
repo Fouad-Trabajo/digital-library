@@ -4,7 +4,8 @@ package com.library.feature.loan.data.local;
 import com.library.feature.loan.domain.Loan;
 
 
-import java.util.ArrayList;
+
+
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -54,7 +55,7 @@ public class LoanMemLocalDataSource implements LoanLocalDataSource {
     }
 
     @Override
-    public void updateLoan(Loan model) {
+    public void updateReturnDateLoan(Loan model) {
         // Comprueba si el libro digital existe en el almacén de datos
         Loan existingModel = dataStore.get(model.id);
 
@@ -66,5 +67,4 @@ public class LoanMemLocalDataSource implements LoanLocalDataSource {
             System.out.println("No se puede actualizar. El libro digital con el ID " + model.id + " no existe.");
         }
     }
-
 }

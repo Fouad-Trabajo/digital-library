@@ -32,7 +32,7 @@ class CreateUserUseCaseTest {
     @Test
     public void cuandoCreoUnUsuarioCorrectamenteYObtengoElModeloCorrecto(){
         //Given
-        User user = new User("838383838L","Gabriel","Polo","Pololo39@gmail.com","10/05/2004");
+        User user = new User("1","Gabriel","Polo","12360138M","10/05/2014");
 
 
         //When

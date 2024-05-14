@@ -11,6 +11,7 @@ import com.library.feature.user.presentation.UserPresentation;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -81,9 +82,13 @@ public class LoanPresentation {
         System.out.println("Introduce los datos del préstamo");
         User user = UserPresentation.getUser();
         DigitalBook digitalBook = DigitalBookPresentation.getDigitalBook();
+
         String loanDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
+        String estimatedReturnDate = LocalDateTime.now().plusDays(14).format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
         String id = user.name + "-" + loanDate + "-" + digitalBook.id;
-        Loan loan = new Loan(id, loanDate, null, "activo", user, digitalBook);
+
+        Loan loan = new Loan(id, loanDate, null, "activo",
+                estimatedReturnDate, user, digitalBook);
         SaveLoanUseCase saveLoanUseCase = new SaveLoanUseCase(
                 new LoanDataRepository(new LoanFileLocalDataSource()));
         saveLoanUseCase.execute(loan);

@@ -6,24 +6,25 @@ import com.library.feature.user.domain.User;
 
 public class Loan {
 
-    public final String id, loanDate, returnDate, loanStatus;
+    public final String id, loanDate, returnDate, loanStatus, estimatedReturnDate;
 
     public User user;
     public DigitalBook digitalBook;
 
     public Loan(String id, String loanDate, String returnDate, String loanStatus,
-                User user, DigitalBook digitalBook) {
+                String estimatedReturnDate, User user, DigitalBook digitalBook) {
         this.id = id;
         this.loanDate = loanDate;
         this.returnDate = returnDate;
         this.loanStatus = loanStatus;
+        this.estimatedReturnDate = estimatedReturnDate;
         this.user = user;
         this.digitalBook = digitalBook;
     }
 
     public Loan updateReturnDate_LoanStatus(String returnDate, String loanStatus) {
         return new Loan(this.id, this.loanDate, returnDate, loanStatus,
-                this.user, this.digitalBook);
+                this.estimatedReturnDate, this.user, this.digitalBook);
     }
 
 
@@ -34,6 +35,7 @@ public class Loan {
                 ", loanDate='" + loanDate + '\'' +
                 ", returnDate='" + returnDate + '\'' +
                 ", loanStatus=" + loanStatus +
+                ", estimatedReturnDate=" + estimatedReturnDate +
                 ", user=" + user +
                 ", digitalBook=" + digitalBook +
                 '}' + "'\n";

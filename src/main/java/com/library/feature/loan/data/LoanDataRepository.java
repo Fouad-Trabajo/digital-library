@@ -16,7 +16,7 @@ public class LoanDataRepository implements LoanRepository {
     }
 
     @Override
-    public void createLoan(Loan loan) {
+    public void saveLoan(Loan loan) {
         loanLocalDataSource.save(loan);
     }
 
@@ -28,11 +28,6 @@ public class LoanDataRepository implements LoanRepository {
     @Override
     public List<Loan> getLoans() {
         return loanLocalDataSource.findAll();
-    }
-
-    @Override
-    public void updateReturnDateLoan(Loan loan) {
-        loanLocalDataSource.updateReturnDateLoan(loan);
     }
 
     @Override

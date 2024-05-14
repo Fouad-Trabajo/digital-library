@@ -15,6 +15,4 @@ public interface LoanLocalDataSource {
     List<Loan> findAll();
 
     void delete(String modelId);
-
-    void updateReturnDateLoan(Loan updateModel);
 }

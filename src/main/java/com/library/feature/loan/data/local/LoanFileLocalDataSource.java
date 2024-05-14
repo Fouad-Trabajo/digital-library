@@ -29,12 +29,6 @@ public class LoanFileLocalDataSource implements LoanLocalDataSource {
     @Override
     public void save(Loan model) {
         List<Loan> models = findAll();
-        for (Loan existingModel : models) {
-            if (model.id.equals(existingModel.id)) {
-                System.err.println("\nError, ya existe un préstamo con el ID " + model.id);
-                return;
-            }
-        }
         models.add(model);
         saveToFile(models);
     }
@@ -101,22 +95,5 @@ public class LoanFileLocalDataSource implements LoanLocalDataSource {
             }
         }
         saveList(newList);
-    }
-
-    @Override
-    public void updateReturnDateLoan(Loan updateModel) {
-        // Obtén todos los usuarios
-        List<Loan> models = findAll();
-
-        // Busca el usuario que deseas actualizar y reemplázalo
-        for (int i = 0; i < models.size(); i++) {
-            if (models.get(i).id.equals(updateModel.id)) {
-                models.set(i, updateModel);
-                break;
-            }
-        }
-
-        // Guarda la lista actualizada de usuarios en el fichero
-        saveList(models);
     }
 }

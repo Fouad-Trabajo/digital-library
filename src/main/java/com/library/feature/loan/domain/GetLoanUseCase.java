@@ -1,7 +1,6 @@
 package com.library.feature.loan.domain;
 
-import com.library.feature.loan.data.LoanDataRepository;
-import com.library.feature.loan.data.local.LoanFileLocalDataSource;
+
 
 import java.util.Scanner;
 

@@ -53,18 +53,4 @@ public class LoanMemLocalDataSource implements LoanLocalDataSource {
     public void delete(String modelId) {
         dataStore.remove(modelId);
     }
-
-    @Override
-    public void updateReturnDateLoan(Loan model) {
-        // Comprueba si el libro digital existe en el almacén de datos
-        Loan existingModel = dataStore.get(model.id);
-
-        if (existingModel != null) {
-            // Si el libro existe, actualiza el libro en el almacén de datos
-            dataStore.put(model.id, model);
-        } else {
-            // Si el libro no existe, imprime un mensaje de error
-            System.out.println("No se puede actualizar. El libro digital con el ID " + model.id + " no existe.");
-        }
-    }
 }

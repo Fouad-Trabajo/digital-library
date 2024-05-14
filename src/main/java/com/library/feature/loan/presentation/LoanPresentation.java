@@ -8,6 +8,12 @@ import com.library.feature.loan.domain.*;
 import com.library.feature.user.domain.User;
 import com.library.feature.user.presentation.UserPresentation;
 
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,7 +32,7 @@ public class LoanPresentation {
             System.out.println("3. Listado de préstamos");
             System.out.println("4. Mostrar préstamos activos");
             System.out.println("5. Mostrar préstamos finalizados");
-            System.out.println("6. Actualizar fecha devolución");
+            System.out.println("6. Actualizar fecha devolución - Devolver recurso");
             System.out.println("7. Mostrar 1 préstamo mediante id");
             System.out.println("**************************");
             System.out.print("Elige una opción: ");
@@ -58,7 +64,7 @@ public class LoanPresentation {
                     getFinishedLoans();
                     break;
                 case 6:
-                    System.out.println("Has seleccionado actualizar la fecha de devolución del préstamo");
+                    System.out.println("Has seleccionado actualizar la fecha de devolución (devolver recurso)");
                     updateReturnDatePrestamo();
                     break;
                 case 7:
@@ -72,42 +78,39 @@ public class LoanPresentation {
         } while (opcion != 0);
     }
 
-
     public static void createLoan() {
-        input.nextLine(); //Consumir línea pendiente
-        System.out.println("Introduce los datos del préstamo que quieres dar de alta");
-        System.out.print("Introduce el id: ");
-        String id = input.nextLine();
-        System.out.print("Introduce la fecha del préstamo (cuando se formalizó el prestamo): ");
-        String loanDate = input.nextLine();
-        /** Introduce id del usuario */
+        System.out.println("Introduce los datos del préstamo");
         User user = UserPresentation.getUser();
-        /** Introduce id del libro digital */
         DigitalBook digitalBook = DigitalBookPresentation.getDigitalBook();
 
-        Loan loan = new Loan(id, loanDate, null, user, digitalBook);
-        CreateLoanUseCase createLoanUseCase = new CreateLoanUseCase(
+        String loanDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
+        String estimatedReturnDate = LocalDateTime.now().plusDays(14).format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+        String id = user.name + "-" + loanDate + "-" + digitalBook.id;
+
+        Loan loan = new Loan(id, loanDate, null, "activo",
+                estimatedReturnDate, user, digitalBook);
+        SaveLoanUseCase saveLoanUseCase = new SaveLoanUseCase(
                 new LoanDataRepository(new LoanFileLocalDataSource()));
-        createLoanUseCase.execute(loan);
+        saveLoanUseCase.execute(loan);
     }
 
     public static void deleteLoan() {
+        input.nextLine();
         System.out.print("Introduce el id del préstamo que desea eliminar: ");
-        String id = input.next();
+        String id = input.nextLine();
         DeleteLoanUseCase deleteLoanUseCase = new DeleteLoanUseCase(new LoanDataRepository(
                 new LoanFileLocalDataSource()));
         deleteLoanUseCase.execute(id);
         System.out.println("El préstamo con id " + id + " se ha borrado con éxito");
     }
 
-    public static List<Loan> getLoans() {
+    public static void getLoans() {
         GetLoansUseCase getLoansUseCase = new GetLoansUseCase(new LoanDataRepository(
                 new LoanFileLocalDataSource()));
         List<Loan> loanList = getLoansUseCase.execute();
         for (Loan loan : loanList) {
             System.out.println("\n" + loan);
         }
-        return loanList;
     }
 
     public static void getLoansActive() {
@@ -131,16 +134,15 @@ public class LoanPresentation {
     }
 
     public static void updateReturnDatePrestamo() {
-        Loan loan = getLoan();
-        input.nextLine(); //Consumir línea pendiente
-        System.out.print("Modifica la fecha de devolución: ");
-        String returnDate = input.nextLine();
-        Loan loanUpdate = new Loan(loan.id, loan.loanDate, returnDate,
-                loan.user, loan.digitalBook);
+        Loan updateLoan = getLoan();
+        String returnDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
+        String loanStatus = "finalizado";
+        updateLoan.updateReturnDate_LoanStatus(returnDate, loanStatus);
 
-        UpdateReturnDateLoanUseCase updateReturnDateLoanUseCase = new UpdateReturnDateLoanUseCase(
+        SaveLoanUseCase saveLoanUseCase = new SaveLoanUseCase(
                 new LoanDataRepository(new LoanFileLocalDataSource()));
-        updateReturnDateLoanUseCase.execute(loanUpdate);
+        saveLoanUseCase.execute(updateLoan);
+        System.out.println("Libro devuelto");
     }
 
     public static Loan getLoan() {

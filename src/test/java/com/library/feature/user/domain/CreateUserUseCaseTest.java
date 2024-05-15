@@ -14,14 +14,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class CreateUserUseCaseTest {
 
-    private CreateUserUseCase createUserUseCase;
     @Mock
-    private UserDataRepository userDataRepository;
+    UserRepository userRepository;
+    CreateUserUseCase createUserUseCase;
+
 
 
     @BeforeEach
     void setUp() {
-        createUserUseCase = new CreateUserUseCase(userDataRepository);
+        createUserUseCase = new CreateUserUseCase(userRepository);
     }
 
     @AfterEach
@@ -30,16 +31,16 @@ class CreateUserUseCaseTest {
     }
 
     @Test
-    public void cuandoCreoUnUsuarioCorrectamenteYObtengoElModeloCorrecto(){
+    public void obtengoUnUsuarioMedianteId() {
         //Given
-        User user = new User("1","Gabriel","Polo","12360138M","10/05/2014");
+        User user = new User("1", "Gabriel", "Polo", "12360138M", "10/05/2014");
 
 
         //When
         createUserUseCase.execute(user);
 
         //Then
-        Mockito.verify(userDataRepository,Mockito.times(1)).createUser(user);
+        Mockito.verify(userRepository, Mockito.times(1)).createUser(user);
 
 
     }

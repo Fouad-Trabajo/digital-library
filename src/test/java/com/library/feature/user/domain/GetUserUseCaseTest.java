@@ -31,17 +31,16 @@ public class GetUserUseCaseTest {
         //Given: Declaración de variables
         User userExpected = new User("1", "Federico", "García", "45610349E", "18/06/2021");
         Mockito.when(userRepository.getUser("1")).thenReturn(userExpected);
-        //String id = userExpected.id;
 
         //When
-        User userRecived = getUserUseCase.execute("1");
+        User userReceived = getUserUseCase.execute("1");
 
         //Then
-        Assertions.assertEquals(userRecived.id, "1");
-        Assertions.assertEquals(userRecived.name, "Federico");
-        Assertions.assertEquals(userRecived.surname, "García");
-        Assertions.assertEquals(userRecived.dni, "45610349E");
-        Assertions.assertEquals(userRecived.dateInscription, "18/06/2021");
+        Assertions.assertEquals(userReceived.id, "1");
+        Assertions.assertEquals(userReceived.name, "Federico");
+        Assertions.assertEquals(userReceived.surname, "García");
+        Assertions.assertEquals(userReceived.dni, "45610349E");
+        Assertions.assertEquals(userReceived.dateInscription, "18/06/2021");
 
     }
 

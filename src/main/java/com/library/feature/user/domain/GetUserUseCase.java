@@ -13,19 +13,9 @@ public class GetUserUseCase {
         this.userRepository = userRepository;
     }
 
-    public User execute() {
-        Scanner input = new Scanner(System.in);
-        User user;
-        do {
-            System.out.print("Introduce el id del usuario: ");
-            String id = input.nextLine();
-            user = userRepository.getUser(id);
-            if (user == null) {
-                System.out.println("El id " + id + " del usuario no corresponde a ningún usuario");
-            } else {
-                System.out.println("\n" + user);
-            }
-        } while (user == null);
+    public User execute(String id) {
+        User user = userRepository.getUser(id);
+        System.out.println("\n" + user);
         return user;
     }
 }

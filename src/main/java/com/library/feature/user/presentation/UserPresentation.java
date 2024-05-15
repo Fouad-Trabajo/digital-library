@@ -116,8 +116,10 @@ public class UserPresentation {
     }
 
     public static User getUser() {
+        System.out.print("Introduce el id del usuario: ");
+        String id = input.nextLine();
         GetUserUseCase getUserUseCase = new GetUserUseCase(
                 new UserDataRepository(new UserFileLocalDataSource()));
-        return getUserUseCase.execute(); // El método execute devuelve un User
+        return getUserUseCase.execute(id); // El método execute devuelve un User
     }
 }

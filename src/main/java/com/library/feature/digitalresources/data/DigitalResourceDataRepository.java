@@ -38,7 +38,7 @@ public class DigitalResourceDataRepository implements DigitalResourceRepository 
 
     @Override
     public DigitalResources getDigitalResource(String id) {
-        return null;
+        return digitalResourceLocalDataSource.findById(id);
     }
 
 

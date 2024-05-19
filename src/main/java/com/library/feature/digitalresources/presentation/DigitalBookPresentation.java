@@ -6,6 +6,7 @@ import com.library.feature.digitalresources.domain.*;
 import com.library.feature.digitalresources.domain.digitalbook.data.DigitalBookDataRepository;
 import com.library.feature.digitalresources.domain.digitalbook.data.local.DigitalBookFileLocalDataSource;
 import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
+import com.library.feature.digitalresources.domain.digitalbook.domain.GetDigitalBookUseCase;
 
 
 import java.util.List;
@@ -133,17 +134,28 @@ public class DigitalBookPresentation {
             digitalBook = getDigitalResourceUseCase.execute(id);
             if (digitalBook == null) {
                 System.out.println("El id " + id + " que has introducido no corresponde a ningún libro");
-            } else if (digitalBook instanceof DigitalBook) {
+            } else{
                 System.out.println("\n" + digitalBook);
-                return (DigitalBook) digitalBook;
             }
-
-
         } while (digitalBook == null);
-
-        return null;
-
+        return (DigitalBook) digitalBook;
     }
+    public static DigitalResources getDigitalBook2() {
+        GetDigitalResourceUseCase getDigitalBookUseCase = new GetDigitalResourceUseCase(
+                new DigitalResourceDataRepository(new DigitalResourceFileLocalDataSource()));
 
+        DigitalResources digitalResources;
+        do {
+            System.out.print("Introduce el id del libro digital: ");
+            String id = input.nextLine();
+            digitalResources = getDigitalBookUseCase.execute(id);
+            if (digitalResources == null) {
+                System.out.println("El id " + id + " que has introducido no corresponde a ningún libro");
+            } else{
+                System.out.println("\n" + digitalResources);
+            }
+        } while (digitalResources == null);
+        return  digitalResources;
+    }
 
 }

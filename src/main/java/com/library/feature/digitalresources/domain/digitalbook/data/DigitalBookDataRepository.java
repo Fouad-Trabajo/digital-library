@@ -4,10 +4,12 @@ import com.library.feature.digitalresources.domain.DigitalResourceRepository;
 import com.library.feature.digitalresources.domain.DigitalResources;
 import com.library.feature.digitalresources.domain.digitalbook.data.local.DigitalBookLocalDataSource;
 import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
+import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBookRepository;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DigitalBookDataRepository implements DigitalResourceRepository {
+public class DigitalBookDataRepository implements DigitalResourceRepository, DigitalBookRepository {
 
     private  DigitalBookLocalDataSource digitalBookLocalDataSource;
 
@@ -40,6 +42,11 @@ public class DigitalBookDataRepository implements DigitalResourceRepository {
     }
     @Override
     public DigitalResources getDigitalResource(String id) {
+        return digitalBookLocalDataSource.findById(id);
+    }
+
+    @Override
+    public DigitalBook getDigitalBook(String id) {
         return digitalBookLocalDataSource.findById(id);
     }
 }

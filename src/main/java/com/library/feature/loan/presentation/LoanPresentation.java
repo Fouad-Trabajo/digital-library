@@ -89,6 +89,8 @@ public class LoanPresentation {
         String id = user.name + "-" + loanDate + "-" + digitalBook.id;
 
         Loan loan = new Loan(id, user, digitalBook);
+        System.out.println(loan);
+
         SaveLoanUseCase saveLoanUseCase = new SaveLoanUseCase(new LoanDataRepository(
                 new LoanFileLocalDataSource()));
         saveLoanUseCase.execute(loan);

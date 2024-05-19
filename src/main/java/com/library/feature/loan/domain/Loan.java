@@ -1,6 +1,7 @@
 package com.library.feature.loan.domain;
 
-import com.library.feature.digitalresources.domain.digitalbook.DigitalBook;
+import com.library.feature.digitalresources.domain.DigitalResources;
+import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
 import com.library.feature.user.domain.User;
 
 import java.text.SimpleDateFormat;
@@ -14,28 +15,28 @@ public class Loan {
     public final String id, loanDate, returnDate, loanStatus, estimatedReturnDate;
 
     public User user;
-    public DigitalBook digitalBook;
+    public DigitalResources digitalResources;
 
     //Constructor para crear el objeto Loan
-    public Loan(String id, User user, DigitalBook digitalBook) {
+    public Loan(String id, User user, DigitalResources digitalResources) {
         this.id = id;
         this.loanDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
         this.returnDate = null;
         this.loanStatus = "activo";
         this.estimatedReturnDate = LocalDateTime.now().plusDays(14).format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
         this.user = user;
-        this.digitalBook = digitalBook;
+        this.digitalResources = digitalResources;
     }
 
     //Constructor para actualizar la fecha de devolución
-    public Loan(String id, String loanDate, String estimatedReturnDate, User user, DigitalBook digitalBook) {
+    public Loan(String id, String loanDate, String estimatedReturnDate, User user, DigitalResources digitalResources) {
         this.id = id;
         this.loanDate = loanDate;
         this.returnDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
         this.loanStatus = "finalizado";
         this.estimatedReturnDate = estimatedReturnDate;
         this.user = user;
-        this.digitalBook = digitalBook;
+        this.digitalResources = digitalResources;
     }
 
     @Override
@@ -47,7 +48,7 @@ public class Loan {
                 ", loanStatus=" + loanStatus +
                 ", estimatedReturnDate=" + estimatedReturnDate +
                 ", user=" + user +
-                ", digitalBook=" + digitalBook +
+                ", digitalResources=" + digitalResources +
                 '}' + "'\n";
     }
 }

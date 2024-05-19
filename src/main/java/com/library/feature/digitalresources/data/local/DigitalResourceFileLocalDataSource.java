@@ -2,7 +2,8 @@ package com.library.feature.digitalresources.data.local;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.library.feature.digitalresources.domain.digitalbook.DigitalBook;
+import com.library.feature.digitalresources.domain.DigitalResources;
+
 
 
 import java.io.File;
@@ -15,18 +16,18 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class DigitalBookFileLocalDataSource implements DigitalBookLocalDataSource{
-    private String nameFile = "digitalBook.txt";
+public class DigitalResourceFileLocalDataSource implements DigitalResourceLocalDataSource {
+    private String nameFile = "digitalResources.txt";
 
     private Gson gson = new Gson();
 
-    private final Type typeList = new TypeToken<ArrayList<DigitalBook>>() {
+    private final Type typeList = new TypeToken<ArrayList<DigitalResources>>() {
     }.getType();
 
     @Override
-    public void save(DigitalBook model) {
-        List<DigitalBook> models = findAll();
-        for (DigitalBook existingBook : models) {
+    public void save(DigitalResources model) {
+        List<DigitalResources> models = findAll();
+        for (DigitalResources existingBook : models) {
             if (model.id.equals(existingBook.id)) {
                 System.err.println("Error, ya existe un libro digital con el ID " + model.id);
                 return;
@@ -37,11 +38,11 @@ public class DigitalBookFileLocalDataSource implements DigitalBookLocalDataSourc
     }
 
     @Override
-    public void saveList(List<DigitalBook> models) {
+    public void saveList(List<DigitalResources> models) {
         saveToFile(models);
     }
 
-    private void saveToFile(List<DigitalBook> models) {
+    private void saveToFile(List<DigitalResources> models) {
         try {
             FileWriter myWriter = new FileWriter(nameFile);
             myWriter.write(gson.toJson(models));
@@ -54,9 +55,9 @@ public class DigitalBookFileLocalDataSource implements DigitalBookLocalDataSourc
     }
 
     @Override
-    public DigitalBook findById(String id) {
-        List<DigitalBook> models = findAll();
-        for (DigitalBook model : models) {
+    public DigitalResources findById(String id) {
+        List<DigitalResources> models = findAll();
+        for (DigitalResources model : models) {
             if (Objects.equals(model.id, id)) {
                 return model;
             }
@@ -65,7 +66,7 @@ public class DigitalBookFileLocalDataSource implements DigitalBookLocalDataSourc
     }
 
     @Override
-    public List<DigitalBook> findAll() {
+    public List<DigitalResources> findAll() {
         try {
             File myObj = new File(nameFile);
             if (!myObj.exists()) {
@@ -90,9 +91,9 @@ public class DigitalBookFileLocalDataSource implements DigitalBookLocalDataSourc
 
     @Override
     public void delete(String modelId) {
-        List<DigitalBook> newList = new ArrayList<>();
-        List<DigitalBook> models = findAll();
-        for (DigitalBook model : models) {
+        List<DigitalResources> newList = new ArrayList<>();
+        List<DigitalResources> models = findAll();
+        for (DigitalResources model : models) {
             if (!model.id.equals(modelId)) {
                 newList.add(model);
             }
@@ -101,9 +102,9 @@ public class DigitalBookFileLocalDataSource implements DigitalBookLocalDataSourc
     }
 
     @Override
-    public void updateDigitalBook(DigitalBook updateModel) {
+    public void updateDigitalBook(DigitalResources updateModel) {
         // Obtén todos los libros digitales
-        List<DigitalBook> models = findAll();
+        List<DigitalResources> models = findAll();
 
         // Busca el libro que deseas actualizar y reemplázalo
         for (int i = 0; i < models.size(); i++) {

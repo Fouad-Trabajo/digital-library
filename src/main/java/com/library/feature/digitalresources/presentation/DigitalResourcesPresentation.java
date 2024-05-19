@@ -1,6 +1,12 @@
 package com.library.feature.digitalresources.presentation;
 
 
+import com.library.feature.digitalresources.data.DigitalResourceDataRepository;
+import com.library.feature.digitalresources.data.local.DigitalResourceFileLocalDataSource;
+import com.library.feature.digitalresources.domain.CreateDigitalResourceUseCase;
+import com.library.feature.digitalresources.domain.DigitalResources;
+import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
+
 import java.util.Scanner;
 
 public class DigitalResourcesPresentation {
@@ -32,5 +38,22 @@ public class DigitalResourcesPresentation {
                     break;
             }
         } while (opcion != 0);
+
+
+    }
+
+    public static void createDigitalResource() {
+        Scanner input = new Scanner(System.in);
+        input.nextLine(); //Consumir línea pendiente
+        System.out.print("Introduce el id del libro: ");
+        String id = input.nextLine();
+        System.out.print("Nombre del autor del libro: ");
+        String author = input.nextLine();
+
+        DigitalResources digitalResources = new DigitalResources(id, author);
+        CreateDigitalResourceUseCase createDigitalResourceUseCase = new CreateDigitalResourceUseCase(
+                new DigitalResourceDataRepository(new DigitalResourceFileLocalDataSource()));
+        createDigitalResourceUseCase.execute(digitalResources);
+
     }
 }

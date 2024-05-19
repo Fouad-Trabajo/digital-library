@@ -1,6 +1,6 @@
-package com.library.feature.digitalresources.data.local;
+package com.library.feature.digitalresources.domain.digitalbook.data.local;
 
-import com.library.feature.digitalresources.domain.digitalbook.DigitalBook;
+import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package com.library.feature.user.presentation;
 
+import com.library.feature.loan.domain.Loan;
 import com.library.feature.user.data.UserDataRepository;
 import com.library.feature.user.data.local.UserFileLocalDataSource;
 import com.library.feature.user.domain.*;
@@ -116,10 +117,22 @@ public class UserPresentation {
     }
 
     public static User getUser() {
-        System.out.print("Introduce el id del usuario: ");
-        String id = input.nextLine();
+        Scanner input = new Scanner(System.in);
         GetUserUseCase getUserUseCase = new GetUserUseCase(
                 new UserDataRepository(new UserFileLocalDataSource()));
-        return getUserUseCase.execute(id); // El método execute devuelve un User
+
+        User user;
+        do{
+            System.out.print("Introduce el id del usuario: ");
+            String id = input.nextLine();
+            user = getUserUseCase.execute(id);
+            if (user == null) {
+                System.out.println("El id " + id + " que estás buscando no corresponde" +
+                        "a ningún usuario dado de alta en el sistema");
+            } else {
+                System.out.println("\n" + user);
+            }
+        }while (user == null);
+        return user;
     }
 }

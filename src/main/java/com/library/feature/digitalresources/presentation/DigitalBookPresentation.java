@@ -12,8 +12,6 @@ public class DigitalBookPresentation {
     static Scanner input = new Scanner(System.in);
 
     public static void menuDigitalBook() {
-
-
         int opcion;
 
         do {
@@ -115,14 +113,28 @@ public class DigitalBookPresentation {
         GetDigitalBooksUseCase getDigitalBooksUseCase = new GetDigitalBooksUseCase(
                 new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
         List<DigitalBook> digitalBooksList = getDigitalBooksUseCase.execute();
-        for (DigitalBook digitalBook : digitalBooksList)
+        for (DigitalBook digitalBook : digitalBooksList) {
             System.out.println(digitalBook);
+        }
     }
 
     public static DigitalBook getDigitalBook() {
             GetDigitalBookUseCase getDigitalBookUseCase = new GetDigitalBookUseCase(
                     new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
-            return  getDigitalBookUseCase.execute();
+
+        DigitalBook digitalBook;
+        do {
+            System.out.print("Introduce el id del libro digital: ");
+            String id = input.nextLine();
+            digitalBook = getDigitalBookUseCase.execute(id);
+            if (digitalBook == null) {
+                System.out.println("El id " + id + " que has introducido no corresponde a ningún libro");
+            } else {
+                System.out.println("\n" + digitalBook);
+            }
+        } while (digitalBook == null);
+
+            return  digitalBook;
 
     }
 }

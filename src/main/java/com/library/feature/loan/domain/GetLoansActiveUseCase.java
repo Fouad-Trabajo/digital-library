@@ -19,10 +19,6 @@ public class GetLoansActiveUseCase {
                 loansActive.add(loan);
             }
         }
-        if (loansActive.isEmpty()){
-            System.out.println("No hay préstamos vigentes. \n" +
-                    "Todos los préstamos han sido devueltos");
-        }
         return loansActive;
     }
 }

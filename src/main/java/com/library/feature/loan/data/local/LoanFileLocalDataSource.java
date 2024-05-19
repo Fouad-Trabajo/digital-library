@@ -96,4 +96,10 @@ public class LoanFileLocalDataSource implements LoanLocalDataSource {
         }
         saveList(newList);
     }
+
+    @Override
+    public void returnALoan(Loan loan) {
+        delete(loan.id);
+        save(loan);
+    }
 }

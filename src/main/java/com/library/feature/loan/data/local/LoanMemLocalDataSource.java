@@ -53,4 +53,10 @@ public class LoanMemLocalDataSource implements LoanLocalDataSource {
     public void delete(String modelId) {
         dataStore.remove(modelId);
     }
+
+    @Override
+    public void returnALoan(Loan loan) {
+        delete(loan.id);
+        save(loan);
+    }
 }

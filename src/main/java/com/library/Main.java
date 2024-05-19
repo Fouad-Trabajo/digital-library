@@ -17,11 +17,11 @@ public class Main {
         System.out.println("¿Qué desea hacer?");
         do {
             System.out.println("********** MENÚ PRINCIPAL **********");
-            System.out.println("0. Salir");
-            System.out.println("1. Menú usuario");
-            System.out.println("2. Menú recursos digitales");
-            System.out.println("3. Menú préstamos");
-            System.out.println("**************************");
+            System.out.println("0. Salir                           *");
+            System.out.println("1. Menú usuario                    *");
+            System.out.println("2. Menú recursos digitales         *");
+            System.out.println("3. Menú préstamos                  *");
+            System.out.println("************************************");
             System.out.print("Elige una opción: ");
 
             opcion = scanner.nextInt();

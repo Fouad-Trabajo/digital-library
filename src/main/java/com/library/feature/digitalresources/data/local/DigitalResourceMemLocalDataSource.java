@@ -1,48 +1,48 @@
 package com.library.feature.digitalresources.data.local;
 
 
-import com.library.feature.digitalresources.domain.digitalbook.DigitalBook;
+import com.library.feature.digitalresources.domain.DigitalResources;
 
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class DigitalBookMemLocalDataSource implements DigitalBookLocalDataSource {
+public class DigitalResourceMemLocalDataSource implements DigitalResourceLocalDataSource {
 
-    private static DigitalBookMemLocalDataSource instance = null;
+    private static DigitalResourceMemLocalDataSource instance = null;
 
-    public static DigitalBookMemLocalDataSource getInstance() {
+    public static DigitalResourceMemLocalDataSource getInstance() {
         if (instance == null) {
-            instance = new DigitalBookMemLocalDataSource();
+            instance = new DigitalResourceMemLocalDataSource();
         }
         return instance;
     }
 
-    private DigitalBookMemLocalDataSource() {
+    private DigitalResourceMemLocalDataSource() {
 
     }
 
-    private Map<String, DigitalBook> dataStore = new TreeMap<>();
+    private Map<String, DigitalResources> dataStore = new TreeMap<>();
 
     @Override
-    public void save(DigitalBook model) {
+    public void save(DigitalResources model) {
         dataStore.put(model.id, model);
     }
 
     @Override
-    public void saveList(List<DigitalBook> models) {
-        for (DigitalBook demo : models) {
+    public void saveList(List<DigitalResources> models) {
+        for (DigitalResources demo : models) {
             save(demo);
         }
     }
 
     @Override
-    public DigitalBook findById(String id) {
+    public DigitalResources findById(String id) {
         return dataStore.get(id);
     }
 
     @Override
-    public List<DigitalBook> findAll() {
+    public List<DigitalResources> findAll() {
         return dataStore.values().stream().toList();
     }
 
@@ -52,9 +52,9 @@ public class DigitalBookMemLocalDataSource implements DigitalBookLocalDataSource
     }
 
     @Override
-    public void updateDigitalBook(DigitalBook model) {
+    public void updateDigitalResource(DigitalResources model) {
         // Comprueba si el libro digital existe en el almacén de datos
-        DigitalBook existingModel = dataStore.get(model.id);
+        DigitalResources existingModel = dataStore.get(model.id);
 
         if (existingModel != null) {
             // Si el libro existe, actualiza el libro en el almacén de datos

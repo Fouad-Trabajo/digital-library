@@ -15,4 +15,6 @@ public interface LoanLocalDataSource {
     List<Loan> findAll();
 
     void delete(String modelId);
+
+    void returnALoan(Loan loan);
 }

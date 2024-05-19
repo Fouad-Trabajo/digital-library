@@ -10,4 +10,6 @@ public interface LoanRepository {
     List<Loan> getLoans();
 
     Loan getLoan(String id);
+
+    void returnALoan(Loan loan);
 }

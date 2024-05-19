@@ -17,14 +17,14 @@ public class UserPresentation {
         int opcion;
 
         do {
-            System.out.println("********** MENÚ USUARIO **********");
-            System.out.println("0. Volver atrás");
-            System.out.println("1. Crear usuario");
-            System.out.println("2. Borrar usuario");
-            System.out.println("3. Actualizar usuario");
-            System.out.println("4. Obtener listado de usuarios");
-            System.out.println("5. Obtener 1 usuario mediante id");
-            System.out.println("**************************");
+            System.out.println("*********** MENÚ USUARIO ***********");
+            System.out.println("0. Volver atrás                    *");
+            System.out.println("1. Crear usuario                   *");
+            System.out.println("2. Borrar usuario                  *");
+            System.out.println("3. Actualizar usuario              *");
+            System.out.println("4. Obtener listado de usuarios     *");
+            System.out.println("5. Obtener 1 usuario mediante id   *");
+            System.out.println("************************************");
             System.out.print("Elige una opción: ");
 
             opcion = scanner.nextInt();
@@ -116,10 +116,22 @@ public class UserPresentation {
     }
 
     public static User getUser() {
-        System.out.print("Introduce el id del usuario: ");
-        String id = input.nextLine();
+        Scanner input = new Scanner(System.in);
         GetUserUseCase getUserUseCase = new GetUserUseCase(
                 new UserDataRepository(new UserFileLocalDataSource()));
-        return getUserUseCase.execute(id); // El método execute devuelve un User
+
+        User user;
+        do{
+            System.out.print("Introduce el id del usuario: ");
+            String id = input.nextLine();
+            user = getUserUseCase.execute(id);
+            if (user == null) {
+                System.out.println("El id " + id + " que estás buscando no corresponde" +
+                        "a ningún usuario dado de alta en el sistema");
+            } else {
+                System.out.println("\n" + user);
+            }
+        }while (user == null);
+        return user;
     }
 }

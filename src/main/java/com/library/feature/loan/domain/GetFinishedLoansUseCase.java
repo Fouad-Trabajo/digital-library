@@ -19,10 +19,6 @@ public class GetFinishedLoansUseCase {
                 loansFinished.add(loan);
             }
         }
-        if (loansFinished.isEmpty()){
-            System.out.println("Todos préstamos siguen vigentes. \n" +
-                    "Los libros todavía no se han devuelto");
-        }
         return loansFinished;
     }
 }

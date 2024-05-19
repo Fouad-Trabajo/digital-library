@@ -1,8 +1,9 @@
-package com.library.feature.digitalresources.presentation;
+package com.library.feature.digitalresources.domain.digitalbook.presentation;
 
-import com.library.feature.digitalresources.data.DigitalBookDataRepository;
-import com.library.feature.digitalresources.data.local.DigitalBookFileLocalDataSource;
-import com.library.feature.digitalresources.domain.digitalbook.*;
+import com.library.feature.digitalresources.domain.*;
+import com.library.feature.digitalresources.domain.digitalbook.data.DigitalBookDataRepository;
+import com.library.feature.digitalresources.domain.digitalbook.data.local.DigitalBookFileLocalDataSource;
+import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
 
 
 import java.util.List;
@@ -12,19 +13,17 @@ public class DigitalBookPresentation {
     static Scanner input = new Scanner(System.in);
 
     public static void menuDigitalBook() {
-
-
         int opcion;
 
         do {
             System.out.println("********** MENÚ LIBROS DIGITALES **********");
-            System.out.println("0. Volver atrás");
-            System.out.println("1. Crear libro digital");
-            System.out.println("2. Borrar libro digital");
-            System.out.println("3. Actualizar datos del libro");
-            System.out.println("4. Obtener listado de libros");
-            System.out.println("5. Obtener 1 libro mediante id");
-            System.out.println("**************************");
+            System.out.println("0. Volver atrás                           *");
+            System.out.println("1. Crear libro digital                    *");
+            System.out.println("2. Borrar libro digital                   *");
+            System.out.println("3. Actualizar datos del libro             *");
+            System.out.println("4. Obtener listado de libros              *");
+            System.out.println("5. Obtener 1 libro mediante id            *");
+            System.out.println("*******************************************");
             System.out.print("Elige una opción: ");
 
             opcion = input.nextInt();
@@ -74,25 +73,26 @@ public class DigitalBookPresentation {
         String editorial = input.nextLine();
         System.out.print("Descripción del libro: ");
         String description = input.nextLine();
-        DigitalBook digitalBook = new DigitalBook(id, author, numberPages, genre,
+        DigitalResources digitalBook = new DigitalBook(id, author, numberPages, genre,
                 editorial, description);
-        CreateDigitalBookUseCase createDigitalBookUseCase = new CreateDigitalBookUseCase(
+        CreateDigitalResourceUseCase createDigitalResourceUseCase = new CreateDigitalResourceUseCase(
                 new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
-        createDigitalBookUseCase.execute(digitalBook);
+        createDigitalResourceUseCase.execute(digitalBook);
     }
 
     public static void deleteDigitalBook() {
+        input.nextLine();
         System.out.print("Introduce el id del libro que quieres dar de baja: ");
         String id = input.nextLine();
-        DeleteDigitalBookUseCase deleteDigitalBookUseCase = new DeleteDigitalBookUseCase(
+        DeleteDigitalResourceUseCase deleteDigitalResourceUseCase = new DeleteDigitalResourceUseCase(
                 new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
-        deleteDigitalBookUseCase.execute(id);
+        deleteDigitalResourceUseCase.execute(id);
         System.out.println("El lbro con id " + id + " ha sido borrado exitosamente");
     }
 
     public static void updateDigitalBook() {
         DigitalBook digitalBook = getDigitalBook();
-        UpdateDigitalBookUseCase updateDigitalBookUseCase = new UpdateDigitalBookUseCase(
+        UpdateDigitalResourceUseCase updateDigitalResourceUseCase = new UpdateDigitalResourceUseCase(
                 new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
         input.nextLine(); //Consumir línea pendiente
         System.out.println("Cambia los datos que quieras");
@@ -106,23 +106,35 @@ public class DigitalBookPresentation {
         String editorial = input.nextLine();
         System.out.print("Descripción del libro: ");
         String description = input.nextLine();
-        DigitalBook digitalBookUpdate = new DigitalBook(digitalBook.id, author, numberPages, genre,
+        DigitalResources digitalBookUpdate = new DigitalBook(digitalBook.id, author, numberPages, genre,
                 editorial, description);
-        updateDigitalBookUseCase.execute(digitalBookUpdate);
+        updateDigitalResourceUseCase.execute(digitalBookUpdate);
     }
 
     public static void getDigitalBooks() {
-        GetDigitalBooksUseCase getDigitalBooksUseCase = new GetDigitalBooksUseCase(
+        GetDigitalResourcesUseCase getDigitalResourcesUseCase = new GetDigitalResourcesUseCase(
                 new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
-        List<DigitalBook> digitalBooksList = getDigitalBooksUseCase.execute();
-        for (DigitalBook digitalBook : digitalBooksList)
+        List<DigitalResources> digitalBooksList = getDigitalResourcesUseCase.execute();
+        for (DigitalResources digitalBook : digitalBooksList) {
             System.out.println(digitalBook);
+        }
     }
 
     public static DigitalBook getDigitalBook() {
-            GetDigitalBookUseCase getDigitalBookUseCase = new GetDigitalBookUseCase(
-                    new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
-            return  getDigitalBookUseCase.execute();
+        GetDigitalResourceUseCase getDigitalResourceUseCase = new GetDigitalResourceUseCase(
+                new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
 
+        DigitalBook digitalBook;
+        do {
+            System.out.print("Introduce el id del libro digital: ");
+            String id = input.next();
+            digitalBook = (DigitalBook) getDigitalResourceUseCase.execute(id);
+            if (digitalBook == null) {
+                System.out.println("El id " + id + " que has introducido no corresponde a ningún libro");
+            } else {
+                System.out.println("\n" + digitalBook);
+            }
+        } while (digitalBook == null);
+        return digitalBook;
     }
 }

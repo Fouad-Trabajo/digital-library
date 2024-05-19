@@ -1,10 +1,8 @@
-package com.library.feature.loan.data.local;
+package com.library.feature.digitalresources.domain.digitalbook.data.local;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.library.feature.loan.domain.Loan;
-
-
+import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,29 +14,33 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-
-
-public class LoanFileLocalDataSource implements LoanLocalDataSource {
-    private String nameFile = "loan.txt";
+public class DigitalBookFileLocalDataSource implements DigitalBookLocalDataSource {
+    private String nameFile = "digitalBook.txt";
 
     private Gson gson = new Gson();
 
-    private final Type typeList = new TypeToken<ArrayList<Loan>>() {
+    private final Type typeList = new TypeToken<ArrayList<DigitalBook>>() {
     }.getType();
 
     @Override
-    public void save(Loan model) {
-        List<Loan> models = findAll();
+    public void save(DigitalBook model) {
+        List<DigitalBook> models = findAll();
+        for (DigitalBook existingBook : models) {
+            if (model.id.equals(existingBook.id)) {
+                System.err.println("Error, ya existe un libro digital con el ID " + model.id);
+                return;
+            }
+        }
         models.add(model);
         saveToFile(models);
     }
 
     @Override
-    public void saveList(List<Loan> models) {
+    public void saveList(List<DigitalBook> models) {
         saveToFile(models);
     }
 
-    private void saveToFile(List<Loan> models) {
+    private void saveToFile(List<DigitalBook> models) {
         try {
             FileWriter myWriter = new FileWriter(nameFile);
             myWriter.write(gson.toJson(models));
@@ -51,9 +53,9 @@ public class LoanFileLocalDataSource implements LoanLocalDataSource {
     }
 
     @Override
-    public Loan findById(String id) {
-        List<Loan> models = findAll();
-        for (Loan model : models) {
+    public DigitalBook findById(String id) {
+        List<DigitalBook> models = findAll();
+        for (DigitalBook model : models) {
             if (Objects.equals(model.id, id)) {
                 return model;
             }
@@ -62,7 +64,7 @@ public class LoanFileLocalDataSource implements LoanLocalDataSource {
     }
 
     @Override
-    public List<Loan> findAll() {
+    public List<DigitalBook> findAll() {
         try {
             File myObj = new File(nameFile);
             if (!myObj.exists()) {
@@ -87,9 +89,9 @@ public class LoanFileLocalDataSource implements LoanLocalDataSource {
 
     @Override
     public void delete(String modelId) {
-        List<Loan> newList = new ArrayList<>();
-        List<Loan> models = findAll();
-        for (Loan model : models) {
+        List<DigitalBook> newList = new ArrayList<>();
+        List<DigitalBook> models = findAll();
+        for (DigitalBook model : models) {
             if (!model.id.equals(modelId)) {
                 newList.add(model);
             }
@@ -98,8 +100,19 @@ public class LoanFileLocalDataSource implements LoanLocalDataSource {
     }
 
     @Override
-    public void returnALoan(Loan loan) {
-        delete(loan.id);
-        save(loan);
+    public void updateDigitalBook(DigitalBook updateModel) {
+        // Obtén todos los libros digitales
+        List<DigitalBook> models = findAll();
+
+        // Busca el libro que deseas actualizar y reemplázalo
+        for (int i = 0; i < models.size(); i++) {
+            if (models.get(i).id.equals(updateModel.id)) {
+                models.set(i, updateModel);
+                break;
+            }
+        }
+
+        // Guarda la lista actualizada de libros en el fichero
+        saveList(models);
     }
 }

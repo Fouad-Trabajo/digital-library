@@ -1,9 +1,5 @@
 package com.library.feature.user.domain;
 
-import com.library.feature.user.data.UserDataRepository;
-import com.library.feature.user.data.local.UserFileLocalDataSource;
-
-import java.util.Scanner;
 
 public class GetUserUseCase {
 
@@ -14,8 +10,6 @@ public class GetUserUseCase {
     }
 
     public User execute(String id) {
-        User user = userRepository.getUser(id);
-        System.out.println("\n" + user);
-        return user;
+        return userRepository.getUser(id);
     }
 }

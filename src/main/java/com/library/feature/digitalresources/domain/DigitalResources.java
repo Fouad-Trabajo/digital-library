@@ -8,4 +8,12 @@ public class DigitalResources {
         this.id = id;
         this.author = author;
     }
+
+    @Override
+    public String toString() {
+        return "DigitalResources{" +
+                "id='" + id + '\'' +
+                ", author='" + author + '\'' +
+                '}' + "'\n";
+    }
 }

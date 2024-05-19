@@ -1,7 +1,7 @@
 package com.library.feature.loan.presentation;
 
-import com.library.feature.digitalresources.domain.digitalbook.DigitalBook;
-import com.library.feature.digitalresources.presentation.DigitalBookPresentation;
+import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
+import com.library.feature.digitalresources.domain.digitalbook.presentation.DigitalBookPresentation;
 import com.library.feature.loan.data.LoanDataRepository;
 import com.library.feature.loan.data.local.LoanFileLocalDataSource;
 import com.library.feature.loan.domain.*;
@@ -10,9 +10,6 @@ import com.library.feature.user.presentation.UserPresentation;
 
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -25,16 +22,16 @@ public class LoanPresentation {
         int opcion;
 
         do {
-            System.out.println("********** MENÚ PRÉSTAMOS **********");
-            System.out.println("0. Volver atrás");
-            System.out.println("1. Crear préstamo");
-            System.out.println("2. Borrar préstamo");
-            System.out.println("3. Listado de préstamos");
-            System.out.println("4. Mostrar préstamos activos");
-            System.out.println("5. Mostrar préstamos finalizados");
-            System.out.println("6. Actualizar fecha devolución - Devolver recurso");
-            System.out.println("7. Mostrar 1 préstamo mediante id");
-            System.out.println("**************************");
+            System.out.println("***************** MENÚ PRÉSTAMOS *****************");
+            System.out.println("0. Volver atrás                                  *");
+            System.out.println("1. Crear préstamo                                *");
+            System.out.println("2. Borrar préstamo                               *");
+            System.out.println("3. Listado de préstamos                          *");
+            System.out.println("4. Mostrar préstamos activos                     *");
+            System.out.println("5. Mostrar préstamos finalizados                 *");
+            System.out.println("6. Devolver recurso - Actualizar fecha           *");
+            System.out.println("7. Mostrar 1 préstamo mediante id                *");
+            System.out.println("**************************************************");
             System.out.print("Elige una opción: ");
 
             opcion = input.nextInt();
@@ -81,16 +78,16 @@ public class LoanPresentation {
     public static void createLoan() {
         System.out.println("Introduce los datos del préstamo");
         User user = UserPresentation.getUser();
+        //TypeDigitalResource.DIGITIAL_BOOK = DigitalBookPresentation.getDigitalBook();
         DigitalBook digitalBook = DigitalBookPresentation.getDigitalBook();
 
         String loanDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
-        String estimatedReturnDate = LocalDateTime.now().plusDays(14).format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
         String id = user.name + "-" + loanDate + "-" + digitalBook.id;
 
-        Loan loan = new Loan(id, loanDate, null, "activo",
-                estimatedReturnDate, user, digitalBook);
-        SaveLoanUseCase saveLoanUseCase = new SaveLoanUseCase(
-                new LoanDataRepository(new LoanFileLocalDataSource()));
+        Loan loan = new Loan(id, user, digitalBook);
+        System.out.println("ESTE ES EL PRÉSTAMO QUE ACABAS DE CREAR\n" + loan);
+        SaveLoanUseCase saveLoanUseCase = new SaveLoanUseCase(new LoanDataRepository(
+                new LoanFileLocalDataSource()));
         saveLoanUseCase.execute(loan);
     }
 
@@ -98,8 +95,8 @@ public class LoanPresentation {
         input.nextLine();
         System.out.print("Introduce el id del préstamo que desea eliminar: ");
         String id = input.nextLine();
-        DeleteLoanUseCase deleteLoanUseCase = new DeleteLoanUseCase(new LoanDataRepository(
-                new LoanFileLocalDataSource()));
+        DeleteLoanUseCase deleteLoanUseCase = new DeleteLoanUseCase(new LoanDataRepository
+                (new LoanFileLocalDataSource()));
         deleteLoanUseCase.execute(id);
         System.out.println("El préstamo con id " + id + " se ha borrado con éxito");
     }
@@ -121,6 +118,10 @@ public class LoanPresentation {
         for (Loan loan : loansActive) {
             System.out.println("\n" + loan);
         }
+        if (loansActive.isEmpty()) {
+            System.out.println("No hay préstamos vigentes. \n" +
+                    "Todos los préstamos han sido devueltos");
+        }
     }
 
     public static void getFinishedLoans() {
@@ -131,23 +132,36 @@ public class LoanPresentation {
         for (Loan loan : loansFinished) {
             System.out.println("\n" + loan);
         }
+        if (loansFinished.isEmpty()) {
+            System.out.println("Todos los préstamos siguen vigentes. \n" +
+                    "Los libros todavía no se han devuelto");
+        }
     }
 
     public static void updateReturnDatePrestamo() {
-        Loan updateLoan = getLoan();
-        String returnDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
-        String loanStatus = "finalizado";
-        updateLoan.updateReturnDate_LoanStatus(returnDate, loanStatus);
-
-        SaveLoanUseCase saveLoanUseCase = new SaveLoanUseCase(
+        Loan updateLoan = LoanPresentation.getLoan();
+        ReturnALoanUseCase returnALoanUseCase = new ReturnALoanUseCase(
                 new LoanDataRepository(new LoanFileLocalDataSource()));
-        saveLoanUseCase.execute(updateLoan);
+        returnALoanUseCase.execute(updateLoan.id);
         System.out.println("Libro devuelto");
     }
 
     public static Loan getLoan() {
         GetLoanUseCase getLoanUseCase = new GetLoanUseCase(
                 new LoanDataRepository(new LoanFileLocalDataSource()));
-        return getLoanUseCase.execute();
+        Loan loan;
+        do {
+            input.nextLine();
+            System.out.print("Introduce el id del préstamo: ");
+            String id = input.nextLine();
+            loan = getLoanUseCase.execute(id);
+            if (loan == null) {
+                System.out.println("El id " + id + " que estás buscando no corresponde" +
+                        "a ningún prestamo dado de alta en el sistema");
+            } else {
+                System.out.println("\n" + loan);
+            }
+        } while (loan == null);
+        return loan;
     }
 }

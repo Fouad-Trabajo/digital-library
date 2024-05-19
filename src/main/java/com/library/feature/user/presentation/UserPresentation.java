@@ -1,6 +1,5 @@
 package com.library.feature.user.presentation;
 
-import com.library.feature.loan.domain.Loan;
 import com.library.feature.user.data.UserDataRepository;
 import com.library.feature.user.data.local.UserFileLocalDataSource;
 import com.library.feature.user.domain.*;
@@ -18,14 +17,14 @@ public class UserPresentation {
         int opcion;
 
         do {
-            System.out.println("********** MENÚ USUARIO **********");
-            System.out.println("0. Volver atrás");
-            System.out.println("1. Crear usuario");
-            System.out.println("2. Borrar usuario");
-            System.out.println("3. Actualizar usuario");
-            System.out.println("4. Obtener listado de usuarios");
-            System.out.println("5. Obtener 1 usuario mediante id");
-            System.out.println("**************************");
+            System.out.println("*********** MENÚ USUARIO ***********");
+            System.out.println("0. Volver atrás                    *");
+            System.out.println("1. Crear usuario                   *");
+            System.out.println("2. Borrar usuario                  *");
+            System.out.println("3. Actualizar usuario              *");
+            System.out.println("4. Obtener listado de usuarios     *");
+            System.out.println("5. Obtener 1 usuario mediante id   *");
+            System.out.println("************************************");
             System.out.print("Elige una opción: ");
 
             opcion = scanner.nextInt();

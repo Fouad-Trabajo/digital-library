@@ -102,7 +102,7 @@ public class DigitalResourceFileLocalDataSource implements DigitalResourceLocalD
     }
 
     @Override
-    public void updateDigitalBook(DigitalResources updateModel) {
+    public void updateDigitalResource(DigitalResources updateModel) {
         // Obtén todos los libros digitales
         List<DigitalResources> models = findAll();
 

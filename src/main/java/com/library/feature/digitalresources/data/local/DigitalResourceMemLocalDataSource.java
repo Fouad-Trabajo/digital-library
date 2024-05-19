@@ -52,7 +52,7 @@ public class DigitalResourceMemLocalDataSource implements DigitalResourceLocalDa
     }
 
     @Override
-    public void updateDigitalBook(DigitalResources model) {
+    public void updateDigitalResource(DigitalResources model) {
         // Comprueba si el libro digital existe en el almacén de datos
         DigitalResources existingModel = dataStore.get(model.id);
 

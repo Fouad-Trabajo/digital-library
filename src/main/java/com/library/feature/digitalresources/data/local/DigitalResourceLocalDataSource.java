@@ -17,5 +17,5 @@ public interface DigitalResourceLocalDataSource {
 
     void delete(String modelId);
 
-    void updateDigitalBook(DigitalResources updateBook);
+    void updateDigitalResource(DigitalResources updateBook);
 }

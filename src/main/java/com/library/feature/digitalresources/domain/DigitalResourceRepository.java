@@ -1,7 +1,5 @@
 package com.library.feature.digitalresources.domain;
 
-import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
-
 import java.util.List;
 
 public interface DigitalResourceRepository {

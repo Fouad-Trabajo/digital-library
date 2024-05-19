@@ -15,10 +15,10 @@ public class Loan {
     public final String id, loanDate, returnDate, loanStatus, estimatedReturnDate;
 
     public User user;
-    public DigitalResources digitalResources;
+    public DigitalBook digitalResources;
 
     //Constructor para crear el objeto Loan
-    public Loan(String id, User user, DigitalResources digitalResources) {
+    public Loan(String id, User user, DigitalBook digitalResources) {
         this.id = id;
         this.loanDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
         this.returnDate = null;
@@ -29,7 +29,7 @@ public class Loan {
     }
 
     //Constructor para actualizar la fecha de devolución
-    public Loan(String id, String loanDate, String estimatedReturnDate, User user, DigitalResources digitalResources) {
+    public Loan(String id, String loanDate, String estimatedReturnDate, User user, DigitalBook digitalResources) {
         this.id = id;
         this.loanDate = loanDate;
         this.returnDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());

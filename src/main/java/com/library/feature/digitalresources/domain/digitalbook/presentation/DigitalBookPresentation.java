@@ -1,12 +1,9 @@
-package com.library.feature.digitalresources.presentation;
+package com.library.feature.digitalresources.domain.digitalbook.presentation;
 
-import com.library.feature.digitalresources.data.DigitalResourceDataRepository;
-import com.library.feature.digitalresources.data.local.DigitalResourceFileLocalDataSource;
 import com.library.feature.digitalresources.domain.*;
 import com.library.feature.digitalresources.domain.digitalbook.data.DigitalBookDataRepository;
 import com.library.feature.digitalresources.domain.digitalbook.data.local.DigitalBookFileLocalDataSource;
 import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
-import com.library.feature.digitalresources.domain.digitalbook.domain.GetDigitalBookUseCase;
 
 
 import java.util.List;
@@ -20,13 +17,13 @@ public class DigitalBookPresentation {
 
         do {
             System.out.println("********** MENÚ LIBROS DIGITALES **********");
-            System.out.println("0. Volver atrás");
-            System.out.println("1. Crear libro digital");
-            System.out.println("2. Borrar libro digital");
-            System.out.println("3. Actualizar datos del libro");
-            System.out.println("4. Obtener listado de libros");
-            System.out.println("5. Obtener 1 libro mediante id");
-            System.out.println("**************************");
+            System.out.println("0. Volver atrás                           *");
+            System.out.println("1. Crear libro digital                    *");
+            System.out.println("2. Borrar libro digital                   *");
+            System.out.println("3. Actualizar datos del libro             *");
+            System.out.println("4. Obtener listado de libros              *");
+            System.out.println("5. Obtener 1 libro mediante id            *");
+            System.out.println("*******************************************");
             System.out.print("Elige una opción: ");
 
             opcion = input.nextInt();
@@ -78,9 +75,9 @@ public class DigitalBookPresentation {
         String description = input.nextLine();
         DigitalResources digitalBook = new DigitalBook(id, author, numberPages, genre,
                 editorial, description);
-        CreateDigitalResourceUseCase createDigitalResourcesUseCase = new CreateDigitalResourceUseCase(
+        CreateDigitalResourceUseCase createDigitalResourceUseCase = new CreateDigitalResourceUseCase(
                 new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
-        createDigitalResourcesUseCase.execute(digitalBook);
+        createDigitalResourceUseCase.execute(digitalBook);
     }
 
     public static void deleteDigitalBook() {
@@ -109,7 +106,7 @@ public class DigitalBookPresentation {
         String editorial = input.nextLine();
         System.out.print("Descripción del libro: ");
         String description = input.nextLine();
-        DigitalBook digitalBookUpdate = new DigitalBook(digitalBook.id, author, numberPages, genre,
+        DigitalResources digitalBookUpdate = new DigitalBook(digitalBook.id, author, numberPages, genre,
                 editorial, description);
         updateDigitalResourceUseCase.execute(digitalBookUpdate);
     }
@@ -127,35 +124,17 @@ public class DigitalBookPresentation {
         GetDigitalResourceUseCase getDigitalResourceUseCase = new GetDigitalResourceUseCase(
                 new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
 
-        DigitalResources digitalBook;
+        DigitalBook digitalBook;
         do {
             System.out.print("Introduce el id del libro digital: ");
-            String id = input.nextLine();
-            digitalBook = getDigitalResourceUseCase.execute(id);
+            String id = input.next();
+            digitalBook = (DigitalBook) getDigitalResourceUseCase.execute(id);
             if (digitalBook == null) {
                 System.out.println("El id " + id + " que has introducido no corresponde a ningún libro");
-            } else{
+            } else {
                 System.out.println("\n" + digitalBook);
             }
         } while (digitalBook == null);
-        return (DigitalBook) digitalBook;
+        return digitalBook;
     }
-    public static DigitalResources getDigitalBook2() {
-        GetDigitalResourceUseCase getDigitalBookUseCase = new GetDigitalResourceUseCase(
-                new DigitalResourceDataRepository(new DigitalResourceFileLocalDataSource()));
-
-        DigitalResources digitalResources;
-        do {
-            System.out.print("Introduce el id del libro digital: ");
-            String id = input.nextLine();
-            digitalResources = getDigitalBookUseCase.execute(id);
-            if (digitalResources == null) {
-                System.out.println("El id " + id + " que has introducido no corresponde a ningún libro");
-            } else{
-                System.out.println("\n" + digitalResources);
-            }
-        } while (digitalResources == null);
-        return  digitalResources;
-    }
-
 }

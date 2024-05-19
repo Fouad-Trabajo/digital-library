@@ -3,7 +3,6 @@ package com.library.feature.digitalresources.data;
 import com.library.feature.digitalresources.data.local.DigitalResourceLocalDataSource;
 import com.library.feature.digitalresources.domain.DigitalResourceRepository;
 import com.library.feature.digitalresources.domain.DigitalResources;
-import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
 
 import java.util.List;
 
@@ -23,23 +22,21 @@ public class DigitalResourceDataRepository implements DigitalResourceRepository 
 
     @Override
     public void deleteDigitalResource(String id) {
-
+        digitalResourceLocalDataSource.findById(id);
     }
 
     @Override
     public void updateDigitalResource(DigitalResources digitalResources) {
-        digitalResourceLocalDataSource.updateDigitalBook(digitalResources);
+        digitalResourceLocalDataSource.updateDigitalResource(digitalResources);
     }
 
     @Override
     public List<DigitalResources> getDigitalResources() {
-        return null;
+        return digitalResourceLocalDataSource.findAll();
     }
 
     @Override
     public DigitalResources getDigitalResource(String id) {
         return digitalResourceLocalDataSource.findById(id);
     }
-
-
 }

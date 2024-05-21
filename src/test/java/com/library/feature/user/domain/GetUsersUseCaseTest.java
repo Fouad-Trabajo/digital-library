@@ -32,24 +32,34 @@ class GetUsersUseCaseTest {
     }
 
     @Test
-    public void cuandoObtengoLaListaYTieneModelosUser(){
+    public void cuandoObtengoLaListaYTieneModelosUser() {
         //Given: Declaración de variables
         List<User> usersExpected = new ArrayList<>();
-        usersExpected.add(new  User("1", "Gabriel", "Polo", "12360138M", "10/05/2014"));
+        usersExpected.add(new User("1", "Gabriel", "Polo", "12360138M", "10/05/2014"));
         usersExpected.add(new User("2", "Marcos", "Murial", "14462902E", "11/11/2021"));
         Mockito.when(userRepository.getUsers()).thenReturn(usersExpected);
 
 
         //When
-        List<User> userReceived = getUsersUseCase.execute();
+        List<User> usersReceived = getUsersUseCase.execute();
 
         //Then
-        assertEquals(usersExpected.size(), usersExpected.size());
+        assertEquals(usersReceived.size(), usersExpected.size());
+        for (int i = 0; i < usersExpected.size(); i++) {
+            User expected = usersExpected.get(i);
+            User received = usersReceived.get(i);
+
+            Assertions.assertEquals(expected.id,received.id);
+            Assertions.assertEquals(expected.name,received.name);
+            Assertions.assertEquals(expected.surname,received.surname);
+            Assertions.assertEquals(expected.dni,received.dni);
+            Assertions.assertEquals(expected.dateInscription,received.dateInscription);
+        }
 
     }
 
     @Test
-    public void cuandoObtengoLaListaYEsNullEstaVacia(){
+    public void cuandoObtengoLaListaYEsNullEstaVacia() {
         //Given: Declaración de variables
         List<User> usersExpectedEmpty = new ArrayList<>();
         Mockito.when(userRepository.getUsers()).thenReturn(usersExpectedEmpty);
@@ -60,6 +70,6 @@ class GetUsersUseCaseTest {
 
 
         //Then
-        assertEquals(0,usersReceivedEmpty.size());
+        assertEquals(0, usersReceivedEmpty.size());
     }
 }

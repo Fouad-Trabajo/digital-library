@@ -38,17 +38,4 @@ class DeleteUserUseCaseTest {
         //Then
         Mockito.verify(userRepository,Mockito.times(1)).deleteUser(idExpected);
     }
-
-
-    @Test
-    public void cuandoEscriboUnIdInvalidoYNoBorraElUsuario(){
-        //Given: Declaración de variables
-       String invalidId = "10";
-
-        //When
-
-
-        //Then
-        Mockito.verify(userRepository,Mockito.times(0)).deleteUser(invalidId);
-    }
 }

@@ -1,4 +1,4 @@
-package com.library.feature.user.domain;
+package com.library.feature.loan.domain;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,33 +9,36 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @ExtendWith(MockitoExtension.class)
-class DeleteUserUseCaseTest {
+class DeleteLoanUseCaseTest {
+
 
     @Mock
-    UserRepository userRepository;
-    DeleteUserUseCase deleteUserUseCase;
+    LoanRepository loanRepository;
+    DeleteLoanUseCase deleteLoanUseCase;
+
+
     @BeforeEach
     void setUp() {
-        deleteUserUseCase = new DeleteUserUseCase(userRepository);
+        deleteLoanUseCase = new DeleteLoanUseCase(loanRepository);
     }
 
     @AfterEach
     void tearDown() {
-        deleteUserUseCase = null;
+        deleteLoanUseCase = null;
     }
 
 
-
     @Test
-    public void cuandoEscriboIdValidoBorraUser(){
+    public void cuandoEscriboElIdYElLoanSeBorraCorrectamente(){
         //Given: Declaración de variables
-        String idExpected = "1";
+        String id = "2";
 
         //When
-        deleteUserUseCase.execute(idExpected);
+        deleteLoanUseCase.execute(id);
 
         //Then
-        Mockito.verify(userRepository,Mockito.times(1)).deleteUser(idExpected);
+        Mockito.verify(loanRepository,Mockito.times(1)).deleteLoan(id);
     }
 }

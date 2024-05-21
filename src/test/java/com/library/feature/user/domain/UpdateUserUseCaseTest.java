@@ -39,7 +39,6 @@ class UpdateUserUseCaseTest {
 
         //Then
         Mockito.verify(userRepository, Mockito.times(1)).updateUser(updateUser);
-
     }
 
 
@@ -54,9 +53,5 @@ class UpdateUserUseCaseTest {
 
         //Then
         Mockito.verify(userRepository, Mockito.never()).updateUser(Mockito.any(User.class));
-
-
     }
-
-
 }

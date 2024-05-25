@@ -2,6 +2,8 @@ package com.library.feature.digitalresources.presentation;
 
 
 import com.library.feature.digitalresources.domain.DigitalResources;
+import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBookFactory;
+import com.library.feature.digitalresources.domain.music.domain.MusicFactory;
 import com.library.feature.digitalresources.presentation.digitalbookpresentation.DigitalBookPresentation;
 import com.library.feature.digitalresources.presentation.musicpresentation.MusicPresentation;
 
@@ -57,9 +59,14 @@ public class DigitalResourcesPresentation {
         System.out.print("Selecciona el tipo de recurso digital que quieres solicitar: ");
         int option = input.nextInt();
 
+        DigitalBookFactory digitalBookFactory = new DigitalBookFactory();
+        MusicFactory musicFactory = new MusicFactory();
+        DigitalBookPresentation digitalBookPresentation = new DigitalBookPresentation(digitalBookFactory);
+        MusicPresentation musicPresentation = new MusicPresentation(musicFactory);
+
         return switch (option) {
-            case 1 -> DigitalBookPresentation.getDigitalBook();
-            case 2 -> MusicPresentation.getMusic();
+            case 1 -> digitalBookPresentation.getDigitalBook();
+            case 2 -> musicPresentation.getMusic();
             default -> null;
         };
     }

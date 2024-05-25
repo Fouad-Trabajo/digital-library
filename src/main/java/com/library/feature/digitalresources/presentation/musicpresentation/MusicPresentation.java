@@ -5,6 +5,7 @@ import com.library.feature.digitalresources.domain.*;
 import com.library.feature.digitalresources.data.musicdata.MusicDataRepository;
 import com.library.feature.digitalresources.data.musicdata.local.MusicFileLocalDataSource;
 import com.library.feature.digitalresources.domain.music.domain.Music;
+import com.library.feature.digitalresources.domain.music.domain.MusicFactory;
 
 
 import java.util.List;
@@ -13,7 +14,12 @@ import java.util.Scanner;
 public class MusicPresentation {
     static Scanner input = new Scanner(System.in);
 
-    //static MusicPresentation musicPresentation = new MusicPresentation();
+    static MusicFactory musicFactory = new MusicFactory();
+
+    public MusicPresentation(MusicFactory musicFactory) {
+    }
+
+    static MusicPresentation musicPresentation = new MusicPresentation(musicFactory);
 
     public static void menuMusic() {
         int opcion;
@@ -37,23 +43,23 @@ public class MusicPresentation {
                     break;
                 case 1:
                     System.out.println("Has seleccionado crear un canción.");
-                    createMusic();
+                    musicPresentation.createMusic();
                     break;
                 case 2:
                     System.out.println("Has seleccionado obtener un canción.");
-                    getMusic();
+                    musicPresentation.getMusic();
                     break;
                 case 3:
                     System.out.println("Has seleccionado borrar un canción.");
-                    deleteMusic();
+                    musicPresentation.deleteMusic();
                     break;
                 case 4:
                     System.out.println("Has seleccionado obtener un listado de canciones.");
-                    getMusics();
+                    musicPresentation.getMusics();
                     break;
                 case 5:
                     System.out.println("Has seleccionado actualizar los datos de un canción.");
-                    updateMusic();
+                    musicPresentation.updateMusic();
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
@@ -62,7 +68,7 @@ public class MusicPresentation {
         } while (opcion != 0);
     }
 
-    public static void createMusic() {
+    public  void createMusic() {
         input.nextLine();
         System.out.print("Introduce el id: ");
         String id = input.nextLine();
@@ -73,14 +79,12 @@ public class MusicPresentation {
         String duracion = input.nextLine();
 
         Music music = new Music(id, author, duracion);
-        CreateDigitalResourceUseCase createDigitalResourceUseCase = new CreateDigitalResourceUseCase(
-                new MusicDataRepository(new MusicFileLocalDataSource()));
+        CreateDigitalResourceUseCase createDigitalResourceUseCase = musicFactory.buildCreateResource();
         createDigitalResourceUseCase.execute(music);
     }
 
-    public static Music getMusic() {
-        GetDigitalResourceUseCase getDigitalResourceUseCase = new GetDigitalResourceUseCase(
-                new MusicDataRepository(new MusicFileLocalDataSource()));
+    public  Music getMusic() {
+        GetDigitalResourceUseCase getDigitalResourceUseCase = musicFactory.buildGetResource();
         Music music;
         do {
             System.out.print("Introduce el id de la canción: ");
@@ -95,38 +99,32 @@ public class MusicPresentation {
         return music;
     }
 
-    public static void deleteMusic(){
+    public  void deleteMusic(){
         input.nextLine();
         System.out.print("Introdue el id de la canción que quieres borrar: ");
         String id = input.nextLine();
-        DeleteDigitalResourceUseCase deleteDigitalResourceUseCase = new DeleteDigitalResourceUseCase(
-                new MusicDataRepository(new MusicFileLocalDataSource()));
+        DeleteDigitalResourceUseCase deleteDigitalResourceUseCase = musicFactory.buildDeleteResource();
         deleteDigitalResourceUseCase.execute(id);
         System.out.println("La canción con id " + id + " ha sido borrado exitosamente");
     }
 
-    public static void getMusics() {
-        GetDigitalResourcesUseCase getDigitalResourcesUseCase = new GetDigitalResourcesUseCase(
-                new MusicDataRepository(new MusicFileLocalDataSource()));
+    public  void getMusics() {
+        GetDigitalResourcesUseCase getDigitalResourcesUseCase = musicFactory.buildGetResourcres();
         List<DigitalResources> digitalBooksList = getDigitalResourcesUseCase.execute();
         for (DigitalResources music : digitalBooksList) {
             System.out.println(music);
         }
     }
 
-    public static void updateMusic() {
+    public  void updateMusic() {
         Music music = getMusic();
-        UpdateDigitalResourceUseCase updateDigitalResourceUseCase = new UpdateDigitalResourceUseCase(
-                new MusicDataRepository(new MusicFileLocalDataSource()));
-
+        UpdateDigitalResourceUseCase updateDigitalResourceUseCase = musicFactory.buildUpdateResource();
         input.nextLine();
         System.out.print("Nombre del autor de la cancion: ");
         String author = input.nextLine();
-
         System.out.print("Duracion de la canción: ");
         String duracion = input.nextLine();
         DigitalResources digitalResources = new Music(music.id, author,duracion);
         updateDigitalResourceUseCase.execute(digitalResources);
     }
-
 }

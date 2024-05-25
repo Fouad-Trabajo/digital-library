@@ -26,12 +26,6 @@ public class MusicFileLocalDataSource implements MusicLocalDataSource {
     @Override
     public void save(Music model) {
         List<Music> models = findAll();
-        for (Music existingBook : models) {
-            if (model.id.equals(existingBook.id)) {
-                System.err.println("Error, ya existe un libro digital con el ID " + model.id);
-                return;
-            }
-        }
         models.add(model);
         saveToFile(models);
     }

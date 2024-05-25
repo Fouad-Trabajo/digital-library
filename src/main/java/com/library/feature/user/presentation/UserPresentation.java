@@ -1,10 +1,13 @@
 package com.library.feature.user.presentation;
 
+import com.library.feature.user.data.local.UserFileLocalDataSource;
 import com.library.feature.user.domain.*;
 
 
 import java.util.List;
 import java.util.Scanner;
+
+import static com.library.feature.user.data.local.UserFileLocalDataSource.exist;
 
 public class UserPresentation {
     static Scanner input = new Scanner(System.in);

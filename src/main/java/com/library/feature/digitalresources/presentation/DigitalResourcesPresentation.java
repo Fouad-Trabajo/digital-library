@@ -1,10 +1,7 @@
 package com.library.feature.digitalresources.presentation;
 
 
-
-import com.library.feature.digitalresources.domain.CreateDigitalResourceUseCase;
 import com.library.feature.digitalresources.domain.DigitalResources;
-import com.library.feature.digitalresources.domain.GetDigitalResourceUseCase;
 import com.library.feature.digitalresources.presentation.digitalbookpresentation.DigitalBookPresentation;
 import com.library.feature.digitalresources.presentation.musicpresentation.MusicPresentation;
 
@@ -12,6 +9,7 @@ import java.util.Scanner;
 
 public class DigitalResourcesPresentation {
     static Scanner input = new Scanner(System.in);
+
     public static void menuDigitalResources() {
 
 
@@ -50,5 +48,19 @@ public class DigitalResourcesPresentation {
         } while (opcion != 0);
 
 
+    }
+
+    public static DigitalResources selectResource() {
+        System.out.println("Recursos disponibles: ");
+        System.out.println("1. Libro Digital");
+        System.out.println("2. Música");
+        System.out.print("Selecciona el tipo de recurso digital que quieres solicitar: ");
+        int option = input.nextInt();
+
+        return switch (option) {
+            case 1 -> DigitalBookPresentation.getDigitalBook();
+            case 2 -> MusicPresentation.getMusic();
+            default -> null;
+        };
     }
 }

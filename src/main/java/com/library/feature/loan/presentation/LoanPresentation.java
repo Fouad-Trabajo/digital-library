@@ -1,7 +1,7 @@
 package com.library.feature.loan.presentation;
 
-import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
-import com.library.feature.digitalresources.presentation.digitalbookpresentation.DigitalBookPresentation;
+import com.library.feature.digitalresources.domain.DigitalResources;
+import com.library.feature.digitalresources.presentation.DigitalResourcesPresentation;
 import com.library.feature.loan.data.LoanDataRepository;
 import com.library.feature.loan.data.local.LoanFileLocalDataSource;
 import com.library.feature.loan.domain.*;
@@ -78,13 +78,12 @@ public class LoanPresentation {
     public static void createLoan() {
         System.out.println("Introduce los datos del préstamo");
         User user = UserPresentation.getUser();
-        //TypeDigitalResource.DIGITIAL_BOOK = DigitalBookPresentation.getDigitalBook();
-        DigitalBook digitalBook = DigitalBookPresentation.getDigitalBook();
+        DigitalResources digitalResources = DigitalResourcesPresentation.selectResource();
 
         String loanDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
-        String id = user.name + "-" + loanDate + "-" + digitalBook.id;
+        String id = user.name + "-" + loanDate + "-" + digitalResources.id;
 
-        Loan loan = new Loan(id, user, digitalBook);
+        Loan loan = new Loan(id, user, digitalResources);
         System.out.println("ESTE ES EL PRÉSTAMO QUE ACABAS DE CREAR\n" + loan);
         SaveLoanUseCase saveLoanUseCase = new SaveLoanUseCase(new LoanDataRepository(
                 new LoanFileLocalDataSource()));

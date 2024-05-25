@@ -1,8 +1,8 @@
-package com.library.feature.digitalresources.domain.digitalbook.data;
+package com.library.feature.digitalresources.data.digitalbookdata;
 
+import com.library.feature.digitalresources.data.digitalbookdata.local.DigitalBookLocalDataSource;
 import com.library.feature.digitalresources.domain.DigitalResourceRepository;
 import com.library.feature.digitalresources.domain.DigitalResources;
-import com.library.feature.digitalresources.domain.digitalbook.data.local.DigitalBookLocalDataSource;
 import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class DigitalBookDataRepository implements DigitalResourceRepository {
 
-    private  DigitalBookLocalDataSource digitalBookLocalDataSource;
+    private DigitalBookLocalDataSource digitalBookLocalDataSource;
 
     public DigitalBookDataRepository(DigitalBookLocalDataSource digitalBookLocalDataSource) {
         this.digitalBookLocalDataSource = digitalBookLocalDataSource;

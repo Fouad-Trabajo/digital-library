@@ -4,21 +4,20 @@ import com.library.feature.digitalresources.domain.DigitalResources;
 
 public class Music extends DigitalResources {
 
-    public final String duration, genere;
+    public final String duration;
 
-    public Music(String id, String author, String duration, String genere) {
+    public Music(String id, String author, String duration ) {
         super(id, author);
         this.duration = duration;
-        this.genere = genere;
+
     }
 
     @Override
     public String toString() {
         return "Music{" +
-                "duration='" + duration + '\'' +
-                ", genere='" + genere + '\'' +
                 ", id='" + id + '\'' +
                 ", author='" + author + '\'' +
-                "} " + super.toString();
+                ", duration='" + duration + '\'' +
+                '}' + "'\n";
     }
 }

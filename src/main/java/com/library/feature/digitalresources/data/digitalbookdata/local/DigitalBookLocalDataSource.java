@@ -1,4 +1,4 @@
-package com.library.feature.digitalresources.domain.digitalbook.data.local;
+package com.library.feature.digitalresources.data.digitalbookdata.local;
 
 import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
 

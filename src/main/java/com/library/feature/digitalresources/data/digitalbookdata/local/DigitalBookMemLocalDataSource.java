@@ -1,4 +1,4 @@
-package com.library.feature.digitalresources.domain.digitalbook.data.local;
+package com.library.feature.digitalresources.data.digitalbookdata.local;
 
 
 import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
@@ -53,15 +53,9 @@ public class DigitalBookMemLocalDataSource implements DigitalBookLocalDataSource
 
     @Override
     public void updateDigitalBook(DigitalBook model) {
-        // Comprueba si el libro digital existe en el almacén de datos
         DigitalBook existingModel = dataStore.get(model.id);
-
         if (existingModel != null) {
-            // Si el libro existe, actualiza el libro en el almacén de datos
             dataStore.put(model.id, model);
-        } else {
-            // Si el libro no existe, imprime un mensaje de error
-            System.out.println("No se puede actualizar. El libro digital con el ID " + model.id + " no existe.");
         }
     }
 }

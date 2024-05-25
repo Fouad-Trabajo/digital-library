@@ -1,8 +1,8 @@
-package com.library.feature.digitalresources.domain.digitalbook.presentation;
+package com.library.feature.digitalresources.presentation.digitalbookpresentation;
 
 import com.library.feature.digitalresources.domain.*;
-import com.library.feature.digitalresources.domain.digitalbook.data.DigitalBookDataRepository;
-import com.library.feature.digitalresources.domain.digitalbook.data.local.DigitalBookFileLocalDataSource;
+import com.library.feature.digitalresources.data.digitalbookdata.DigitalBookDataRepository;
+import com.library.feature.digitalresources.data.digitalbookdata.local.DigitalBookFileLocalDataSource;
 import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
 
 

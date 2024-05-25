@@ -1,7 +1,7 @@
 package com.library.feature.loan.presentation;
 
 import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
-import com.library.feature.digitalresources.domain.digitalbook.presentation.DigitalBookPresentation;
+import com.library.feature.digitalresources.presentation.digitalbookpresentation.DigitalBookPresentation;
 import com.library.feature.loan.data.LoanDataRepository;
 import com.library.feature.loan.data.local.LoanFileLocalDataSource;
 import com.library.feature.loan.domain.*;

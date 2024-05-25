@@ -1,7 +1,5 @@
 package com.library.feature.user.presentation;
 
-import com.library.feature.user.data.UserDataRepository;
-import com.library.feature.user.data.local.UserFileLocalDataSource;
 import com.library.feature.user.domain.*;
 
 
@@ -10,6 +8,14 @@ import java.util.Scanner;
 
 public class UserPresentation {
     static Scanner input = new Scanner(System.in);
+
+    static UserFactory userFactory = new UserFactory();
+
+    public UserPresentation(UserFactory userFactory) {
+    }
+
+    static UserPresentation userPresentation = new UserPresentation(userFactory);
+
 
     public static void menuUser() {
 
@@ -35,23 +41,23 @@ public class UserPresentation {
                     break;
                 case 1:
                     System.out.println("Has seleccionado crear un usuario.");
-                    createUser();
+                    userPresentation.createUser();
                     break;
                 case 2:
                     System.out.println("Has seleccionado dar de baja a un usuario");
-                    deleteUser();
+                    userPresentation.deleteUser();
                     break;
                 case 3:
                     System.out.println("Has seleccionado modificar datos de un usuario");
-                    updateUser();
+                    userPresentation.updateUser();
                     break;
                 case 4:
                     System.out.println("Has seleccionado obtener un listado de usuarios\n");
-                    getUsers();
+                    userPresentation.getUsers();
                     break;
                 case 5:
                     System.out.println("Has seleccionado mostrar 1 usuario");
-                    getUser();
+                    userPresentation.getUser();
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
@@ -61,7 +67,7 @@ public class UserPresentation {
     }
 
 
-    public static void createUser() {
+    public void createUser() {
         System.out.print("Introduce el id del usuario: ");
         String id = input.nextLine();
         System.out.print("Introduce el nombre del usuario: ");
@@ -74,24 +80,21 @@ public class UserPresentation {
         String dateInscription = input.nextLine();
 
         User user = new User(id, name, surname, dni, dateInscription);
-        CreateUserUseCase createUserUseCase = new CreateUserUseCase(new UserDataRepository(
-                new UserFileLocalDataSource()));
+        CreateUserUseCase createUserUseCase = userFactory.buildCreateUser();
         createUserUseCase.execute(user);
     }
 
-    public static void deleteUser() {
+    public void deleteUser() {
         System.out.print("Introduce el id del usuario que quieres eliminar: ");
         String id = input.nextLine();
-        DeleteUserUseCase deleteUserUseCase = new DeleteUserUseCase(new UserDataRepository(
-                new UserFileLocalDataSource()));
+        DeleteUserUseCase deleteUserUseCase = userFactory.buildDeleteUser();
         deleteUserUseCase.execute(id);
         System.out.println("El usuario con id " + id + " se ha dado de baja con éxito");
     }
 
-    public static void updateUser() {
+    public void updateUser() {
         User user = getUser();
-        UpdateUserUseCase updateUserUseCase = new UpdateUserUseCase(new UserDataRepository(
-                new UserFileLocalDataSource()));
+        UpdateUserUseCase updateUserUseCase = userFactory.buildUpdateUser();
         System.out.println("Modifica los datos que quieras");
         System.out.print("Introduce el nombre del usuario: ");
         String name = input.nextLine();
@@ -106,22 +109,20 @@ public class UserPresentation {
         updateUserUseCase.execute(updateUser);
     }
 
-    public static void getUsers() {
-        GetUsersUseCase getUsersUseCase = new GetUsersUseCase(new UserDataRepository(
-                new UserFileLocalDataSource()));
+    public void getUsers() {
+        GetUsersUseCase getUsersUseCase = userFactory.buildGetUsers();
         List<User> usersList = getUsersUseCase.execute();
         for (User user : usersList) {
             System.out.println(user);
         }
     }
 
-    public static User getUser() {
+    public User getUser() {
         Scanner input = new Scanner(System.in);
-        GetUserUseCase getUserUseCase = new GetUserUseCase(
-                new UserDataRepository(new UserFileLocalDataSource()));
+        GetUserUseCase getUserUseCase = userFactory.buildGetUser();
 
         User user;
-        do{
+        do {
             System.out.print("Introduce el id del usuario: ");
             String id = input.nextLine();
             user = getUserUseCase.execute(id);
@@ -131,7 +132,7 @@ public class UserPresentation {
             } else {
                 System.out.println("\n" + user);
             }
-        }while (user == null);
+        } while (user == null);
         return user;
     }
 }

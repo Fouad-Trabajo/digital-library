@@ -2,10 +2,9 @@ package com.library.feature.loan.presentation;
 
 import com.library.feature.digitalresources.domain.DigitalResources;
 import com.library.feature.digitalresources.presentation.DigitalResourcesPresentation;
-import com.library.feature.loan.data.LoanDataRepository;
-import com.library.feature.loan.data.local.LoanFileLocalDataSource;
 import com.library.feature.loan.domain.*;
 import com.library.feature.user.domain.User;
+import com.library.feature.user.domain.UserFactory;
 import com.library.feature.user.presentation.UserPresentation;
 
 
@@ -16,6 +15,12 @@ import java.util.Scanner;
 
 public class LoanPresentation {
     static Scanner input = new Scanner(System.in);
+    static LoanFactory loanFactory = new LoanFactory();
+
+    public LoanPresentation(LoanFactory loanFactory) {
+    }
+
+    static LoanPresentation loanPresentation = new LoanPresentation(loanFactory);
 
     public static void menuLoan() {
 
@@ -42,31 +47,31 @@ public class LoanPresentation {
                     break;
                 case 1:
                     System.out.println("Has seleccionado crear un préstamo.");
-                    createLoan();
+                    loanPresentation.createLoan();
                     break;
                 case 2:
                     System.out.println("Has seleccionado borrar un préstamo");
-                    deleteLoan();
+                    loanPresentation.deleteLoan();
                     break;
                 case 3:
                     System.out.println("Has seleccionado mostrar todos los préstamos del sistema\n");
-                    getLoans();
+                    loanPresentation.getLoans();
                     break;
                 case 4:
                     System.out.println("Has seleccionado mostrar los préstamos aún vigentes\n");
-                    getLoansActive();
+                    loanPresentation.getLoansActive();
                     break;
                 case 5:
                     System.out.println("Has seleccionado mostrar los préstamos finalizados\n");
-                    getFinishedLoans();
+                    loanPresentation.getFinishedLoans();
                     break;
                 case 6:
                     System.out.println("Has seleccionado actualizar la fecha de devolución (devolver recurso)");
-                    updateReturnDatePrestamo();
+                    loanPresentation.updateReturnDatePrestamo();
                     break;
                 case 7:
                     System.out.println("Has seleccionado mostrar 1 préstamo");
-                    getLoan();
+                    loanPresentation.getLoan();
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
@@ -75,9 +80,11 @@ public class LoanPresentation {
         } while (opcion != 0);
     }
 
-    public static void createLoan() {
+    public void createLoan() {
         System.out.println("Introduce los datos del préstamo");
-        User user = UserPresentation.getUser();
+        UserFactory userFactory = new UserFactory();
+        UserPresentation userPresentation = new UserPresentation(userFactory);
+        User user = userPresentation.getUser();
         DigitalResources digitalResources = DigitalResourcesPresentation.selectResource();
 
         String loanDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
@@ -85,34 +92,29 @@ public class LoanPresentation {
 
         Loan loan = new Loan(id, user, digitalResources);
         System.out.println("ESTE ES EL PRÉSTAMO QUE ACABAS DE CREAR\n" + loan);
-        SaveLoanUseCase saveLoanUseCase = new SaveLoanUseCase(new LoanDataRepository(
-                new LoanFileLocalDataSource()));
+        SaveLoanUseCase saveLoanUseCase = loanFactory.buildSaveLoan();
         saveLoanUseCase.execute(loan);
     }
 
-    public static void deleteLoan() {
+    public void deleteLoan() {
         input.nextLine();
         System.out.print("Introduce el id del préstamo que desea eliminar: ");
         String id = input.nextLine();
-        DeleteLoanUseCase deleteLoanUseCase = new DeleteLoanUseCase(new LoanDataRepository
-                (new LoanFileLocalDataSource()));
+        DeleteLoanUseCase deleteLoanUseCase = loanFactory.buildDeleteLoan();
         deleteLoanUseCase.execute(id);
         System.out.println("El préstamo con id " + id + " se ha borrado con éxito");
     }
 
-    public static void getLoans() {
-        GetLoansUseCase getLoansUseCase = new GetLoansUseCase(new LoanDataRepository(
-                new LoanFileLocalDataSource()));
+    public void getLoans() {
+        GetLoansUseCase getLoansUseCase = loanFactory.buildGetLoans();
         List<Loan> loanList = getLoansUseCase.execute();
         for (Loan loan : loanList) {
             System.out.println("\n" + loan);
         }
     }
 
-    public static void getLoansActive() {
-        GetLoansActiveUseCase getLoansActiveUseCase = new GetLoansActiveUseCase(
-                new LoanDataRepository(new LoanFileLocalDataSource()));
-
+    public void getLoansActive() {
+        GetLoansActiveUseCase getLoansActiveUseCase = loanFactory.buildGetActiveLoans();
         List<Loan> loansActive = getLoansActiveUseCase.execute();
         for (Loan loan : loansActive) {
             System.out.println("\n" + loan);
@@ -123,10 +125,8 @@ public class LoanPresentation {
         }
     }
 
-    public static void getFinishedLoans() {
-        GetFinishedLoansUseCase getFinishedLoansUseCase = new GetFinishedLoansUseCase(
-                new LoanDataRepository(new LoanFileLocalDataSource()));
-
+    public void getFinishedLoans() {
+        GetFinishedLoansUseCase getFinishedLoansUseCase = loanFactory.buildGetFinishedLoans();
         List<Loan> loansFinished = getFinishedLoansUseCase.execute();
         for (Loan loan : loansFinished) {
             System.out.println("\n" + loan);
@@ -137,17 +137,15 @@ public class LoanPresentation {
         }
     }
 
-    public static void updateReturnDatePrestamo() {
-        Loan updateLoan = LoanPresentation.getLoan();
-        ReturnALoanUseCase returnALoanUseCase = new ReturnALoanUseCase(
-                new LoanDataRepository(new LoanFileLocalDataSource()));
+    public void updateReturnDatePrestamo() {
+        Loan updateLoan = loanPresentation.getLoan();
+        ReturnALoanUseCase returnALoanUseCase = loanFactory.buildReturnALoan();
         returnALoanUseCase.execute(updateLoan.id);
         System.out.println("Libro devuelto");
     }
 
-    public static Loan getLoan() {
-        GetLoanUseCase getLoanUseCase = new GetLoanUseCase(
-                new LoanDataRepository(new LoanFileLocalDataSource()));
+    public Loan getLoan() {
+        GetLoanUseCase getLoanUseCase = loanFactory.buildGetLoan();
         Loan loan;
         do {
             input.nextLine();

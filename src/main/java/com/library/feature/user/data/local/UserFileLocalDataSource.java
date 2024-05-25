@@ -28,6 +28,7 @@ public class UserFileLocalDataSource implements UserLocalDataSource {
         for (User existingUser : models) {
             if (model.id.equals(existingUser.id)) {
                 System.err.println("Error, ya existe un usuario con el ID " + model.id);
+                return true;
                 return;
             }
         }

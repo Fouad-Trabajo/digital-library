@@ -1,9 +1,8 @@
 package com.library.feature.digitalresources.presentation.digitalbookpresentation;
 
 import com.library.feature.digitalresources.domain.*;
-import com.library.feature.digitalresources.data.digitalbookdata.DigitalBookDataRepository;
-import com.library.feature.digitalresources.data.digitalbookdata.local.DigitalBookFileLocalDataSource;
 import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBook;
+import com.library.feature.digitalresources.domain.digitalbook.domain.DigitalBookFactory;
 
 
 import java.util.List;
@@ -11,6 +10,12 @@ import java.util.Scanner;
 
 public class DigitalBookPresentation {
     static Scanner input = new Scanner(System.in);
+    static DigitalBookFactory digitalBookFactory = new DigitalBookFactory();
+
+    public DigitalBookPresentation(DigitalBookFactory digitalBookFactory) {
+    }
+
+    static DigitalBookPresentation digitalBookPresentation = new DigitalBookPresentation(digitalBookFactory);
 
     public static void menuDigitalBook() {
         int opcion;
@@ -34,23 +39,23 @@ public class DigitalBookPresentation {
                     break;
                 case 1:
                     System.out.println("Has seleccionado crear un libro digital.");
-                    createDigitalBook();
+                    digitalBookPresentation.createDigitalBook();
                     break;
                 case 2:
                     System.out.println("Has seleccionado borrar un libro digital.");
-                    deleteDigitalBook();
+                    digitalBookPresentation.deleteDigitalBook();
                     break;
                 case 3:
                     System.out.println("Has seleccionado actualizar los datos/atributos de un libro digital.");
-                    updateDigitalBook();
+                    digitalBookPresentation.updateDigitalBook();
                     break;
                 case 4:
                     System.out.println("Has seleccionado mostrar el listado de libros que hay en el sistema.\n");
-                    getDigitalBooks();
+                    digitalBookPresentation.getDigitalBooks();
                     break;
                 case 5:
                     System.out.println("Has seleccionado mostrar 1 libro");
-                    getDigitalBook();
+                    digitalBookPresentation.getDigitalBook();
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
@@ -59,7 +64,7 @@ public class DigitalBookPresentation {
         } while (opcion != 0);
     }
 
-    public static void createDigitalBook() {
+    public void createDigitalBook() {
         input.nextLine(); //Consumir línea pendiente
         System.out.print("Introduce el id del libro: ");
         String id = input.nextLine();
@@ -75,27 +80,23 @@ public class DigitalBookPresentation {
         String description = input.nextLine();
         DigitalResources digitalBook = new DigitalBook(id, author, numberPages, genre,
                 editorial, description);
-        CreateDigitalResourceUseCase createDigitalResourceUseCase = new CreateDigitalResourceUseCase(
-                new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
+        CreateDigitalResourceUseCase createDigitalResourceUseCase = digitalBookFactory.buildCreateResource();
         createDigitalResourceUseCase.execute(digitalBook);
     }
 
-    public static void deleteDigitalBook() {
+    public void deleteDigitalBook() {
         input.nextLine();
         System.out.print("Introduce el id del libro que quieres dar de baja: ");
         String id = input.nextLine();
-        DeleteDigitalResourceUseCase deleteDigitalResourceUseCase = new DeleteDigitalResourceUseCase(
-                new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
+        DeleteDigitalResourceUseCase deleteDigitalResourceUseCase = digitalBookFactory.buildDeleteResource();
         deleteDigitalResourceUseCase.execute(id);
         System.out.println("El lbro con id " + id + " ha sido borrado exitosamente");
     }
 
-    public static void updateDigitalBook() {
+    public void updateDigitalBook() {
         DigitalBook digitalBook = getDigitalBook();
-        UpdateDigitalResourceUseCase updateDigitalResourceUseCase = new UpdateDigitalResourceUseCase(
-                new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
-        input.nextLine(); //Consumir línea pendiente
-        System.out.println("Cambia los datos que quieras");
+        UpdateDigitalResourceUseCase updateDigitalResourceUseCase = digitalBookFactory.buildUpdateResource();
+        input.nextLine();
         System.out.print("Nombre del autor del libro: ");
         String author = input.nextLine();
         System.out.print("Nº páginas del libro : ");
@@ -111,19 +112,16 @@ public class DigitalBookPresentation {
         updateDigitalResourceUseCase.execute(digitalBookUpdate);
     }
 
-    public static void getDigitalBooks() {
-        GetDigitalResourcesUseCase getDigitalResourcesUseCase = new GetDigitalResourcesUseCase(
-                new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
+    public void getDigitalBooks() {
+        GetDigitalResourcesUseCase getDigitalResourcesUseCase = digitalBookFactory.buildGetResourcres();
         List<DigitalResources> digitalBooksList = getDigitalResourcesUseCase.execute();
         for (DigitalResources digitalBook : digitalBooksList) {
             System.out.println(digitalBook);
         }
     }
 
-    public static DigitalBook getDigitalBook() {
-        GetDigitalResourceUseCase getDigitalResourceUseCase = new GetDigitalResourceUseCase(
-                new DigitalBookDataRepository(new DigitalBookFileLocalDataSource()));
-
+    public DigitalBook getDigitalBook() {
+        GetDigitalResourceUseCase getDigitalResourceUseCase = digitalBookFactory.buildGetResource();
         DigitalBook digitalBook;
         do {
             System.out.print("Introduce el id del libro digital: ");

@@ -21,16 +21,10 @@ public class UserFileLocalDataSource implements UserLocalDataSource {
 
     private final Type typeList = new TypeToken<ArrayList<User>>() {
     }.getType();
-
+    public static boolean exist = false;
     @Override
     public void save(User model) {
         List<User> models = findAll();
-        for (User existingUser : models) {
-            if (model.id.equals(existingUser.id)) {
-                System.err.println("Error, ya existe un usuario con el ID " + model.id);
-                return;
-            }
-        }
         models.add(model);
         saveToFile(models);
     }
